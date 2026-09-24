@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class StickerItem : MonoBehaviour
+public class S_StickerItem : MonoBehaviour
 {
     [SerializeField] private Sprite stickerSprite;
-    [SerializeField] private MapGridController gridController;
+    [SerializeField] private S_MapGridController gridController;
 
     private void Start()
     {
