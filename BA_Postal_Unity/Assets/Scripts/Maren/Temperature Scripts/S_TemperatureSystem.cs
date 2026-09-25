@@ -32,8 +32,8 @@ public class S_TemperatureSystem : MonoBehaviour
     void Start()
     {
         currentTemperature = maxTemperature;
-        player = GetComponent<PlayerController>();
-        lantern = GetComponent<LanternSystem>();
+        player = GetComponent<S_PlayerController>();
+        lantern = GetComponent<S_LanternSystem>();
         if (frostOverlayImage != null) UpdateFrostVisuals();
     }
 
@@ -76,25 +76,25 @@ public class S_TemperatureSystem : MonoBehaviour
         // Environment Evaluation: If no zone component is found, default to open freezing mines
         bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
        
-        bool isIrisHysterical = (IrisEmotionalMatrix.Instance != null &&
-                                 IrisEmotionalMatrix.Instance.currentMood == IrisEmotionalMatrix.IrisMood.Hysterical);
+        //bool isIrisHysterical = (IrisEmotionalMatrix.Instance != null &&
+                                 //IrisEmotionalMatrix.Instance.currentMood == IrisEmotionalMatrix.IrisMood.Hysterical);
 
 
         // CORE LOGIC RULES:
         // 1. If she is in a warm room, she is safe (unless Iris causes a panic flash-freeze)
         // 2. If she is in a cold room, she stays warm ONLY if her lantern is burning tallow
-        if (!isIrisHysterical)
+        //if (!isIrisHysterical)
         {
-            if (!inColdZone) return; // Warm rooms completely protect Voss from ambient cold
-            if (isLanternLit) return; // Her light holds off the standard cold zone freeze loop
+            //if (!inColdZone) return; // Warm rooms completely protect Voss from ambient cold
+            //if (isLanternLit) return; // Her light holds off the standard cold zone freeze loop
         }
 
 
         // Calculate whole number freeze drain speed per second
         float freezePointsPerSecond = 0.5f; // Standard dark freeze (1 point every 2 seconds)
        
-        if (isIrisHysterical) freezePointsPerSecond = 2.0f; // Rapid freezing panic
-        else if (!isLanternLit && inColdZone) freezePointsPerSecond = 1.0f; // Pitch black inside cold zones
+        //if (isIrisHysterical) freezePointsPerSecond = 2.0f; // Rapid freezing panic
+        //else if (!isLanternLit && inColdZone) freezePointsPerSecond = 1.0f; // Pitch black inside cold zones
 
 
         // Add energy down to the integer step converter
@@ -161,7 +161,7 @@ public class S_TemperatureSystem : MonoBehaviour
                 damageTimer = 0f;
             }
             player.walkSpeed = 2.0f;
-            player.staminaRegenRate = 0;
+            //player.staminaRegenRate = 0;
             return;
         }
 
@@ -172,17 +172,17 @@ public class S_TemperatureSystem : MonoBehaviour
         if (currentTemperature > 0 && currentTemperature <= 30)
         {
             player.walkSpeed = 2.4f;
-            player.staminaRegenRate = 0;
+            //player.staminaRegenRate = 0;
         }
         else if (currentTemperature > 30 && currentTemperature <= 69)
         {
             player.walkSpeed = 3.5f;
-            player.staminaRegenRate = 6;
+            //player.staminaRegenRate = 6;
         }
         else
         {
             player.walkSpeed = 3.5f;
-            player.staminaRegenRate = 12;
+            //player.staminaRegenRate = 12;
         }
     }
 

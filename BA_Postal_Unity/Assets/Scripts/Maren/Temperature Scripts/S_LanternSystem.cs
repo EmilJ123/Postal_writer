@@ -70,10 +70,10 @@ public class S_LanternSystem : MonoBehaviour
             if (darknessStressTimer >= 1.0f) // Every 1 second of complete darkness
             {
                 darknessStressTimer = 0f;
-                if (IrisEmotionalMatrix.Instance != null)
+                //if (IrisEmotionalMatrix.Instance != null)
                 {
                     // Darkness passively increases environmental anxiety stress
-                    IrisEmotionalMatrix.Instance.InduceAnxiety(1);
+                  //  IrisEmotionalMatrix.Instance.InduceAnxiety(1);
                 }
             }
         }

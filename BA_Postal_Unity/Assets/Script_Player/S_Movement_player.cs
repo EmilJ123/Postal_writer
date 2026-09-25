@@ -22,13 +22,13 @@ public class S_Movement_player : MonoBehaviour
         
     private void OnEnable()
     {
-        InputAction.FindActionMap("Player").Enable();
+        //InputAction.FindActionMap("Player").Enable();
         
     }
 
     private void OnDisable()
     {
-        InputAction.FindActionMap("Player").Disable();
+        //InputAction.FindActionMap("Player").Disable();
     }
 
     private void Awake()

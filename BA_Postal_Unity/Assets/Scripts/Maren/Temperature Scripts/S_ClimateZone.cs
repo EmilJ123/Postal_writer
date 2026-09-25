@@ -10,7 +10,7 @@ public class S_ClimateZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        TemperatureSystem temp = other.GetComponent<TemperatureSystem>();
+        S_TemperatureSystem temp = other.GetComponent<S_TemperatureSystem>();
         if (temp != null)
         {
             temp.RegisterCurrentRoom(this);
@@ -20,7 +20,7 @@ public class S_ClimateZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        TemperatureSystem temp = other.GetComponent<TemperatureSystem>();
+        S_TemperatureSystem temp = other.GetComponent<S_TemperatureSystem>();
         if (temp != null)
         {
             // Clear the room reference only if she is actually leaving this specific room

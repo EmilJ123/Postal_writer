@@ -31,7 +31,7 @@ public class S_HeatSource : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        TemperatureSystem temp = other.GetComponent<TemperatureSystem>();
+        S_TemperatureSystem temp = other.GetComponent<S_TemperatureSystem>();
         if (temp != null && isActive)
         {
             temp.RegisterHeatSource(this);
@@ -41,7 +41,7 @@ public class S_HeatSource : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        TemperatureSystem temp = other.GetComponent<TemperatureSystem>();
+        S_TemperatureSystem temp = other.GetComponent<S_TemperatureSystem>();
         if (temp != null)
         {
             temp.UnregisterHeatSource(this);
