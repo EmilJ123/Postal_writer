@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: CollectLetters
   description: Collect the letters that fell on the ground
   objectives:
-  - objectiveID: 
+  - objectiveID: 1
     description: Collect 5 Letters
     type: 0
     requiredAmount: 5

@@ -24,7 +24,7 @@ public class S_SaveController : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player"); 
         if (player == null)
         {
-            Debug.LogError("SaveGame feilet: Fant ingen GameObject med taggen 'Player'.");
+            Debug.LogError("Game save failed; Could not find the'Player'.");
             return;
         }
 
@@ -58,7 +58,7 @@ public class S_SaveController : MonoBehaviour
                 player.transform.position = saveData.playerPosition;
             }
 
-            // Gjenopprett inventar
+           
             if (inventoryController != null && saveData.inventorySaveData != null)
             {
                 inventoryController.SetInventoryItems(saveData.inventorySaveData);
@@ -74,11 +74,11 @@ public class S_SaveController : MonoBehaviour
                 }
             }
 
-            Debug.Log("Spill lastet inn suksessfullt.");
+            Debug.Log("Game loaded successfully.");
         }
         else
         {
-            Debug.LogWarning("Ingen lagringsfil funnet. Genererer en ny startfil.");
+            Debug.LogWarning("No save file found, starting a new save");
             SaveGame();
         }
     }
