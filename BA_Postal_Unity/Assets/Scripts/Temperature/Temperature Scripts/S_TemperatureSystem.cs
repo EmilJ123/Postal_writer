@@ -91,7 +91,7 @@ public class S_TemperatureSystem : MonoBehaviour
 
 
         // Calculate whole number freeze drain speed per second
-        float freezePointsPerSecond = 0.5f; // Standard dark freeze (1 point every 2 seconds)
+        float freezePointsPerSecond = 3f; // Standard dark freeze (1 point every 2 seconds)
        
         //if (isIrisHysterical) freezePointsPerSecond = 2.0f; // Rapid freezing panic
         //else if (!isLanternLit && inColdZone) freezePointsPerSecond = 1.0f; // Pitch black inside cold zones
@@ -157,10 +157,10 @@ public class S_TemperatureSystem : MonoBehaviour
             damageTimer += Time.deltaTime;
             if (damageTimer >= 2.0f)
             {
-                player.TakeDamage(5);
+                player.TakeDamage(20);
                 damageTimer = 0f;
             }
-            player.walkSpeed = 2.0f;
+            //player.walkSpeed = 2.0f;
             //player.staminaRegenRate = 0;
             return;
         }
@@ -171,17 +171,17 @@ public class S_TemperatureSystem : MonoBehaviour
 
         if (currentTemperature > 0 && currentTemperature <= 30)
         {
-            player.walkSpeed = 2.4f;
+            //player.walkSpeed = 2.4f;
             //player.staminaRegenRate = 0;
         }
         else if (currentTemperature > 30 && currentTemperature <= 69)
         {
-            player.walkSpeed = 3.5f;
+            //player.walkSpeed = 3.5f;
             //player.staminaRegenRate = 6;
         }
         else
         {
-            player.walkSpeed = 3.5f;
+            //player.walkSpeed = 3.5f;
             //player.staminaRegenRate = 12;
         }
     }
@@ -190,7 +190,7 @@ public class S_TemperatureSystem : MonoBehaviour
     private void UpdateFrostVisuals()
     {
         if (frostOverlayImage == null) return;
-        float currentLossPercentage = 1f - ((float)currentTemperature / (float)maxTemperature);
+        float currentLossPercentage = 0.5f - ((float)currentTemperature / (float)maxTemperature);
         Color targetColor = frostOverlayImage.color;
         targetColor.a = currentLossPercentage;
         frostOverlayImage.color = targetColor;
