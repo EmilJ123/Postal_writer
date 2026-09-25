@@ -1,7 +1,7 @@
-using System;
+
 using UnityEngine;
 using UnityEngine. InputSystem;
-using System.Collections.Generic;
+
 public class S_Movement_player : MonoBehaviour
 {
     public InputActionAsset actionAsset;
