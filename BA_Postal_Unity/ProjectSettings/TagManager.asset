@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Item
+  - SnowGround
   layers:
   - Default
   - TransparentFX
