@@ -9,7 +9,7 @@ public class S_TemperatureSystem : MonoBehaviour
     public int currentTemperature = 100;
     public bool isFreezing = false;
 
-
+    public Slider TempSlider;
     [Header("Visual Feedback HUD")]
     public Image frostOverlayImage;
 
@@ -58,6 +58,8 @@ public class S_TemperatureSystem : MonoBehaviour
 
         EvaluateTemperaturePenalties();
         UpdateFrostVisuals();
+        
+        TempSlider.value = currentTemperature;
     }
 
 
@@ -75,26 +77,10 @@ public class S_TemperatureSystem : MonoBehaviour
        
         // Environment Evaluation: If no zone component is found, default to open freezing mines
         bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
-       
-        //bool isIrisHysterical = (IrisEmotionalMatrix.Instance != null &&
-                                 //IrisEmotionalMatrix.Instance.currentMood == IrisEmotionalMatrix.IrisMood.Hysterical);
-
-
-        // CORE LOGIC RULES:
-        // 1. If she is in a warm room, she is safe (unless Iris causes a panic flash-freeze)
-        // 2. If she is in a cold room, she stays warm ONLY if her lantern is burning tallow
-        //if (!isIrisHysterical)
-        {
-            //if (!inColdZone) return; // Warm rooms completely protect Voss from ambient cold
-            //if (isLanternLit) return; // Her light holds off the standard cold zone freeze loop
-        }
-
-
-        // Calculate whole number freeze drain speed per second
+        
         float freezePointsPerSecond = 3f; // Standard dark freeze (1 point every 2 seconds)
        
-        //if (isIrisHysterical) freezePointsPerSecond = 2.0f; // Rapid freezing panic
-        //else if (!isLanternLit && inColdZone) freezePointsPerSecond = 1.0f; // Pitch black inside cold zones
+        
 
 
         // Add energy down to the integer step converter
@@ -118,15 +104,13 @@ public class S_TemperatureSystem : MonoBehaviour
             thawAccumulator = 0f;
             return;
         }
-
-
+        
         // --- REAL FIRE PROXIMITY CALCULATIONS ---
         float distance = Vector3.Distance(transform.position, activeNearbyHeatSource.transform.position);
        
         // Normalize distance into a 0 to 1 value (1 = standing inside the fire, 0 = at the very edge of the trigger)
         float proximityFactor = 1f - Mathf.Clamp01(distance / activeNearbyHeatSource.heatRadius);
-
-
+        
         // Apply proximity curve to calculate dynamic heat gain per second
         float heatEnergyGain = (float)activeNearbyHeatSource.maxWarmthGeneration * proximityFactor;
 
