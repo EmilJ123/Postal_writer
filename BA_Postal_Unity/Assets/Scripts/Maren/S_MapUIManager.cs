@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class S_MapUIManager : MonoBehaviour
 {
+    
     [Header("References")]
     [SerializeField] private GameObject mapPanel;
     [SerializeField] private S_MapGridController gridController;
-
+    
+    
     [Header("Controls")]
     [SerializeField] private KeyCode toggleKey = KeyCode.X;
 
@@ -15,7 +17,9 @@ public class S_MapUIManager : MonoBehaviour
         if (Input.GetKeyDown(toggleKey))
         {
             ToggleMap();
+            
         }
+        
     }
 
     public void ToggleMap()
