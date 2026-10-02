@@ -1,4 +1,5 @@
-using UnityEditor.VisionOS;
+using UnityEditor;
+using static UnityEditor.PlayerSettings.VisionOS;
 using UnityEngine;
 
 public class S_SnowController : MonoBehaviour

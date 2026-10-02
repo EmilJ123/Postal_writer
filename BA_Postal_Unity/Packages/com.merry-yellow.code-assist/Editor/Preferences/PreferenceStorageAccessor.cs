@@ -146,7 +146,7 @@ namespace Meryel.UnityCodeAssist.Editor.Preferences
 
 #elif UNITY_EDITOR_LINUX
 
-    public class LinuxPrefStorage : PreferanceStorageAccessor
+    public class LinuxPrefStorage : PreferenceStorageAccessor
     {
         readonly FileSystemWatcher fileWatcher;
 
@@ -200,11 +200,12 @@ namespace Meryel.UnityCodeAssist.Editor.Preferences
 
 #elif UNITY_EDITOR_OSX
 
-    public class MacPrefStorage : PreferanceStorageAccessor
+    public class MacPrefStorage : PreferenceStorageAccessor
     {
         private readonly FileSystemWatcher fileWatcher;
         private readonly DirectoryInfo prefsDirInfo;
         private readonly String prefsFileNameWithoutExtension;
+        private string prefPath;
 
         public MacPrefStorage(string pathToPrefs) : base(Path.Combine(Environment.GetEnvironmentVariable("HOME"), pathToPrefs))
         {
@@ -277,16 +278,17 @@ namespace Meryel.UnityCodeAssist.Editor.Preferences
             fileWatcher.EnableRaisingEvents = false;
         }
 
-        public override bool IsMonitoring()
-        {
-            return fileWatcher.EnableRaisingEvents;
-        }
+        public override bool IsMonitoring() => fileWatcher.EnableRaisingEvents;
 
         private void OnWatchedFileChanged(object source, FileSystemEventArgs e)
         {
             OnPrefEntryChanged();
         }
 
+    }
+
+    public class PreferanceStorageAccessor
+    {
     }
 #endif
 }
