@@ -1,17 +1,19 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine. InputSystem;
 
 public class S_Player_movement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 100f;
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private bool shouldFaceMoveDirection = false;
-    
+    public S_TemperatureSystem temperatureSystem;
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 velocity;
+    public Transform respawnPoint;
     
 
     private void Start()
@@ -19,6 +21,20 @@ public class S_Player_movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
+    public void Respawn()
+    {
+        controller.enabled = false;
+        transform.position = respawnPoint.position;
+        controller.enabled = true;
+
+        temperatureSystem.currentTemperature = temperatureSystem.maxTemperature;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+    
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -54,10 +70,6 @@ public class S_Player_movement : MonoBehaviour
             Quaternion toRotation =  Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 10f * Time.deltaTime);
         }
-        
-        //Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        //controller.Move(moveDirection * (speed * Time.deltaTime));
-        
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         

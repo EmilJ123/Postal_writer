@@ -8,20 +8,17 @@ public class S_TemperatureSystem : MonoBehaviour
     public int maxTemperature = 100;
     public int currentTemperature = 100;
     public bool isFreezing = false;
-
+    public S_Player_movement playerMovement;
+    
     public Slider TempSlider;
     [Header("Visual Feedback HUD")]
     public Image frostOverlayImage;
-
-
+    
     // Active Environment References
     private S_ClimateZone currentRoom;
     private S_HeatSource activeNearbyHeatSource;
 
-
-    private S_PlayerController player;
-    private S_LanternSystem lantern;
-
+    private S_Temperature player;
 
     // Thermal accumulation engines to guarantee strict integer value conversion
     private float freezeAccumulator = 0f;
@@ -32,8 +29,7 @@ public class S_TemperatureSystem : MonoBehaviour
     void Start()
     {
         currentTemperature = maxTemperature;
-        player = GetComponent<S_PlayerController>();
-        lantern = GetComponent<S_LanternSystem>();
+        player = GetComponent<S_Temperature >();
         if (frostOverlayImage != null) UpdateFrostVisuals();
     }
 
@@ -54,8 +50,6 @@ public class S_TemperatureSystem : MonoBehaviour
         {
             ProcessClimateFreezing();
         }
-
-
         EvaluateTemperaturePenalties();
         UpdateFrostVisuals();
         
@@ -73,12 +67,12 @@ public class S_TemperatureSystem : MonoBehaviour
     {
         thawAccumulator = 0f; // Flush warmth energy inputs
        
-        bool isLanternLit = (lantern != null && lantern.isEquipped && lantern.currentFuel > 0);
+        
        
         // Environment Evaluation: If no zone component is found, default to open freezing mines
         bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
         
-        float freezePointsPerSecond = 3f; // Standard dark freeze (1 point every 2 seconds)
+        float freezePointsPerSecond = 20f; // Standard dark freeze (1 point every 2 seconds)
        
         
 
@@ -90,7 +84,7 @@ public class S_TemperatureSystem : MonoBehaviour
         {
             currentTemperature = Mathf.Clamp(currentTemperature - 1, 0, maxTemperature);
             freezeAccumulator -= 1.0f;
-            Debug.Log($"<color=cyan>[Thermal Loss]</color> Voss temperature dropped to standard integer: {currentTemperature}°C");
+            Debug.Log($"<color=cyan>[Thermal Loss]</color> Your temperature dropped to standard integer: {currentTemperature}°C");
         }
     }
 
@@ -123,7 +117,7 @@ public class S_TemperatureSystem : MonoBehaviour
         {
             currentTemperature = Mathf.Clamp(currentTemperature + 1, 0, maxTemperature);
             thawAccumulator -= 1.0f;
-            Debug.Log($"<color=orange>[Thermal Absorption]</color> Voss approaches fire. Proximity: {(proximityFactor * 100f):F0}%. Temp: {currentTemperature}°C");
+            Debug.Log($"<color=orange>[Thermal Absorption]</color> You approaches fire. Proximity: {(proximityFactor * 100f):F0}%. Temp: {currentTemperature}°C");
         }
     }
 
@@ -143,30 +137,27 @@ public class S_TemperatureSystem : MonoBehaviour
             {
                 player.TakeDamage(20);
                 damageTimer = 0f;
+                
             }
-            //player.walkSpeed = 2.0f;
-            //player.staminaRegenRate = 0;
+
+            //playerMovement.SetSpeed(2.0f);   
             return;
         }
 
-
         damageTimer = 0f;
-
 
         if (currentTemperature > 0 && currentTemperature <= 30)
         {
-            //player.walkSpeed = 2.4f;
-            //player.staminaRegenRate = 0;
+            playerMovement.SetSpeed(2.4f);
+            
         }
         else if (currentTemperature > 30 && currentTemperature <= 69)
         {
-            //player.walkSpeed = 3.5f;
-            //player.staminaRegenRate = 6;
+            playerMovement.SetSpeed(3.5f);   
         }
         else
         {
-            //player.walkSpeed = 3.5f;
-            //player.staminaRegenRate = 12;
+            playerMovement.SetSpeed(5f);   
         }
     }
 

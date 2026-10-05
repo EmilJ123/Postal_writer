@@ -17,8 +17,8 @@ public class S_Movement_player : MonoBehaviour
     private float turnsmoothingVelocity;
     
     private float verticalVelocity = 0f;
-        private float gravity = 9.8f;
-        private float jumpHeight = 5f;
+        //private float gravity = 9.8f;
+        //private float jumpHeight = 5f;
         
     private void OnEnable()
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 [RequireComponent(typeof(CharacterController))]
-public class S_PlayerController : MonoBehaviour
+public class S_Temperature : MonoBehaviour
 {
     [Header("Whole Number Vitals")]
     public int maxHealth = 100;
@@ -21,13 +21,13 @@ public class S_PlayerController : MonoBehaviour
     {
         if (isDead) return;
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
-        Debug.LogError($"<color=red>[Damage Taken]</color> Voss HP: {currentHealth}/{maxHealth}");
+        Debug.LogError($"<color=red>[Damage Taken]</color> HP: {currentHealth}/{maxHealth}");
 
 
         if (currentHealth <= 0)
         {
             isDead = true;
-            Debug.LogError("GAME OVER: Voss froze in the dark.");
+            Debug.LogError("GAME OVER: You froze in the dark.");
         }
     }
     private void OnDrawGizmosSelected()

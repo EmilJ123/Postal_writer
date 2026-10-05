@@ -1,25 +1,38 @@
 using UnityEngine;
-
+using Unity.Collections;
+using System.Collections.Generic;
+    
 public class S_MapUIManager : MonoBehaviour
 {
     
     [Header("References")]
     [SerializeField] private GameObject mapPanel;
     [SerializeField] private S_MapGridController gridController;
-    
+   
     
     [Header("Controls")]
     [SerializeField] private KeyCode toggleKey = KeyCode.X;
-
+    
     private void Update()
     {
-        // Simple toggle check
         if (Input.GetKeyDown(toggleKey))
         {
             ToggleMap();
-            
+
+            Cursor.visible = !Cursor.visible;
+
+            if (Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
+                
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                
+            }
         }
-        
     }
 
     public void ToggleMap()
@@ -40,3 +53,4 @@ public class S_MapUIManager : MonoBehaviour
     public void SelectEraserTool() => gridController?.SetTool(MapTool.Eraser);
     public void ClearMap() => gridController?.ClearTexture();
 }
+
