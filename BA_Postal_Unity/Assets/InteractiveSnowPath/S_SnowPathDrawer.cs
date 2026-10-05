@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class S_SnowPathDrawer : MonoBehaviour
 {
-    public ComputeShader SnowComputeShader;
+    public ComputeShader snowComputeShader;
     public RenderTexture snowRT;
 
-    private string snowImageProperty = "SnowImage";
+    private string snowImageProperty = "snowImage";
     private string colorValueProperty = "colorValueToAdd";
     private string resolutionProperty = "resolution";
     private string positionXProperty = "positionX";
@@ -18,9 +18,8 @@ public class S_SnowPathDrawer : MonoBehaviour
     public float spotSize = 5f;
 
     private S_SnowController snowController;
+
     private GameObject[] snowControllerObjs;
-
-
 
     private void Awake()
     {
@@ -31,16 +30,14 @@ public class S_SnowPathDrawer : MonoBehaviour
     {
         for (int i = 0; i < snowControllerObjs.Length; i++)
         {
-            if(Vector3.Distance(snowControllerObjs[i].transform.position, transform.position) > spotSize * 5f) continue;
-            
+            if (Vector3.Distance(snowControllerObjs[i].transform.position, transform.position) > spotSize * 5f) continue;
+
             snowController = snowControllerObjs[i].GetComponent<S_SnowController>();
             snowRT = snowController.snowRT;
-            //SnowComputeShader = snowController.SnowComputeShader;
             GetPosition();
             DrawSpot();
         }
     }
-
 
     void GetPosition()
     {
@@ -51,22 +48,22 @@ public class S_SnowPathDrawer : MonoBehaviour
         float snowPosY = snowController.transform.position.z;
 
         int posX = snowRT.width / 2 - (int)(((transform.position.x - snowPosX) * snowRT.width / 2) / scaleX);
-        int posY = snowRT.height / 2 - (int)(((transform.position.z - snowPosY) * snowRT.height / 2) / scaleY);
+        int posY = snowRT.height / 2 - (int)(((transform.position.z - snowPosY) * snowRT.height / 2) / scaleY); ;
         position = new Vector2Int(posX, posY);
     }
 
     void DrawSpot()
     {
         if (snowRT == null) return;
-        if (SnowComputeShader == null) return;
+        if (snowComputeShader == null) return;
 
-        int kernel_handle = SnowComputeShader.FindKernel(drawSpotKernel);
-        SnowComputeShader.SetTexture(kernel_handle, snowImageProperty, snowRT);
-        SnowComputeShader.SetFloat(colorValueProperty,0);
-        SnowComputeShader.SetFloat(resolutionProperty, snowRT.width);
-        SnowComputeShader.SetFloat(positionXProperty, position.x);
-        SnowComputeShader.SetFloat(positionYProperty, position.y);
-        SnowComputeShader.SetFloat(spotSizeProperty, spotSize);
-        SnowComputeShader.Dispatch(kernel_handle, snowRT.width / 8, snowRT.height / 8, 1);
+        int kernel_handle = snowComputeShader.FindKernel(drawSpotKernel);
+        snowComputeShader.SetTexture(kernel_handle, snowImageProperty, snowRT);
+        snowComputeShader.SetFloat(colorValueProperty, 0);
+        snowComputeShader.SetFloat(resolutionProperty, snowRT.width);
+        snowComputeShader.SetFloat(positionXProperty, position.x);
+        snowComputeShader.SetFloat(positionYProperty, position.y);
+        snowComputeShader.SetFloat(spotSizeProperty, spotSize);
+        snowComputeShader.Dispatch(kernel_handle, snowRT.width / 8, snowRT.height / 8, 1);
     }
 }

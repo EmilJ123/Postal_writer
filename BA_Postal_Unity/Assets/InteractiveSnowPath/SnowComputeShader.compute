@@ -1,9 +1,11 @@
+// Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
 #pragma kernel FillWhite
 #pragma kernel DrawSpot
 
-RWTexture2D<float4> SnowImage;
-
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> snowImage;
 float colorValueToAdd;
 float resolution;
 float positionX;
@@ -13,41 +15,28 @@ float spotSize;
 [numthreads(8, 8, 1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
-    SnowImage[id.xy] += float4(
-        colorValueToAdd,
-        colorValueToAdd,
-        colorValueToAdd,
-        colorValueToAdd
-    );
+	snowImage[id.xy] += float4(colorValueToAdd, colorValueToAdd, colorValueToAdd, colorValueToAdd);
 }
 
 [numthreads(8, 8, 1)]
 void FillWhite(uint3 id : SV_DispatchThreadID)
 {
-    SnowImage[id.xy] = float4(1.0, 1.0, 1.0, 1.0);
+	snowImage[id.xy] = float4(1.0, 1.0, 1.0, 1.0);
 }
 
 [numthreads(8, 8, 1)]
 void DrawSpot(uint3 id : SV_DispatchThreadID)
 {
-    float x = id.x / resolution;
-    float y = id.y / resolution;
+	float x = id.x / resolution;
+	float y = id.y / resolution;
+	float value;
 
-    float value = sqrt(
-        (x - positionX / resolution) * (x - positionX / resolution) +
-        (y - positionY / resolution) * (y - positionY / resolution)
-    ) * 100;
+	value = sqrt(((x - positionX / resolution) * (x - positionX / resolution) + (y - positionY / resolution) * (y - positionY / resolution))) * 100;
 
-    if (value < spotSize)
-    {
-        if (value / spotSize > SnowImage[id.xy].x)
-            return;
+	if (value < spotSize)
+	{
+		if (value / spotSize > snowImage[id.xy].x) return;
 
-        SnowImage[id.xy] = float4(
-            value,
-            value,
-            value,
-            value
-        ) / spotSize;
-    }
+		snowImage[id.xy] = float4(value, value, value, value) / spotSize;
+	}
 }
