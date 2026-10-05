@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class S_PlayerItemCollector : MonoBehaviour
+public class S_Quest : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
