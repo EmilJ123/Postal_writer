@@ -1,144 +1,150 @@
 using System.Collections;
 using UnityEngine;
 
-public class S_NPC : MonoBehaviour, S_IInteractable
+public class S_NPC : MonoBehaviour, S_IInteractable 
 {
     public S_NPCDialogue dialogueData;
     private S_DialogueController dialogueUI;
-
     private int dialogueIndex;
     private bool isTyping;
     private bool isDialogueActive;
 
-    private void Start()
+    private void Start() 
     {
         dialogueUI = S_DialogueController.instance;
     }
 
-    public bool CanInteract()
+    public bool CanInteract() 
     {
         return !isDialogueActive;
     }
 
-    public void Interact()
+    public void Interact() 
     {
-        if (dialogueData == null || (S_PauseController.IsGamePaused && !isDialogueActive))
-            return;
+        if (dialogueData == null || (S_PauseController.IsGamePaused && !isDialogueActive)) return;
 
-        if (!isDialogueActive)
+        if (!isDialogueActive) 
         {
             StartDialogue();
-        }
-        else
+        } 
+        else 
         {
             NextLine();
         }
     }
 
-    void StartDialogue()
+    void StartDialogue() 
     {
         isDialogueActive = true;
         dialogueIndex = 0;
-
-        dialogueUI.SetNPCInfo(
-            dialogueData.npcName,
-            dialogueData.npcPortrait
-        );
-
+        dialogueUI.SetNPCInfo(dialogueData.npcName, dialogueData.npcPortrait);
         dialogueUI.ShowDialogueUI(true);
-
         S_PauseController.SetPauseState(true);
-
-        StartCoroutine(TypeLine());
+        DisplayCurrentLine();
     }
 
-    void NextLine()
+    void NextLine() 
     {
-        // If the current line is still typing,
-        // instantly finish the line.
-        if (isTyping)
+
+        if (isTyping) 
         {
             StopAllCoroutines();
-
-            DialogueLine currentLine =
-                dialogueData.dialogueLines[dialogueIndex];
-
+            DialogueLine currentLine = dialogueData.dialogueLines[dialogueIndex];
             dialogueUI.SetDialogueText(currentLine.text);
-
             isTyping = false;
             return;
         }
 
-        // Check if the current line should end the dialogue
-        DialogueLine finishedLine =
-            dialogueData.dialogueLines[dialogueIndex];
+        dialogueUI.ClearChoices();
 
-        if (finishedLine.endDialogue)
+        // Sjekk endDialogueLines
+        if (dialogueData.endDialogueLines.Length > dialogueIndex && dialogueData.endDialogueLines[dialogueIndex]) 
         {
             EndDialogue();
             return;
         }
 
-        // Move to the next line
-        dialogueIndex++;
 
-        if (dialogueIndex < dialogueData.dialogueLines.Length)
+        foreach (DialogueChoice choice in dialogueData.choices) 
         {
-            StartCoroutine(TypeLine());
+            if (choice.dialogueIndex == dialogueIndex) 
+            {
+                DisplayChoices(choice);
+                return;
+            }
         }
-        else
+
+   
+        DialogueLine finishedLine = dialogueData.dialogueLines[dialogueIndex];
+        if (finishedLine.endDialogue) 
+        {
+            EndDialogue();
+            return;
+        }
+
+   
+        dialogueIndex++;
+        if (dialogueIndex < dialogueData.dialogueLines.Length) 
+        {
+            DisplayCurrentLine();
+        } 
+        else 
         {
             EndDialogue();
         }
     }
 
-    IEnumerator TypeLine()
+    IEnumerator TypeLine() 
     {
         isTyping = true;
-
-        DialogueLine currentLine =
-            dialogueData.dialogueLines[dialogueIndex];
-
+        DialogueLine currentLine = dialogueData.dialogueLines[dialogueIndex];
         dialogueUI.SetDialogueText("");
 
-        foreach (char letter in currentLine.text)
+        foreach (char letter in currentLine.text) 
         {
-            dialogueUI.SetDialogueText(
-                dialogueUI.dialogueText.text + letter
-            );
-
-            // Uncomment when you want voice sounds:
-            // SoundEffectManager.PlayVoice(
-            //     dialogueData.voiceSound,
-            //     dialogueData.voicePitch
-            // );
+            dialogueUI.SetDialogueText(dialogueUI.dialogueText.text + letter);
 
             yield return new WaitForSeconds(dialogueData.typingSpeed);
         }
-
         isTyping = false;
 
-        // Automatically progress if this line has Auto Progress checked
-        if (currentLine.autoProgress)
-        {
-            yield return new WaitForSeconds(
-                dialogueData.autoProgressDelay
-            );
 
+        if (currentLine.autoProgress) 
+        {
+            yield return new WaitForSeconds(dialogueData.autoProgressDelay);
             NextLine();
         }
     }
 
-    public void EndDialogue()
+    void DisplayChoices(DialogueChoice choice) 
+    {
+        for (int i = 0; i < choice.choices.Length; i++) 
+        {
+            int nextIndex = choice.nextDialogueIndices[i];
+            dialogueUI.CreateChoiceButton(choice.choices[i], () => ChooseOption(nextIndex));
+        }
+    }
+
+    void ChooseOption(int nextIndex) 
+    {
+        dialogueIndex = nextIndex;
+        dialogueUI.ClearChoices();
+        StartCoroutine(TypeLine());
+    }
+
+    void DisplayCurrentLine() 
     {
         StopAllCoroutines();
+        StartCoroutine(TypeLine());
+    }
 
+    public void EndDialogue() 
+    {
+        StopAllCoroutines();
         isTyping = false;
         isDialogueActive = false;
-
         dialogueUI.SetDialogueText("");
         dialogueUI.ShowDialogueUI(false);
-
         S_PauseController.SetPauseState(false);
     }
 }

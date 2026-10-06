@@ -17,6 +17,7 @@ public class S_NPCDialogue : ScriptableObject
     public float voicePitch = 1.0f;
 
     public DialogueChoice[] choices;
+    public bool[] endDialogueLines;
 }
 
 [System.Serializable]
