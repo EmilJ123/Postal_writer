@@ -1,26 +1,27 @@
 using System;
-using System.Collections; // Kan fjernes hvis den ikke brukes, rettet skrivefeil "Sustem"
+using System.Collections; 
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quests/Quest")] // Lagt til manglende anførselstegn rundt meny-stien
+[CreateAssetMenu(menuName = "Quests/Quest")] 
 public class S_QuestManager : ScriptableObject 
 { 
     public string questID; 
     public string questName; 
-    [TextArea(3, 10)] public string description; // La til TextArea for bedre visning i Inspektøren
+    public string description; 
     public List<QuestObjective> objectives; 
 
     private void OnValidate() 
     { 
         if (string.IsNullOrEmpty(questID)) 
         { 
-            // Endret Guid-generering for å unngå potensielle ulovlige filnavn/tegn i ID-en
-            questID = questName + "_" + Guid.NewGuid().ToString("N"); 
+            questID = questName + Guid.NewGuid().ToString();
         } 
     } 
+}
 
-    [System.Serializable] 
+
+ [System.Serializable] 
     public class QuestObjective 
     { 
         public string objectiveID; 
@@ -36,7 +37,6 @@ public class S_QuestManager : ScriptableObject
     [System.Serializable] 
     public class QuestProgress 
     { 
-        // Endret type fra 'Quest' til 'S_QuestManager' siden klassen din heter S_QuestManager
         public S_QuestManager quest; 
         public List<QuestObjective> objectives; 
 
@@ -45,8 +45,7 @@ public class S_QuestManager : ScriptableObject
             this.quest = quest; 
             objectives = new List<QuestObjective>(); 
             
-            // RETTET LOGISK FEIL: Slår opp i 'quest.objectives' i stedet for den tomme lokale listen
-            foreach(var obj in quest.objectives) 
+            foreach(var obj in objectives) 
             { 
                 objectives.Add(new QuestObjective 
                 { 
@@ -60,6 +59,7 @@ public class S_QuestManager : ScriptableObject
         } 
 
         public bool IsCompleted => objectives.TrueForAll(o => o.IsCompleted); 
-        public string QuestID => quest.questID; 
-    } 
-}
+        public string QuestID => quest.questID;
+
+
+} 

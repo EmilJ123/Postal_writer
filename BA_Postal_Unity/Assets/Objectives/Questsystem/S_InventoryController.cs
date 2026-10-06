@@ -28,6 +28,23 @@ public class S_InventoryController : MonoBehaviour
         //}
     }
 
+    public bool AddItem(GameObject itemPrefab)
+    {
+        foreach(Transform slotTransform in inventoryPanel.transform)
+        {
+            S_Slot slot = slotTransform.GetComponent<S_Slot>();
+            if(slot.currentItem == null)
+            {
+                GameObject item = Instantiate(itemPrefab, slot.transform);
+                item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; //Puts the item in the middle of the slot
+                slot.currentItem = item;
+                return true; //Item added successfully
+            }
+        }
+        Debug.Log("Inventory is full!");
+        return false; //Inventory full
+    }
+
     public List<S_InventorySaveData> GetInventoryItems()
     {
         List<S_InventorySaveData> invData = new List<S_InventorySaveData>();
