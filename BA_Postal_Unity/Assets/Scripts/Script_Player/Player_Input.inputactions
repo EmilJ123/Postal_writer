@@ -25,16 +25,6 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "1c7f783f-87b6-4ec3-9c27-e95dbd5ddd9d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
                 }
             ],
             "bindings": [
@@ -123,17 +113,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ba2520ad-5787-4287-a3c1-1c40dfa064ac",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
