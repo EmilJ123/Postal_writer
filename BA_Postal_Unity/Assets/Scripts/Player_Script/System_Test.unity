@@ -3366,7 +3366,7 @@ MonoBehaviour:
   dismountSpeedThreshold: 2
   kickForce: 10
   kickCooldown: 0.6
-  maxSpeed: 22
+  maxSpeed: 15
   slideFriction: 0.1
   slopeGravityMultiplier: 100
   gravity: -5

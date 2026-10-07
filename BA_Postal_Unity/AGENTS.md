@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI
 - Active game object:
-  - Name: Floor
+  - Name: Sled
   - Tag: Untagged
-  - Layer: Floor
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
