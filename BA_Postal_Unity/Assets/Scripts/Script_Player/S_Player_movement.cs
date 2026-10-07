@@ -10,6 +10,7 @@ public class S_Player_movement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private bool shouldFaceMoveDirection = false;
 
+    
     [Header("Components & Direct Interaction")]
     public PlayerInput playerInput;
     [SerializeField] private float mountDistance = 5f;
@@ -40,6 +41,10 @@ public class S_Player_movement : MonoBehaviour
         }
     }
 
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
     private void Update()
     {
         // Check for mount attempt when on foot
@@ -163,6 +168,7 @@ public class S_Player_movement : MonoBehaviour
 
         Debug.Log("<color=yellow>[Kicksled]</color> Dismounted successfully! PlayerInput REACTIVATED.");
     }
+    
 
     private void OnDrawGizmosSelected()
     {

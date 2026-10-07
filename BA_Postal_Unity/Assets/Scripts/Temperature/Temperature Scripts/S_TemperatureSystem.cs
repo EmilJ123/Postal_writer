@@ -14,6 +14,8 @@ public class S_TemperatureSystem : MonoBehaviour
     [Header("Visual Feedback HUD")]
     public Image frostOverlayImage;
     
+    private S_PlayerHealth playerHealth;
+    
     // Active Environment References
     private S_ClimateZone currentRoom;
     private S_HeatSource activeNearbyHeatSource;
@@ -31,6 +33,7 @@ public class S_TemperatureSystem : MonoBehaviour
         currentTemperature = maxTemperature;
         player = GetComponent<S_Temperature >();
         if (frostOverlayImage != null) UpdateFrostVisuals();
+        playerHealth = GetComponent<S_PlayerHealth>();
     }
 
 
@@ -84,7 +87,7 @@ public class S_TemperatureSystem : MonoBehaviour
         {
             currentTemperature = Mathf.Clamp(currentTemperature - 1, 0, maxTemperature);
             freezeAccumulator -= 1.0f;
-            Debug.Log($"<color=cyan>[Thermal Loss]</color> Your temperature dropped to standard integer: {currentTemperature}°C");
+            //Debug.Log($"<color=cyan>[Thermal Loss]</color> Your temperature dropped to standard integer: {currentTemperature}°C");
         }
     }
 
@@ -117,7 +120,7 @@ public class S_TemperatureSystem : MonoBehaviour
         {
             currentTemperature = Mathf.Clamp(currentTemperature + 1, 0, maxTemperature);
             thawAccumulator -= 1.0f;
-            Debug.Log($"<color=orange>[Thermal Absorption]</color> You approaches fire. Proximity: {(proximityFactor * 100f):F0}%. Temp: {currentTemperature}°C");
+            //Debug.Log($"<color=orange>[Thermal Absorption]</color> You approaches fire. Proximity: {(proximityFactor * 100f):F0}%. Temp: {currentTemperature}°C");
         }
     }
 
@@ -137,11 +140,13 @@ public class S_TemperatureSystem : MonoBehaviour
             {
                 player.TakeDamage(20);
                 damageTimer = 0f;
-                
             }
-
-            //playerMovement.SetSpeed(2.0f);   
             return;
+        }
+        
+        if (currentTemperature >= maxTemperature)
+        {
+            player.Heal(5); // heals 5 HP per second
         }
 
         damageTimer = 0f;
