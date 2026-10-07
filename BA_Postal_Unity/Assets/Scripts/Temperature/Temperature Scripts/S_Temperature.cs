@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
@@ -17,7 +16,6 @@ public class S_Temperature : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        //currentStamina = maxStamina;
         if (healthSlider != null)
             healthSlider.value = maxHealth;
     }

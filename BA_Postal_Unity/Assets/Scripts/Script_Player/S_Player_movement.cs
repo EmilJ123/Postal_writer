@@ -8,7 +8,7 @@ public class S_Player_movement : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private bool shouldFaceMoveDirection = false;
+    [SerializeField] private bool shouldFaceMoveDirection = true;
 
     
     [Header("Components & Direct Interaction")]
