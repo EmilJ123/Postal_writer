@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.7789
+      value: 14.549898
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalScale.y
@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.36891
+      value: 5.0087004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalPosition.y
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.2371597
+      value: 20.887157
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46eb13d012dcb4088a39a3aeded0a146, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1539,7 +1539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3181214137052886953, guid: 24055c932f1aa4cbcbb94521694a94ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.9004593
+      value: -13.21
       objectReference: {fileID: 0}
     - target: {fileID: 3181214137052886953, guid: 24055c932f1aa4cbcbb94521694a94ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2253,7 +2253,7 @@ GameObject:
   - component: {fileID: 1082801351}
   - component: {fileID: 1082801350}
   - component: {fileID: 1082801349}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2686,7 +2686,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.7789
+      value: 14.549898
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalScale.y
@@ -2698,7 +2698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.58
+      value: -9.58
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2706,7 +2706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.78
+      value: 4.87
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3220,9 +3220,9 @@ GameObject:
   - component: {fileID: 1242915816}
   - component: {fileID: 1242915815}
   - component: {fileID: 1242915820}
-  - component: {fileID: 1242915819}
+  - component: {fileID: 1242915821}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Sled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,7 +3247,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1242915816
 MeshRenderer:
@@ -3323,31 +3323,6 @@ Transform:
   - {fileID: 1398937267}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1242915819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242915814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e37ac00c8695eb43a08721d1fe1736c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleKicksled
-  mountPoint: {fileID: 1328944422}
-  kickForce: 12
-  kickCooldown: 0.8
-  maxSpeed: 22
-  slideFriction: 0.4
-  slopeGravityMultiplier: 15
-  gravity: -15
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  turnTorque: 90
-  turnDrag: 3
-  runnerLateralFriction: 4
 --- !u!143 &1242915820
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3367,12 +3342,40 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1
-  m_Radius: 0.5
+  m_Radius: 0.07
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1242915821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242915814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6888e7f2213252409bdd0a9fc676de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_Kicksled
+  mountPoint: {fileID: 1328944422}
+  kickKey: 1
+  dismountKey: 19
+  dismountSpeedThreshold: 2
+  kickForce: 10
+  kickCooldown: 0.6
+  maxSpeed: 22
+  slideFriction: 0.1
+  slopeGravityMultiplier: 100
+  gravity: -5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  turnTorque: 750
+  turnDrag: 8
+  runnerLateralFriction: 5
 --- !u!1 &1268942966
 GameObject:
   m_ObjectHideFlags: 0
@@ -4057,11 +4060,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349826330}
   m_CullTransparentMesh: 1
---- !u!1 &1390261479 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2329533864175059676, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
-  m_PrefabInstance: {fileID: 2947598908279883213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1398937266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4737,11 +4735,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722143609}
   m_CullTransparentMesh: 1
---- !u!4 &1753348434 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8933243395016478949, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
-  m_PrefabInstance: {fileID: 2947598908279883213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1809975235
 GameObject:
   m_ObjectHideFlags: 0
@@ -5230,7 +5223,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3739419161788583100, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
   m_PrefabInstance: {fileID: 2947598908279883213}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390261479}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d11a1c8abbca334696a298a5cfcd841, type: 3}
@@ -5241,7 +5234,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8241240969549705417, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
   m_PrefabInstance: {fileID: 2947598908279883213}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390261479}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f79015f513fe29543b319a71c7dc8383, type: 3}
@@ -5385,29 +5378,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5787059454338105489, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
   m_PrefabInstance: {fileID: 2947598908279883213}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390261479}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
---- !u!114 &2112272932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390261479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 081d3219f2374ab4895b1a9f006eb533, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimplePlayer
-  walkSpeed: 5
-  gravity: -9.81
-  cameraTransform: {fileID: 1753348434}
-  mountDistance: 5
-  fallbackInteractKey: 19
 --- !u!1 &2128050941
 GameObject:
   m_ObjectHideFlags: 0
@@ -5646,10 +5622,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2329533864175059676, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2112272932}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5b4a5de30ea2c49941043fe0152f1b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -4,11 +4,11 @@
 - Active scene:
   - Name: System_Test
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item, SnowGround
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Terrain
+    - Default, TransparentFX, Ignore Raycast, Floor, Water, UI
 - Active game object:
-  - Name: Mount
+  - Name: Floor
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
