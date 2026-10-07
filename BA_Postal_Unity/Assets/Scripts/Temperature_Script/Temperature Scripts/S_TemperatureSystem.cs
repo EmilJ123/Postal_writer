@@ -75,7 +75,7 @@ public class S_TemperatureSystem : MonoBehaviour
         // Environment Evaluation: If no zone component is found, default to open freezing mines
         bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
         
-        float freezePointsPerSecond = 20f; // Standard dark freeze (1 point every 2 seconds)
+        float freezePointsPerSecond = 5f; //Freeze 5f per 2f
        
         
 
