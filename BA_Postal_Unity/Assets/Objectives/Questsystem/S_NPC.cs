@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class S_NPC : MonoBehaviour, S_IInteractable
 {
@@ -15,13 +16,22 @@ public class S_NPC : MonoBehaviour, S_IInteractable
     private void Start()
     {
         dialogueUI = S_DialogueController.instance;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (CanInteract())
+            if (isDialogueActive)
+            {
+                NextLine();
+                return;
+            }
+
+            if (playerInRange && CanInteract())
             {
                 Interact();
             }
@@ -53,17 +63,23 @@ public class S_NPC : MonoBehaviour, S_IInteractable
 
     private void StartDialogue()
     {
-        isDialogueActive = true;
+        // Reset dialogue so it starts from the beginning every time
         dialogueIndex = 0;
+        isDialogueActive = true;
+        isTyping = false;
 
         dialogueUI.SetNPCInfo(
-            dialogueData.npcName,
-            dialogueData.npcPortrait
+            dialogueData.npcName
         );
 
+        dialogueUI.ClearChoices();
         dialogueUI.ShowDialogueUI(true);
 
         S_PauseController.SetPauseState(true);
+
+        // Unlock mouse for dialogue choices
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         DisplayCurrentLine();
     }
@@ -137,7 +153,7 @@ public class S_NPC : MonoBehaviour, S_IInteractable
                 dialogueUI.dialogueText.text + letter
             );
 
-            yield return new WaitForSeconds(
+            yield return new WaitForSecondsRealtime(
                 dialogueData.typingSpeed
             );
         }
@@ -146,7 +162,7 @@ public class S_NPC : MonoBehaviour, S_IInteractable
 
         if (currentLine.autoProgress)
         {
-            yield return new WaitForSeconds(
+            yield return new WaitForSecondsRealtime(
                 dialogueData.autoProgressDelay
             );
 
@@ -189,10 +205,17 @@ public class S_NPC : MonoBehaviour, S_IInteractable
         isTyping = false;
         isDialogueActive = false;
 
+        dialogueIndex = 0;
+
         dialogueUI.SetDialogueText("");
+        dialogueUI.ClearChoices();
         dialogueUI.ShowDialogueUI(false);
 
         S_PauseController.SetPauseState(false);
+
+        // Lock mouse again for gameplay
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -202,7 +225,6 @@ public class S_NPC : MonoBehaviour, S_IInteractable
             playerInRange = true;
 
             Debug.Log("Player is in range of NPC!");
-            playerInRange = true;
         }
     }
 
