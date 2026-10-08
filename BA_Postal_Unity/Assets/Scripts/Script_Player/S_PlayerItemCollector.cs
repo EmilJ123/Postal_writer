@@ -1,18 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class S_PlayerItemCollector : MonoBehaviour
 {
     [SerializeField] private S_InventoryController inventoryController;
-    
-    private GameObject currentItemInRange;
 
-    void Start()
+    private readonly List<GameObject> itemsInRange = new List<GameObject>();
+
+    private void Start()
     {
         if (inventoryController == null)
         {
-            inventoryController = GameObject.FindAnyObjectByType<S_InventoryController>();
+            inventoryController = FindAnyObjectByType<S_InventoryController>();
+
             if (inventoryController == null)
             {
                 Debug.LogError($"{gameObject.name} is missing an S_InventoryController!");
@@ -20,45 +20,76 @@ public class S_PlayerItemCollector : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (currentItemInRange != null && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            TryPickUpItem();
+            TryPickUpClosestItem();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (!other.CompareTag("Item"))
+            return;
+
+        if (!itemsInRange.Contains(other.gameObject))
         {
-            currentItemInRange = other.gameObject;
-            
-            Debug.Log("Press F to pick up" + other.name);
+            itemsInRange.Add(other.gameObject);
+            Debug.Log($"Press F to pick up {other.name}");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (!other.CompareTag("Item"))
+            return;
+
+        itemsInRange.Remove(other.gameObject);
+    }
+
+    private void TryPickUpClosestItem()
+    {
+        GameObject closestItem = GetClosestItem();
+
+        if (closestItem == null)
+            return;
+
+        if (!closestItem.TryGetComponent<S_Item>(out S_Item item))
         {
-            if (currentItemInRange == other.gameObject)
-            {
-                currentItemInRange = null;
-            }
+            Debug.LogWarning($"{closestItem.name} has the Item tag but no S_Item component.");
+            return;
+        }
+
+        if (inventoryController == null)
+            return;
+
+        if (inventoryController.AddItem(item.gameObject))
+        {
+            itemsInRange.Remove(closestItem);
+            Destroy(closestItem);
         }
     }
 
-    private void TryPickUpItem()
+    private GameObject GetClosestItem()
     {
-        if (currentItemInRange.TryGetComponent<S_Item>(out S_Item item))
+        GameObject closestItem = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (GameObject item in itemsInRange)
         {
-            if (inventoryController != null && inventoryController.AddItem(item.gameObject))
+            if (item == null)
+                continue;
+
+            float distance = Vector3.Distance(transform.position, item.transform.position);
+
+            if (distance < closestDistance)
             {
-                Destroy(currentItemInRange);
-                currentItemInRange = null;
+                closestDistance = distance;
+                closestItem = item;
             }
         }
+
+        return closestItem;
     }
 }
-
