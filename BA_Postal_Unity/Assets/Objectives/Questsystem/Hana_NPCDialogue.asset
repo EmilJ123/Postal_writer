@@ -16,10 +16,10 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - text: Hello, writer!
-    autoProgress: 1
+    autoProgress: 0
     endDialogue: 0
   - text: Could you help me out with a task?
-    autoProgress: 0
+    autoProgress: 1
     endDialogue: 0
   - text: Really? Thank you!
     autoProgress: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
     - Of course
     - I am busy...
     nextDialogueIndices: 0300000004000000i
+  endDialogueLines: 
