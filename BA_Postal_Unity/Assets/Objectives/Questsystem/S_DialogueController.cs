@@ -11,7 +11,6 @@ public class S_DialogueController : MonoBehaviour
     public GameObject dialoguePanel; 
     public TMP_Text dialogueText;
     public TMP_Text nameText; 
-    public Image portraitImage; 
     public Transform choicesContainer;
     public GameObject choiceButtonPrefab;
 
@@ -32,10 +31,10 @@ public class S_DialogueController : MonoBehaviour
         dialoguePanel.SetActive(show); 
     } 
 
-    public void SetNPCInfo(string npcName, Sprite npcPortrait) 
+    public void SetNPCInfo(string npcName) 
     { 
         nameText.text = npcName; 
-        portraitImage.sprite = npcPortrait; 
+     
     } 
 
     public void SetDialogueText(string text) 
