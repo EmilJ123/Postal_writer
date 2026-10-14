@@ -373,7 +373,6 @@ GameObject:
   - component: {fileID: 619373310472742015}
   - component: {fileID: 3644091603418184882}
   - component: {fileID: 4994444017880856213}
-  - component: {fileID: 4737605375768322708}
   - component: {fileID: 4571192601698341462}
   - component: {fileID: 273698243446943669}
   m_Layer: 0
@@ -611,21 +610,6 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4737605375768322708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135319312155032588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99cbfbfae959ada4086005d70bd73b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_SnowPathDrawer
-  snowComputeShader: {fileID: 7200000, guid: cba3d91380315c14db1e24cc0e1faf3f, type: 3}
-  snowRT: {fileID: 0}
-  spotSize: 5
 --- !u!114 &4571192601698341462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +626,7 @@ MonoBehaviour:
   currentTemperature: 100
   isFreezing: 0
   playerMovement: {fileID: 0}
-  TempSlider: {fileID: 0}
+  tempSlider: {fileID: 0}
   frostOverlayImage: {fileID: 0}
 --- !u!114 &273698243446943669
 MonoBehaviour:

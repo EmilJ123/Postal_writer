@@ -11,11 +11,10 @@ public class S_TemperatureSystem : MonoBehaviour
     public S_Player_movement playerMovement;
     
     
-    public Slider TempSlider;
+    public Slider tempSlider;
     [Header("Visual Feedback HUD")]
     public Image frostOverlayImage;
     
-    private S_PlayerHealth playerHealth;
     
     // Active Environment References
     private S_ClimateZone currentRoom;
@@ -34,7 +33,7 @@ public class S_TemperatureSystem : MonoBehaviour
         currentTemperature = maxTemperature;
         player = GetComponent<S_Temperature >();
         if (frostOverlayImage != null) UpdateFrostVisuals();
-        playerHealth = GetComponent<S_PlayerHealth>();
+        
     }
 
 
@@ -59,7 +58,7 @@ public class S_TemperatureSystem : MonoBehaviour
         EvaluateTemperaturePenalties();
         UpdateFrostVisuals();
         
-        TempSlider.value = currentTemperature;
+        tempSlider.value = currentTemperature;
     }
 
 
@@ -76,7 +75,7 @@ public class S_TemperatureSystem : MonoBehaviour
         
        
         // Environment Evaluation: If no zone component is found, default to open freezing mines
-        bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
+        //bool inColdZone = (currentRoom == null || !currentRoom.isWarmRoom);
         
         float freezePointsPerSecond = 5f; //Freeze 5f per 2f
        

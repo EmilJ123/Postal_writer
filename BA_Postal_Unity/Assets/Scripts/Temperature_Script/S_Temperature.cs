@@ -24,7 +24,7 @@ public class S_Temperature : MonoBehaviour
     {
         if (isDead) return;
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
-        Debug.LogError($"<color=red>[Damage Taken]</color> HP: {currentHealth}/{maxHealth}");
+        //Debug.LogError($"<color=red>[Damage Taken]</color> HP: {currentHealth}/{maxHealth}");
         UpdateHealthUI();
 
 
@@ -51,7 +51,7 @@ public class S_Temperature : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.LogError("GAME OVER: you froze in the dark");
+        //Debug.LogError("GAME OVER: you froze in the dark");
         PlayerInput input = GetComponent<PlayerInput>();
         if (input != null)
         {
