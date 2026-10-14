@@ -13,6 +13,7 @@ public class S_Temperature : MonoBehaviour
     
     [SerializeField] public Slider healthSlider;
     public Transform respawnPoint;
+    
     void Start()
     {
         currentHealth = maxHealth;

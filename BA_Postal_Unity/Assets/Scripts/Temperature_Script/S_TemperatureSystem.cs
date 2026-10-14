@@ -10,6 +10,7 @@ public class S_TemperatureSystem : MonoBehaviour
     public bool isFreezing = false;
     public S_Player_movement playerMovement;
     
+    
     public Slider TempSlider;
     [Header("Visual Feedback HUD")]
     public Image frostOverlayImage;
