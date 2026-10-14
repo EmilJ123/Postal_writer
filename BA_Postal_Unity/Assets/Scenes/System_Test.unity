@@ -3298,6 +3298,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177849653}
   m_CullTransparentMesh: 1
+--- !u!114 &1210365473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3644091603418184882, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
+  m_PrefabInstance: {fileID: 2274106185048999664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d11a1c8abbca334696a298a5cfcd841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_Player_movement
 --- !u!1 &1253513847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5601,6 +5612,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 273698243446943669, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 1020968669}
+    - target: {fileID: 273698243446943669, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 883827166}
     - target: {fileID: 599345290182193249, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.36
@@ -5641,11 +5660,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4571192601698341462, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
+      propertyPath: TempSlider
+      value: 
+      objectReference: {fileID: 1847486877}
+    - target: {fileID: 4571192601698341462, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1210365473}
     - target: {fileID: 9135319312155032588, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4737605375768322708, guid: 4f143680a31073c4bb24541a67afb785, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
