@@ -27,14 +27,18 @@ MonoBehaviour:
   - text: Oh.. well
     autoProgress: 0
     endDialogue: 1
-  autoProgressDelay: 1.5
   typingSpeed: 0.05
+  autoProgressDelay: 1.5
   voiceSound: {fileID: 0}
   voicePitch: 1
   choices:
   - dialogueIndex: 1
     choices:
-    - Of course
-    - I am busy...
-    nextDialogueIndices: 0300000004000000i
-  endDialogueLines: 
+    - text: Of Course!
+      nextDialogueIndex: 2
+      givesQuest: 1
+      quest: {fileID: 11400000, guid: 1ac659407d2d44f38ae8982f7122b405, type: 2}
+    - text: No
+      nextDialogueIndex: 3
+      givesQuest: 0
+      quest: {fileID: 0}
