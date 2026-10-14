@@ -4,7 +4,7 @@
 - Active scene:
   - Name: System_Test
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI
 - Active game object:

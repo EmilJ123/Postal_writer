@@ -40,6 +40,8 @@ public class S_TemperatureSystem : MonoBehaviour
 
     void Update()
     {
+        
+        
         if (player != null && player.isDead) return;
 
 
