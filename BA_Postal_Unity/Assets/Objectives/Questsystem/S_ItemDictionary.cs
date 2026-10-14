@@ -5,47 +5,35 @@ public class S_ItemDictionary : MonoBehaviour
 {
     public List<S_Item> itemPrefabs;
     private Dictionary<int, GameObject> itemDictionary;
-
-    private void Awake()
+    
+   private void Awake()
     {
         itemDictionary = new Dictionary<int, GameObject>();
 
-        if (itemPrefabs == null)
+        for(int i = 0; i < itemPrefabs.Count; i++)
         {
-            Debug.LogError("Item prefabs list is not assigned.", this);
-            return;
+            if(itemPrefabs[i] != null)
+            {
+                itemPrefabs[i].ID = i + 1; 
+            }
+            
         }
 
-        for (int i = 0; i < itemPrefabs.Count; i++)
+        foreach(S_Item item in itemPrefabs)
         {
-            S_Item item = itemPrefabs[i];
-
-            if (item == null)
-            {
-                Debug.LogWarning($"Missing item prefab at index {i}.", this);
-                continue;
-            }
-
-            item.ID = i + 1;
             itemDictionary[item.ID] = item.gameObject;
         }
+
     }
 
     public GameObject GetItemPrefab(int itemID)
     {
-        if (itemDictionary == null)
+        itemDictionary.TryGetValue(itemID, out GameObject itemPrefab);
+        if(itemPrefab == null)
         {
-            Debug.LogError("Item dictionary has not been initialized.", this);
-            return null;
+            Debug.LogWarning($"Item with ID {itemID} not found in the dictionary.");
         }
-
-        if (itemDictionary.TryGetValue(itemID, out GameObject itemPrefab)
-            && itemPrefab != null)
-        {
-            return itemPrefab;
-        }
-
-        Debug.LogWarning($"Item with ID {itemID} not found in the dictionary.", this);
-        return null;
+        return itemPrefab;
     }
+   
 }

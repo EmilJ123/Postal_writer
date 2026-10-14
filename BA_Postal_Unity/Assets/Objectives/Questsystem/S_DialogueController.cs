@@ -3,95 +3,44 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Rendering.MaterialUpgrader;
 
 public class S_DialogueController : MonoBehaviour 
-{
-    [SerializeField] private GameObject InteractPromt;
-    [SerializeField] private GameObject DialogueBox;
-    [SerializeField] private TMP_Text DialogueText;
-    [SerializeField] private GameObject NextLinePrompt;
-    [SerializeField] private string[] DialogueLines;
-    [SerializeField] private float TypeSpeed = 0.0f;
-
-
-
-
-    private int lineIndex = 0;
-
-    private bool isInteracting = false;
-    private bool canInteract = false;
+{ 
+    public static S_DialogueController instance { get; private set; } 
+    
+    public GameObject dialoguePanel; 
+    public TMP_Text dialogueText;
+    public TMP_Text nameText; 
     public Transform choicesContainer;
     public GameObject choiceButtonPrefab;
 
-    private void Update()
-    {
-        InteractPromt.SetActive(canInteract);
-
-        if (canInteract && !isInteracting && Input.GetKeyDown(KeyCode.F))
-            StartDialogue();
-
-        if (isInteracting && NextLinePrompt.activeInHierarchy && Input.GetKeyDown(KeyCode.F))
-            NextLine();
-    }
-
-    private void StartDialogue()
-    {
-        canInteract = false;
-        isInteracting = true;
-
-        DialogueText.text = "";
-        NextLinePrompt.SetActive(false);
-        DialogueBox.SetActive(true);
-
-        lineIndex = 0;
-        StartCoroutine(WriteLine());
-    }
-
-    private IEnumerator WriteLine()
-    {
-        foreach (char c in DialogueLines[lineIndex])
+    void Awake() 
+    { 
+        if (instance == null) 
         {
-            DialogueText.text += c;
-            yield return new WaitForSeconds(TypeSpeed);
+            instance = this; 
         }
-
-        NextLinePrompt.SetActive(true);
-
-    }
-
-    private void NextLine()
-    {
-        if (lineIndex < DialogueLines.Length - 1)
+        else 
         {
-            DialogueText.text = "";
-            NextLinePrompt.SetActive(false);
-
-            lineIndex++;
-            StartCoroutine(WriteLine());
+            Destroy(gameObject); 
         }
-        else
-        {
-            DialogueBox.SetActive(false);
-            NextLinePrompt.SetActive(false);
+    } 
 
-            isInteracting = false;
-            canInteract = true;
-        }
+    public void ShowDialogueUI(bool show) 
+    { 
+        dialoguePanel.SetActive(show); 
+    } 
 
-    }
+    public void SetNPCInfo(string npcName) 
+    { 
+        nameText.text = npcName; 
+     
+    } 
 
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.CompareTag("Player") && !isInteracting)
-            canInteract = true;
-    }
-
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.CompareTag("Player"))
-            canInteract = false;
-    }
+    public void SetDialogueText(string text) 
+    { 
+        dialogueText.text = text; 
+    } 
 
     public void ClearChoices() 
     { 
