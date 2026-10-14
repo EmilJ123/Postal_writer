@@ -4,11 +4,11 @@
 - Active scene:
   - Name: System_Test
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, SnowGround, Item
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI
 - Active game object:
-  - Name: Sled
+  - Name: Heat_Source (3)
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
