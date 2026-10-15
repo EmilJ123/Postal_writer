@@ -20,6 +20,11 @@ public class S_ThirdPersonCamera : MonoBehaviour
     private float targetZoom;
     private float currentZoom;
 
+    void Awake()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 144;
+    }
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
