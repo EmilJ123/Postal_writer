@@ -1,14 +1,14 @@
 using UnityEngine;
 using Unity.Collections;
 using System.Collections.Generic;
-    
+using UnityEngine.InputSystem;
 public class S_MapUIManager : MonoBehaviour
 {
     
     [Header("References")]
     [SerializeField] private GameObject mapPanel;
     [SerializeField] private S_MapGridController gridController;
-   
+    public PlayerInput playerInput;
     
     [Header("Controls")]
     [SerializeField] private KeyCode toggleKey = KeyCode.X;
