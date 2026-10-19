@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SnowGround
   - Item
+  - NPC
   layers:
   - Default
   - TransparentFX
