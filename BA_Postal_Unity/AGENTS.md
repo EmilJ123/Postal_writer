@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Subdivided Plane
-  - Tag: SnowGround
+  - Name: Heat_Source (2)
+  - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
