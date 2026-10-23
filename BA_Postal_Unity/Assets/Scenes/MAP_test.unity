@@ -265,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_MapUIManager
   mapPanel: {fileID: 532256139}
   gridController: {fileID: 87230875}
+  playerInput: {fileID: 0}
   toggleKey: 109
 --- !u!1 &139934596
 GameObject:

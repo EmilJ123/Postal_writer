@@ -73,6 +73,6 @@ Material:
     - _FrenelColor: {r: 1.8496965, g: 7.129739, b: 6.803809, a: 1}
     - _GlitterColor: {r: 0, g: 0.9529412, b: 1, a: 0.8823529}
     - _GlitterScale: {r: 1, g: 1, b: 0, a: 0}
-    - _SnowHeightRange: {r: 0, g: 0.02, b: 0, a: 0}
+    - _SnowHeightRange: {r: 0, g: 0.08, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

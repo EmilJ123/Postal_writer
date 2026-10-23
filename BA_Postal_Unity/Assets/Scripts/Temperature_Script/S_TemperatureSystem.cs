@@ -158,7 +158,7 @@ public class S_TemperatureSystem : MonoBehaviour
             playerMovement.SetSpeed(2.4f);
             
         }
-        else if (currentTemperature > 30 && currentTemperature <= 69)
+        else if (currentTemperature > 30 && currentTemperature <= 45)
         {
             playerMovement.SetSpeed(3.5f);   
         }
