@@ -9,6 +9,7 @@ public class S_Dialogue : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject interactPrompt;
+    [SerializeField] private TMP_Text nameText;
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private GameObject nextLinePrompt;
@@ -78,6 +79,8 @@ public class S_Dialogue : MonoBehaviour
 
             return;
         }
+
+        nameText.SetText(dialogueData.name);
 
         if (dialogueData.dialogueLines == null ||
             dialogueData.dialogueLines.Length == 0)
@@ -169,8 +172,7 @@ public class S_Dialogue : MonoBehaviour
         // END DIALOGUE
         // --------------------------------------------------
 
-        // If this specific line is marked "End Dialogue",
-        // close the dialogue immediately after typing.
+
         if (currentLine.endDialogue)
         {
             EndDialogue();
