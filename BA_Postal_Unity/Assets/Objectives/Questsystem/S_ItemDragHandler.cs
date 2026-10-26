@@ -14,7 +14,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        inventoryController = S_InventoryController.Instance;
+        inventoryController = GetInstance();
+    }
+
+    private static S_InventoryController GetInstance()
+    {
+        return S_InventoryController.Instance;
     }
 
     private void ResetItemPosition()

@@ -12,6 +12,9 @@ public class S_InventoryController : MonoBehaviour
     public int slotCount;
     public GameObject[] itemPrefabs;
     Dictionary<int, int> itemsCountCache = new();
+
+    public static S_InventoryController Instance { get; internal set; }
+
     public event Action OnInventoryChanged; //event to notify quest systems
 
     private void Start()
