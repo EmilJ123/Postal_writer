@@ -16,10 +16,6 @@ public class S_QuestUI : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < testQuestAmount; i++)
-        {
-            testQuests.Add(new QuestProgress(testQuest));
-        }
 
         UpdateQuestUI();
     }
@@ -33,15 +29,15 @@ public class S_QuestUI : MonoBehaviour
         }
 
         // Create new quest entries
-        foreach (var questProgress in testQuests)
+        foreach (var quest in S_QuestController.Instance.activateQuests)
         {
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
             TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
             Transform objectiveList = entry.transform.Find("ObjectiveList");
 
-            questNameText.text = questProgress.quest.name; 
+            questNameText.text = quest.quest.name; 
 
-            foreach (var objective in questProgress.objectives)
+            foreach (var objective in quest.objectives)
             {
                 GameObject objTextGO = Instantiate(objectiveTextPrefab, objectiveList);
                 TMP_Text objText = objTextGO.GetComponent<TMP_Text>();
