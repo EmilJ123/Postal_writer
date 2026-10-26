@@ -4,16 +4,17 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Item
   - SnowGround
+  - Item
+  - NPC
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
-  - Terrain
+  - Ignore_player
   - 
   - 
   - 
@@ -42,9 +43,6 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 2072362333
     locked: 0
   m_RenderingLayers:
   - Default
