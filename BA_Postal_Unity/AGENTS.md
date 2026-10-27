@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: GM-Wedge (1)
+  - Name: GM-Climb
   - Tag: Untagged
-  - Layer: Floor
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
