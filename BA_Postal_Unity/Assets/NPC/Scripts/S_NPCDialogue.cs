@@ -11,8 +11,10 @@ public class S_NPCDialogue : ScriptableObject
     public string npcName;
     public Sprite npcPortrait;
 
+
     [Header("Dialogue")]
     public DialogueLine[] dialogueLines;
+
 
     [Header("Typing")]
     [Min(0f)]
@@ -21,28 +23,18 @@ public class S_NPCDialogue : ScriptableObject
     [Min(0f)]
     public float autoProgressDelay = 1.5f;
 
+
     [Header("Voice")]
     public AudioClip voiceSound;
 
     [Min(0f)]
     public float voicePitch = 1.0f;
 
+
     [Header("Dialogue Choices")]
     public DialogueChoice[] choices;
-
-    [Header("Quest Dialogue")]
-    [Tooltip("Dialogue line shown when the quest has not started.")]
-    public int questNotStartedIndex = 0;
-
-    [Tooltip("Dialogue line shown while the quest is active.")]
-    public int questInProgressIndex;
-
-    [Tooltip("Dialogue line shown when the quest is completed.")]
-    public int questCompletedIndex;
-
-    [Header("Quest Reference")]
-    public S_QuestManager quest;
 }
+
 
 [Serializable]
 public class DialogueLine
@@ -57,6 +49,9 @@ public class DialogueLine
     public bool endDialogue;
 }
 
+
+
+
 [Serializable]
 public class DialogueChoice
 {
@@ -66,6 +61,7 @@ public class DialogueChoice
     [Tooltip("The choices the player can select.")]
     public Choice[] choices;
 }
+
 
 [Serializable]
 public class Choice
@@ -77,6 +73,7 @@ public class Choice
     public int nextDialogueIndex;
 
     [Header("Quest")]
+
     [Tooltip("Does this choice give a quest?")]
     public bool givesQuest;
 

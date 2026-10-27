@@ -17,8 +17,6 @@ public class S_Dialogue : MonoBehaviour
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private TMP_Text[] choiceTexts;
 
-
-
     private int lineIndex = 0;
 
     private bool isInteracting = false;
@@ -39,18 +37,25 @@ public class S_Dialogue : MonoBehaviour
             );
         }
 
+
+        // Start dialogue
         if (canInteract &&
             !isInteracting &&
             Input.GetKeyDown(KeyCode.F))
         {
             StartDialogue();
         }
+
+
+        // If player is choosing an option
         if (choosing)
         {
             HandleChoiceInput();
             return;
         }
 
+
+        // Continue dialogue
         if (isInteracting &&
             !isTyping &&
             nextLinePrompt != null &&
@@ -66,12 +71,22 @@ public class S_Dialogue : MonoBehaviour
     {
         if (dialogueData == null)
         {
+            Debug.LogWarning(
+                "No S_NPCDialogue assigned to " +
+                gameObject.name
+            );
+
             return;
         }
 
         if (dialogueData.dialogueLines == null ||
             dialogueData.dialogueLines.Length == 0)
         {
+            Debug.LogWarning(
+                "No dialogue lines found in " +
+                dialogueData.name
+            );
+
             return;
         }
 
@@ -119,7 +134,8 @@ public class S_Dialogue : MonoBehaviour
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
 
-        //Adds an animation
+
+        // Type the dialogue
         foreach (char character in currentLine.text)
         {
             dialogueText.text += character;
@@ -132,8 +148,11 @@ public class S_Dialogue : MonoBehaviour
             }
         }
 
+
         isTyping = false;
 
+
+        // Check if this line has choices
         DialogueChoice dialogueChoice =
             GetChoicesForLine(lineIndex);
 
@@ -150,7 +169,8 @@ public class S_Dialogue : MonoBehaviour
         // END DIALOGUE
         // --------------------------------------------------
 
-        // If this line has "end dialogue" it ends the dialogue automatically
+        // If this specific line is marked "End Dialogue",
+        // close the dialogue immediately after typing.
         if (currentLine.endDialogue)
         {
             EndDialogue();
@@ -158,6 +178,8 @@ public class S_Dialogue : MonoBehaviour
         }
 
 
+        // If this is the final line in the dialogue array,
+        // also end the dialogue.
         if (lineIndex >= dialogueData.dialogueLines.Length - 1)
         {
             if (nextLinePrompt != null)
@@ -167,12 +189,12 @@ public class S_Dialogue : MonoBehaviour
         }
 
 
-
+        // Normal dialogue
         if (nextLinePrompt != null)
             nextLinePrompt.SetActive(true);
 
 
-
+        // Auto progress
         if (currentLine.autoProgress)
         {
             yield return new WaitForSeconds(
@@ -195,7 +217,7 @@ public class S_Dialogue : MonoBehaviour
             return;
 
 
-
+        // Safety check
         if (lineIndex < 0 ||
             lineIndex >= dialogueData.dialogueLines.Length)
         {
@@ -208,6 +230,9 @@ public class S_Dialogue : MonoBehaviour
             dialogueData.dialogueLines[lineIndex];
 
 
+        // IMPORTANT:
+        // If this line is marked "End Dialogue",
+        // do NOT advance to the next line.
         if (currentLine.endDialogue)
         {
             EndDialogue();
@@ -215,7 +240,7 @@ public class S_Dialogue : MonoBehaviour
         }
 
 
-
+        // If this is the final line, end dialogue.
         if (lineIndex >=
             dialogueData.dialogueLines.Length - 1)
         {
@@ -260,6 +285,10 @@ public class S_Dialogue : MonoBehaviour
     {
         if (choicePanel == null)
         {
+            Debug.LogWarning(
+                "Choice Panel is not assigned."
+            );
+
             return;
         }
 
@@ -273,6 +302,7 @@ public class S_Dialogue : MonoBehaviour
         choicePanel.SetActive(true);
 
 
+        // Hide all choice text objects
         for (int i = 0; i < choiceTexts.Length; i++)
         {
             if (choiceTexts[i] != null)
@@ -281,6 +311,8 @@ public class S_Dialogue : MonoBehaviour
             }
         }
 
+
+        // Display choices
         for (int i = 0;
              i < dialogueChoice.choices.Length &&
              i < choiceTexts.Length;
@@ -294,6 +326,7 @@ public class S_Dialogue : MonoBehaviour
                 dialogueChoice.choices[i];
 
 
+            // Add number before choice
             choiceTexts[i].text =
                 "[" + (i + 1) + "] " +
                 choice.text;
@@ -314,30 +347,35 @@ public class S_Dialogue : MonoBehaviour
             return;
 
 
+        // Choice 1
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SelectChoice(0);
         }
 
 
+        // Choice 2
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SelectChoice(1);
         }
 
 
+        // Choice 3
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SelectChoice(2);
         }
 
 
+        // Choice 4
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             SelectChoice(3);
         }
 
 
+        // Choice 5
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             SelectChoice(4);
@@ -372,6 +410,7 @@ public class S_Dialogue : MonoBehaviour
         );
 
 
+        // Give quest
         if (selectedChoice.givesQuest &&
             selectedChoice.quest != null)
         {
@@ -381,13 +420,20 @@ public class S_Dialogue : MonoBehaviour
         }
 
 
+        // Stop choosing
         choosing = false;
 
+
+        // Hide choices
         HideChoices();
 
+
+        // Move to selected dialogue
         lineIndex =
             selectedChoice.nextDialogueIndex;
 
+
+        // Safety check for invalid dialogue index
         if (lineIndex < 0 ||
             lineIndex >= dialogueData.dialogueLines.Length)
         {
@@ -442,7 +488,19 @@ public class S_Dialogue : MonoBehaviour
             "Quest selected: " +
             quest.name
         );
+
+
+        // Connect your quest system here.
+        //
+        // Example:
+        // quest.StartQuest();
     }
+
+
+    // --------------------------------------------------
+    // END DIALOGUE
+    // --------------------------------------------------
+
     private void EndDialogue()
     {
         if (typingCoroutine != null)
@@ -471,6 +529,11 @@ public class S_Dialogue : MonoBehaviour
         if (interactPrompt != null)
             interactPrompt.SetActive(canInteract);
     }
+
+
+    // --------------------------------------------------
+    // PLAYER TRIGGER
+    // --------------------------------------------------
 
     private void OnTriggerEnter(
         Collider collision
