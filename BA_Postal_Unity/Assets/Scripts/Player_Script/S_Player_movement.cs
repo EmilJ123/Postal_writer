@@ -9,7 +9,7 @@ public class S_Player_movement : MonoBehaviour
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private bool shouldFaceMoveDirection = true;
-
+    public float interactRadius = 1.5f;
     
     [Header("Components & Direct Interaction")]
     public PlayerInput playerInput;
@@ -46,6 +46,7 @@ public class S_Player_movement : MonoBehaviour
         speed = newSpeed;
     }
     private void Update()
+    
     {
         // Check for mount attempt when on foot
         if (!isOnKicksled && Keyboard.current != null && Keyboard.current[interactKey].wasPressedThisFrame)
@@ -81,8 +82,32 @@ public class S_Player_movement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
+        {
+            //if (isDead || Keyboard.current == null) return;
 
+
+            //HandleMovementAndStamina();
+
+
+            // Action: Spacebar Shove
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                //ExecuteDefensiveShove();
+            }
+
+
+            // Action: Proximity Interaction
+            if (Keyboard.current.eKey.isPressed)
+            {
+                EvaluateProximityInteraction();
+            }
+            //else if (currentActiveDoor != null)
+            {
+                // currentActiveDoor.ResetPryProgress();
+                //currentActiveDoor = null;
+            }
+        }
+    }
     // --- INPUT SYSTEM CALLBACKS (On Foot) ---
 
     public void Move(InputAction.CallbackContext context)
@@ -175,4 +200,21 @@ public class S_Player_movement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, mountDistance);
     }
-}
+    private void EvaluateProximityInteraction()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactRadius);
+        
+       
+        foreach (var hitCollider in hitColliders)
+        {
+            // --- NEW: TALLOW STATION INTERACTION HOOK ---
+            S_Refuel_Station station = hitCollider.GetComponent<S_Refuel_Station>();
+            if (station != null && Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                station.TryRefillLantern(this);
+                return; // Action consumed
+            }
+        }    
+        
+    }
+}    
