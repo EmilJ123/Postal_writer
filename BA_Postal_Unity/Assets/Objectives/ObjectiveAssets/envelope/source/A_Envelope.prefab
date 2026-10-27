@@ -90,7 +90,7 @@ MonoBehaviour:
   ID: 1
   Name: Envelope
   quantity: 1
-  inventoryPrefab: {fileID: 9101052678312927382, guid: 6e0b794c6075143d19061aa284261902, type: 3}
+  inventoryPrefab: {fileID: 919132149155446097, guid: f164cef7f1c0c48b9a3f4f4a89d77877, type: 3}
 --- !u!212 &8965377556037090445
 SpriteRenderer:
   serializedVersion: 3

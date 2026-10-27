@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+
 public class S_SnowPathDrawer : MonoBehaviour
 {
     public ComputeShader snowComputeShader;

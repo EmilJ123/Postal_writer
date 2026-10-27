@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 using System.Collections.Generic;
 
 public enum MapTool
@@ -23,36 +22,23 @@ public class S_MapGridController : MonoBehaviour
     [SerializeField] private Color canvasBackgroundColor = Color.white;
 
     [Header("Drawing Tools")]
-    [SerializeField] private Color activePenColor = Color.yellow;
-    [SerializeField] private Color activeOutlineColor = new Color(1f, 0.5f, 0f);
-    [SerializeField] private float penRadius = 5f;
-    [SerializeField] private float outlineThickness = 1.2f;
-    [SerializeField] private float eraserRadius = 12f;
+    [SerializeField] private Color activePenColor = Color.black;
+    [SerializeField] private int penRadius = 4;
+    [SerializeField] private int eraserRadius = 12;
 
-    [Header("Preset Brush Sizes")]
-    [SerializeField] private float smallSize = 3f;
-    [SerializeField] private float mediumSize = 7f;
-    [SerializeField] private float largeSize = 12f;
-
-    [Header("Stroke Averaging & Smoothing")]
-    [Tooltip("Minimum pixel distance required before registering a new curve control point.")]
-    [SerializeField] private float minPointDistance = 4f;
-    [Tooltip("How aggressively sharp corners/fast drags are smoothed into rounded curves (higher = rounder curves).")]
-    [Range(0f, 1f)]
-    [SerializeField] private float curveAveraging = 0.5f;
+    [Header("Pen Stabilization")]
+    [Tooltip("Higher values = smoother, less jittery lines (e.g., 0.15 to 0.4). 0 = disabled.")]
+    [Range(0f, 0.8f)]
+    [SerializeField] private float lineStabilization = 0.25f;
 
     private Texture2D mapTexture;
     private MapTool currentTool = MapTool.Pen;
     private Sprite selectedStickerSprite;
     private List<GameObject> placedStickers = new List<GameObject>();
 
-    // Input & Curve Control Buffers
-    private Coroutine drawCoroutine = null;
-    private List<Vector2> rawControlPoints = new List<Vector2>();
-    private Vector2 currentMouseScreenPos;
-    private Camera currentPointerCamera;
-    private Vector2? lastEvaluatedSplinePos = null;
-    private bool isDrawing = false;
+    // Tracks current stroke positions for stabilization & interpolation
+    private Vector2? stabilizedLocalPos = null;
+    private Vector2Int? lastPixelPos = null;
 
     private void Awake()
     {
@@ -100,28 +86,27 @@ public class S_MapGridController : MonoBehaviour
         placedStickers.Clear();
     }
 
-    // --- CONTROLS ---
+    // --- COLOR & TOOL CONTROLS ---
 
-    public void SetPenRadius(float newRadius) => penRadius = Mathf.Max(0.5f, newRadius);
-
-    public void SetPresetSize(int presetIndex)
+    public void SetPenColor(Color newColor)
     {
-        switch (presetIndex)
-        {
-            case 0: penRadius = smallSize; break;
-            case 1: penRadius = mediumSize; break;
-            case 2: penRadius = largeSize; break;
-        }
-    }
-
-    public void SetPenColorWithOutline(Color mainColor, Color outlineColor)
-    {
-        activePenColor = mainColor;
-        activeOutlineColor = outlineColor;
+        activePenColor = newColor;
         currentTool = MapTool.Pen;
     }
 
-    public void SetTool(MapTool tool) => currentTool = tool;
+    // Call this from UI buttons (e.g., Red Button passes Hex/Color)
+    public void SetPenColorHTML(string hexColor)
+    {
+        if (ColorUtility.TryParseHtmlString(hexColor, out Color parsedColor))
+        {
+            SetPenColor(parsedColor);
+        }
+    }
+
+    public void SetTool(MapTool tool)
+    {
+        currentTool = tool;
+    }
 
     public void SelectSticker(Sprite stickerSprite)
     {
@@ -129,11 +114,15 @@ public class S_MapGridController : MonoBehaviour
         currentTool = MapTool.Sticker;
     }
 
-    // --- INPUT POINTER EVENTS ---
+    // --- EVENT TRIGGER INPUTS ---
 
     public void OnPointerDown(BaseEventData data)
     {
         PointerEventData pointerData = (PointerEventData)data;
+
+        // Reset stroke smoothing on every click
+        lastPixelPos = null;
+        stabilizedLocalPos = null;
 
         if (currentTool == MapTool.Sticker && pointerData.button == PointerEventData.InputButton.Left)
         {
@@ -145,260 +134,122 @@ public class S_MapGridController : MonoBehaviour
         }
         else
         {
-            isDrawing = true;
-            rawControlPoints.Clear();
-            lastEvaluatedSplinePos = null;
-
-            currentMouseScreenPos = pointerData.position;
-            currentPointerCamera = pointerData.pressEventCamera;
-
-            // Seed initial stroke position
-            if (TryGetTexturePixel(currentMouseScreenPos, currentPointerCamera, out Vector2 pixelPos))
-            {
-                rawControlPoints.Add(pixelPos);
-            }
-
-            if (drawCoroutine != null) StopCoroutine(drawCoroutine);
-            drawCoroutine = StartCoroutine(DrawLoopRoutine());
+            HandlePointerInput(data);
         }
     }
 
     public void HandlePointerInput(BaseEventData data)
     {
+        if (currentTool == MapTool.Sticker) return;
+
         PointerEventData pointerData = (PointerEventData)data;
-        currentMouseScreenPos = pointerData.position;
-        currentPointerCamera = pointerData.pressEventCamera;
+        if (mapRectTransform == null || mapTexture == null) return;
+
+        bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            mapRectTransform,
+            pointerData.position,
+            pointerData.pressEventCamera,
+            out Vector2 rawLocalPoint
+        );
+
+        if (!isInside)
+        {
+            lastPixelPos = null;
+            stabilizedLocalPos = null;
+            return;
+        }
+
+        // Apply Stabilization (Exponential Smoothing / Lazy Mouse Filter)
+        Vector2 targetLocalPos;
+        if (!stabilizedLocalPos.HasValue || lineStabilization <= 0f)
+        {
+            targetLocalPos = rawLocalPoint;
+        }
+        else
+        {
+            float lerpFactor = 1f - lineStabilization;
+            targetLocalPos = Vector2.Lerp(stabilizedLocalPos.Value, rawLocalPoint, lerpFactor);
+        }
+        stabilizedLocalPos = targetLocalPos;
+
+        // Map Local Coordinates to UV Pixels
+        Vector2 rectSize = mapRectTransform.rect.size;
+        float u = (targetLocalPos.x + rectSize.x * 0.5f) / rectSize.x;
+        float v = (targetLocalPos.y + rectSize.y * 0.5f) / rectSize.y;
+
+        if (u < 0f || u > 1f || v < 0f || v > 1f)
+        {
+            lastPixelPos = null;
+            return;
+        }
+
+        int texX = Mathf.FloorToInt(u * textureWidth);
+        int texY = Mathf.FloorToInt(v * textureHeight);
+        Vector2Int currentPixelPos = new Vector2Int(texX, texY);
+
+        switch (currentTool)
+        {
+            case MapTool.Pen:
+                DrawSmoothLine(currentPixelPos, penRadius, activePenColor);
+                break;
+
+            case MapTool.Eraser:
+                DrawSmoothLine(currentPixelPos, eraserRadius, canvasBackgroundColor);
+                break;
+        }
     }
 
     public void OnPointerUp(BaseEventData data)
     {
-        isDrawing = false;
-        if (drawCoroutine != null)
-        {
-            StopCoroutine(drawCoroutine);
-            drawCoroutine = null;
-        }
-
-        // Finalize remaining curve segments on lift
-        if (rawControlPoints.Count > 1)
-        {
-            FlushRemainingSplineSegments();
-        }
-
-        if (mapTexture != null)
-        {
-            mapTexture.Apply();
-        }
-
-        rawControlPoints.Clear();
-        lastEvaluatedSplinePos = null;
+        lastPixelPos = null;
+        stabilizedLocalPos = null;
     }
 
-    // --- DRAWING COROUTINE & SPLINE EVALUATION ---
+    // --- DRAWING ALGORITHMS ---
 
-    private IEnumerator DrawLoopRoutine()
+    private void DrawSmoothLine(Vector2Int targetPos, int radius, Color color)
     {
-        WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
-
-        while (isDrawing)
+        if (lastPixelPos.HasValue && lastPixelPos.Value != targetPos)
         {
-            if (TryGetTexturePixel(currentMouseScreenPos, currentPointerCamera, out Vector2 currentPixel))
-            {
-                if (rawControlPoints.Count == 0)
-                {
-                    rawControlPoints.Add(currentPixel);
-                }
-                else
-                {
-                    Vector2 lastAdded = rawControlPoints[rawControlPoints.Count - 1];
-                    if (Vector2.Distance(lastAdded, currentPixel) >= minPointDistance)
-                    {
-                        rawControlPoints.Add(currentPixel);
-                        EvaluateAndDrawSplineSegment();
-                    }
-                }
-            }
+            Vector2Int start = lastPixelPos.Value;
+            float distance = Vector2.Distance(start, targetPos);
+            int steps = Mathf.Max(Mathf.CeilToInt(distance * 2f), 1);
 
-            yield return fixedWait;
+            for (int i = 0; i <= steps; i++)
+            {
+                float t = (float)i / steps;
+                int x = Mathf.RoundToInt(Mathf.Lerp(start.x, targetPos.x, t));
+                int y = Mathf.RoundToInt(Mathf.Lerp(start.y, targetPos.y, t));
+                DrawCircle(x, y, radius, color);
+            }
         }
-    }
-
-    private void EvaluateAndDrawSplineSegment()
-    {
-        int count = rawControlPoints.Count;
-        if (count < 2) return;
-
-        // Catmull-Rom Spline point evaluation
-        Vector2 p0 = (count >= 3) ? rawControlPoints[count - 3] : rawControlPoints[count - 2];
-        Vector2 p1 = rawControlPoints[count - 2];
-        Vector2 p2 = rawControlPoints[count - 1];
-        Vector2 p3 = (count >= 4) ? rawControlPoints[count - 1] : p2;
-
-        float distance = Vector2.Distance(p1, p2);
-        int steps = Mathf.Max(Mathf.CeilToInt(distance * 2f), 4);
-
-        for (int i = 0; i <= steps; i++)
+        else
         {
-            float t = (float)i / steps;
-            Vector2 splinePoint = CalculateCatmullRom(p0, p1, p2, p3, t, curveAveraging);
-
-            if (lastEvaluatedSplinePos.HasValue)
-            {
-                RenderLineSegment(lastEvaluatedSplinePos.Value, splinePoint);
-            }
-            lastEvaluatedSplinePos = splinePoint;
+            DrawCircle(targetPos.x, targetPos.y, radius, color);
         }
 
+        lastPixelPos = targetPos;
         mapTexture.Apply();
     }
 
-    private void FlushRemainingSplineSegments()
+    private void DrawCircle(int cx, int cy, int radius, Color color)
     {
-        int count = rawControlPoints.Count;
-        if (count < 2) return;
-
-        Vector2 p0 = (count >= 3) ? rawControlPoints[count - 3] : rawControlPoints[count - 2];
-        Vector2 p1 = rawControlPoints[count - 2];
-        Vector2 p2 = rawControlPoints[count - 1];
-
-        float distance = Vector2.Distance(p1, p2);
-        int steps = Mathf.Max(Mathf.CeilToInt(distance * 2f), 4);
-
-        for (int i = 0; i <= steps; i++)
+        int rSquared = radius * radius;
+        for (int x = -radius; x <= radius; x++)
         {
-            float t = (float)i / steps;
-            Vector2 splinePoint = CalculateCatmullRom(p0, p1, p2, p2, t, curveAveraging);
-
-            if (lastEvaluatedSplinePos.HasValue)
+            for (int y = -radius; y <= radius; y++)
             {
-                RenderLineSegment(lastEvaluatedSplinePos.Value, splinePoint);
-            }
-            lastEvaluatedSplinePos = splinePoint;
-        }
-    }
-
-    // Centripetal Catmull-Rom Spline Formula
-    private Vector2 CalculateCatmullRom(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t, float alpha)
-    {
-        Vector2 a = 2f * p1;
-        Vector2 b = p2 - p0;
-        Vector2 c = 2f * p0 - 5f * p1 + 4f * p2 - p3;
-        Vector2 d = -p0 + 3f * p1 - 3f * p2 + p3;
-
-        return 0.5f * (a + (b * t) + (c * t * t) + (d * t * t * t));
-    }
-
-    // --- PIXEL RENDERING ENGINE ---
-
-    private void RenderLineSegment(Vector2 startPos, Vector2 endPos)
-    {
-        float dist = Vector2.Distance(startPos, endPos);
-        int steps = Mathf.Max(Mathf.CeilToInt(dist * 2f), 1);
-
-        List<Vector2Int> pixelPath = new List<Vector2Int>();
-        for (int i = 0; i <= steps; i++)
-        {
-            float t = (float)i / steps;
-            Vector2 p = Vector2.Lerp(startPos, endPos, t);
-            Vector2Int pixel = new Vector2Int(Mathf.RoundToInt(p.x), Mathf.RoundToInt(p.y));
-            
-            if (pixelPath.Count == 0 || pixelPath[pixelPath.Count - 1] != pixel)
-            {
-                pixelPath.Add(pixel);
-            }
-        }
-
-        float radius = (currentTool == MapTool.Eraser) ? eraserRadius : penRadius;
-        Color color = (currentTool == MapTool.Eraser) ? canvasBackgroundColor : activePenColor;
-        Color? outline = (currentTool == MapTool.Eraser) ? null : (Color?)activeOutlineColor;
-
-        // Pass 1: Outline
-        if (outline.HasValue && outlineThickness > 0f)
-        {
-            float outerRadius = radius + outlineThickness;
-            foreach (Vector2Int pt in pixelPath)
-            {
-                DrawAACircleOutline(pt.x, pt.y, outerRadius, outline.Value, color);
-            }
-        }
-
-        // Pass 2: Fill Core
-        foreach (Vector2Int pt in pixelPath)
-        {
-            DrawAACircleMain(pt.x, pt.y, radius, color);
-        }
-    }
-
-    private void DrawAACircleOutline(int cx, int cy, float radius, Color outlineColor, Color mainPenColor)
-    {
-        int maxR = Mathf.CeilToInt(radius + 1f);
-
-        for (int x = -maxR; x <= maxR; x++)
-        {
-            for (int y = -maxR; y <= maxR; y++)
-            {
-                float dist = Mathf.Sqrt(x * x + y * y);
-                if (dist > radius + 0.5f) continue;
-
-                int px = cx + x;
-                int py = cy + y;
-
-                if (px >= 0 && px < textureWidth && py >= 0 && py < textureHeight)
+                if (x * x + y * y <= rSquared)
                 {
-                    Color bg = mapTexture.GetPixel(px, py);
-                    if (bg == mainPenColor) continue;
-
-                    float alpha = Mathf.Clamp01(radius + 0.5f - dist);
-                    Color blended = Color.Lerp(bg, outlineColor, alpha * outlineColor.a);
-                    mapTexture.SetPixel(px, py, blended);
+                    int px = cx + x;
+                    int py = cy + y;
+                    if (px >= 0 && px < textureWidth && py >= 0 && py < textureHeight)
+                    {
+                        mapTexture.SetPixel(px, py, color);
+                    }
                 }
             }
         }
-    }
-
-    private void DrawAACircleMain(int cx, int cy, float radius, Color mainColor)
-    {
-        int maxR = Mathf.CeilToInt(radius + 1f);
-
-        for (int x = -maxR; x <= maxR; x++)
-        {
-            for (int y = -maxR; y <= maxR; y++)
-            {
-                float dist = Mathf.Sqrt(x * x + y * y);
-                if (dist > radius + 0.5f) continue;
-
-                int px = cx + x;
-                int py = cy + y;
-
-                if (px >= 0 && px < textureWidth && py >= 0 && py < textureHeight)
-                {
-                    Color bg = mapTexture.GetPixel(px, py);
-                    float alpha = Mathf.Clamp01(radius + 0.5f - dist);
-                    Color blended = Color.Lerp(bg, mainColor, alpha * mainColor.a);
-                    mapTexture.SetPixel(px, py, blended);
-                }
-            }
-        }
-    }
-
-    private bool TryGetTexturePixel(Vector2 screenPos, Camera cam, out Vector2 pixelPos)
-    {
-        pixelPos = Vector2.zero;
-        if (mapRectTransform == null) return false;
-
-        bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            mapRectTransform, screenPos, cam, out Vector2 localPoint);
-
-        if (!isInside) return false;
-
-        Vector2 rectSize = mapRectTransform.rect.size;
-        float u = (localPoint.x + rectSize.x * 0.5f) / rectSize.x;
-        float v = (localPoint.y + rectSize.y * 0.5f) / rectSize.y;
-
-        if (u < 0f || u > 1f || v < 0f || v > 1f) return false;
-
-        pixelPos = new Vector2(u * textureWidth, v * textureHeight);
-        return true;
     }
 
     private void PlaceStickerAtLocalPosition(Vector2 localPosition)
