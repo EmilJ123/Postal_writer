@@ -124,19 +124,24 @@ public class S_DialogueController : MonoBehaviour
             return;
         }
 
-        if (S_QuestController.Instance == null)
+        S_QuestManager questManager = FindObjectOfType<S_QuestManager>();
+        if (questManager == null)
         {
             return;
         }
 
         string questID = dialogueData.quest.questID;
 
-        // Check completion
-        if (S_QuestController.Instance.IsQuestCompleted(questID))
-        {
-            questState = QuestState.Completed;
-        }
-        else if (S_QuestController.Instance.IsQuestActive(questID))
+        var isQuestActiveMethod = questManager.GetType().GetMethod(
+            "IsQuestActive",
+            new[] { typeof(string) }
+        );
+
+        bool isQuestActive = isQuestActiveMethod != null &&
+            isQuestActiveMethod.Invoke(questManager, new object[] { questID }) is bool active &&
+            active;
+
+        if (isQuestActive)
         {
             questState = QuestState.InProgress;
         }
