@@ -4,11 +4,11 @@
 - Active scene:
   - Name: Level
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item, SnowGround
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, SnowGround, Item, NPC
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Terrain
+    - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Terrain_three
+  - Name: Respawn
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
