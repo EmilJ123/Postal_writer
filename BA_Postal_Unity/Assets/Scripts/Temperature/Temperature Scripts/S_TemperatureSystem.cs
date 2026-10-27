@@ -1,3 +1,4 @@
+using Temperature_Script;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -158,7 +159,7 @@ public class S_TemperatureSystem : MonoBehaviour
             //player.walkSpeed = 2.4f;
             //player.staminaRegenRate = 0;
         }
-        else if (currentTemperature > 30 && currentTemperature <= 69)
+        else if (currentTemperature > 30 && currentTemperature <= 45)
         {
             //player.walkSpeed = 3.5f;
             //player.staminaRegenRate = 6;
