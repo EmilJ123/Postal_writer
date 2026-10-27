@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Subdivided Plane (3)
-  - Tag: SnowGround
+  - Name: GM-Wedge (1)
+  - Tag: Untagged
   - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
