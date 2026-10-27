@@ -4,11 +4,11 @@
 - Active scene:
   - Name: Level
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, SnowGround, Item, NPC
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item, SnowGround
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
+    - Default, TransparentFX, Ignore Raycast, Water, UI, Terrain
 - Active game object:
-  - Name: GM-Climb
+  - Name: Lampost (1)
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

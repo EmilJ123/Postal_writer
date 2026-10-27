@@ -2,7 +2,21 @@ fileFormatVersion: 2
 guid: 5a7ca585a9b2b3c4587125916713263d
 NativeFormatImporter:
   externalObjects: {}
+<<<<<<< HEAD
   mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214264
+  packageName: Minimalist Scalable Grid Prototype Materials
+  packageVersion: 1.2
+  assetPath: Assets/Scalable Grid Prototype Materials/Materials/Blue_Prototype.mat
+  uploadId: 640529
+>>>>>>> parent of 591de08 (Merge branch 'nat-coding' into System_Testing)
