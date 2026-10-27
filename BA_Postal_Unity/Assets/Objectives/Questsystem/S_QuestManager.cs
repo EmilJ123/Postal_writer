@@ -5,22 +5,11 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quests/Quest")] 
 public class S_QuestManager : ScriptableObject 
-{
-    internal static object Instance;
+{ 
     public string questID; 
     public string questName; 
     public string description; 
-    public List<QuestObjective> objectives;
-
-    internal bool IsQuestActive(string questID)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal bool IsQuestCompleted(string questID)
-    {
-        throw new NotImplementedException();
-    }
+    public List<QuestObjective> objectives; 
 
     private void OnValidate() 
     { 
