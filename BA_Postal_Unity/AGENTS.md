@@ -2,13 +2,13 @@
 - Project name: BA_Postal_Unity
 - Unity version: Unity 6000.6.2f1
 - Active scene:
-  - Name: Level
+  - Name: Natalia.Testing
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Item, SnowGround, NPC
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, SnowGround, Item, NPC
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Terrain
+    - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Water (3)
+  - Name: DialogueText
   - Tag: Untagged
-  - Layer: 3
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
