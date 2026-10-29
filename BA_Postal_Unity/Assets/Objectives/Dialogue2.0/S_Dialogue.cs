@@ -395,6 +395,10 @@ public class S_Dialogue : MonoBehaviour
 
     private void SelectChoice(int choiceIndex)
     {
+        
+        Debug.Log(
+            $"Choice {choiceIndex} selected. Current line={lineIndex}"
+        );
         if (!choosing)
             return;
 
@@ -418,7 +422,7 @@ public class S_Dialogue : MonoBehaviour
         choosing = false;
         HideChoices();
 
-        int nextDialogueIndex = lineIndex + 1;
+        int nextDialogueIndex = lineIndex + 1; //this mf only chooses the number displayed here (if number says 1 only picks 1 same if it only displayes 2)
 
         if (!IsValidLineIndex(nextDialogueIndex))
         {
@@ -430,7 +434,13 @@ public class S_Dialogue : MonoBehaviour
             EndDialogue();
             return;
         }
+        Debug.Log(
+            $"Selected choice text: {selectedChoice}"
+        );
 
+        Debug.Log(
+            $"Moving from line {lineIndex} to line {nextDialogueIndex}"
+        );
         lineIndex = nextDialogueIndex;
         StartTypingLine();
     }

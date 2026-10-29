@@ -38,10 +38,10 @@ MonoBehaviour:
     endDialogue: 1
   - text: 'The address is enough? Yes. Good. '
     autoProgress: 1
-    endDialogue: 0
+    endDialogue: 1
   - text: "\u2026Someone who doesn't need the entire town knowing her business. "
     autoProgress: 1
-    endDialogue: 0
+    endDialogue: 1
   autoProgressDelay: 2
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
