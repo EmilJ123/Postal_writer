@@ -51,5 +51,10 @@ MonoBehaviour:
     choices:
     - Ask who the letter is for.
     - Gesture gently toward the blank address line.
+    nextDialogueIndices: 0700000008000000i
+  - dialogueIndex: 6
+    choices:
+    - Ask who the letter is for.
+    - Gesture gently toward the blank address line.
     nextDialogueIndices: 0800000009000000i
   endDialogueLines: 
