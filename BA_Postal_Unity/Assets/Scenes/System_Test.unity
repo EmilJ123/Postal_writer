@@ -7184,6 +7184,27 @@ MonoBehaviour:
   maxWarmthGeneration: 12
   heatRadius: 4
   lanternLightObject: {fileID: 0}
+--- !u!135 &7009873734942685959
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009873734942685948}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7297491014470436099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7402,7 +7423,8 @@ PrefabInstance:
       value: 0.000006950514
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 949085667694813557, guid: 354ea8ce8d6996b4d9f4133701f2eaee, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 354ea8ce8d6996b4d9f4133701f2eaee, type: 3}
@@ -7648,6 +7670,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7558645779634013028, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7009873734942685958}
+    - targetCorrespondingSourceObject: {fileID: 7558645779634013028, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7009873734942685959}
   m_SourcePrefab: {fileID: 100100000, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
