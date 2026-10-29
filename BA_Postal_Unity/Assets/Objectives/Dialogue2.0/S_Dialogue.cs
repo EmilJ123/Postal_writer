@@ -1,7 +1,6 @@
-
-using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class S_Dialogue : MonoBehaviour
 {
@@ -18,18 +17,19 @@ public class S_Dialogue : MonoBehaviour
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private TMP_Text[] choiceTexts;
 
-    private int lineIndex;
+    private int lineIndex = 0;
 
-    private bool isInteracting;
-    private bool canInteract;
-    private bool isTyping;
-    private bool choosing;
+    private bool isInteracting = false;
+    private bool canInteract = false;
+    private bool isTyping = false;
+    private bool choosing = false;
 
     private Coroutine typingCoroutine;
-    private Coroutine autoProgressCoroutine;
+
 
     private void Update()
     {
+        // Show interact prompt
         if (interactPrompt != null)
         {
             interactPrompt.SetActive(
@@ -37,50 +37,45 @@ public class S_Dialogue : MonoBehaviour
             );
         }
 
-        if (!isInteracting)
-        {
-            if (canInteract && Input.GetKeyDown(KeyCode.F))
-            {
-                StartDialogue();
-            }
 
-            return;
+        // Start dialogue
+        if (canInteract &&
+            !isInteracting &&
+            Input.GetKeyDown(KeyCode.F))
+        {
+            StartDialogue();
         }
 
+
+        // If player is choosing an option
         if (choosing)
         {
             HandleChoiceInput();
             return;
         }
 
-        if (isTyping)
-        {
-            // Press F to instantly finish typing the current line.
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                CompleteTyping();
-            }
 
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
+        // Continue dialogue
+        if (isInteracting &&
+            !isTyping &&
+            nextLinePrompt != null &&
+            nextLinePrompt.activeInHierarchy &&
+            Input.GetKeyDown(KeyCode.F))
         {
             NextLine();
         }
     }
 
-    // --------------------------------------------------
-    // START DIALOGUE
-    // --------------------------------------------------
 
     private void StartDialogue()
     {
         if (dialogueData == null)
         {
             Debug.LogWarning(
-                "No S_NPCDialogue assigned to " + gameObject.name
+                "No S_NPCDialogue assigned to " +
+                gameObject.name
             );
+
             return;
         }
 
@@ -88,13 +83,17 @@ public class S_Dialogue : MonoBehaviour
             dialogueData.dialogueLines.Length == 0)
         {
             Debug.LogWarning(
-                "No dialogue lines found on " + dialogueData.name
+                "No dialogue lines found in " +
+                dialogueData.name
             );
+
             return;
         }
 
-        canInteract = true;
+
+        canInteract = false;
         isInteracting = true;
+
         lineIndex = 0;
 
         if (dialogueBox != null)
@@ -104,26 +103,22 @@ public class S_Dialogue : MonoBehaviour
             nextLinePrompt.SetActive(false);
 
         HideChoices();
+
         StartTypingLine();
     }
 
-    // --------------------------------------------------
-    // TYPEWRITER EFFECT
-    // --------------------------------------------------
 
     private void StartTypingLine()
     {
-        StopTypingCoroutine();
-        StopAutoProgress();
-
-        if (!IsValidLineIndex(lineIndex))
+        if (typingCoroutine != null)
         {
-            EndDialogue();
-            return;
+            StopCoroutine(typingCoroutine);
         }
 
-        typingCoroutine = StartCoroutine(WriteLine());
+        typingCoroutine =
+            StartCoroutine(WriteLine());
     }
+
 
     private IEnumerator WriteLine()
     {
@@ -134,28 +129,18 @@ public class S_Dialogue : MonoBehaviour
 
         HideChoices();
 
-        if (dialogueText == null)
-        {
-            Debug.LogWarning("Dialogue Text is not assigned.");
-            EndDialogue();
-            yield break;
-        }
+        dialogueText.text = "";
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
 
-        dialogueText.text = "";
 
-        string fullText = currentLine.text ?? "";
-
-        foreach (char character in fullText)
+        // Type the dialogue
+        foreach (char character in currentLine.text)
         {
-            if (!isInteracting)
-                yield break;
-
             dialogueText.text += character;
 
-            if (dialogueData.typingSpeed > 0f)
+            if (dialogueData.typingSpeed > 0)
             {
                 yield return new WaitForSeconds(
                     dialogueData.typingSpeed
@@ -163,10 +148,11 @@ public class S_Dialogue : MonoBehaviour
             }
         }
 
-        isTyping = false;
-        typingCoroutine = null;
 
-        // Check for choices on this line.
+        isTyping = false;
+
+
+        // Check if this line has choices
         DialogueChoice dialogueChoice =
             GetChoicesForLine(lineIndex);
 
@@ -178,130 +164,96 @@ public class S_Dialogue : MonoBehaviour
             yield break;
         }
 
-        // End immediately if this line is marked as the ending.
+
+        // --------------------------------------------------
+        // END DIALOGUE
+        // --------------------------------------------------
+
+        // If this specific line is marked "End Dialogue",
+        // close the dialogue immediately after typing.
         if (currentLine.endDialogue)
         {
             EndDialogue();
             yield break;
         }
 
-        // Keep F available on the final line so the player
-        // can close the conversation.
+
+        // If this is the final line in the dialogue array,
+        // also end the dialogue.
+        if (lineIndex >= dialogueData.dialogueLines.Length - 1)
+        {
+            if (nextLinePrompt != null)
+                nextLinePrompt.SetActive(true);
+
+            yield break;
+        }
+
+
+        // Normal dialogue
         if (nextLinePrompt != null)
             nextLinePrompt.SetActive(true);
 
-        // Automatically advance only when another line exists.
-        if (currentLine.autoProgress &&
-            lineIndex < dialogueData.dialogueLines.Length - 1)
+
+        // Auto progress
+        if (currentLine.autoProgress)
         {
-            autoProgressCoroutine = StartCoroutine(
-                AutoProgressAfterDelay()
+            yield return new WaitForSeconds(
+                dialogueData.autoProgressDelay
             );
+
+            if (isInteracting &&
+                !choosing &&
+                !isTyping)
+            {
+                NextLine();
+            }
         }
     }
 
-    private void CompleteTyping()
-    {
-        if (!isTyping || !IsValidLineIndex(lineIndex))
-            return;
-
-        StopTypingCoroutine();
-
-        DialogueLine currentLine =
-            dialogueData.dialogueLines[lineIndex];
-
-        if (dialogueText != null)
-            dialogueText.text = currentLine.text ?? "";
-
-        isTyping = false;
-
-        // Run the post-typing logic through a new coroutine.
-        typingCoroutine = StartCoroutine(FinishLine());
-    }
-
-    private IEnumerator FinishLine()
-    {
-        if (!isInteracting || !IsValidLineIndex(lineIndex))
-            yield break;
-
-        DialogueLine currentLine =
-            dialogueData.dialogueLines[lineIndex];
-
-        DialogueChoice dialogueChoice =
-            GetChoicesForLine(lineIndex);
-
-        if (dialogueChoice != null &&
-            dialogueChoice.choices != null &&
-            dialogueChoice.choices.Length > 0)
-        {
-            typingCoroutine = null;
-            ShowChoices(dialogueChoice);
-            yield break;
-        }
-
-        if (currentLine.endDialogue)
-        {
-            typingCoroutine = null;
-            EndDialogue();
-            yield break;
-        }
-
-        if (nextLinePrompt != null)
-            nextLinePrompt.SetActive(true);
-
-        typingCoroutine = null;
-
-        if (currentLine.autoProgress &&
-            lineIndex < dialogueData.dialogueLines.Length - 1)
-        {
-            autoProgressCoroutine = StartCoroutine(
-                AutoProgressAfterDelay()
-            );
-        }
-    }
-
-    private IEnumerator AutoProgressAfterDelay()
-    {
-        yield return new WaitForSeconds(
-            Mathf.Max(0f, dialogueData.autoProgressDelay)
-        );
-
-        autoProgressCoroutine = null;
-
-        if (isInteracting && !isTyping && !choosing)
-        {
-            NextLine();
-        }
-    }
-
-    // --------------------------------------------------
-    // DIALOGUE PROGRESSION
-    // --------------------------------------------------
 
     private void NextLine()
     {
-        if (!isInteracting || isTyping || choosing)
+        if (isTyping || choosing)
             return;
 
-        if (!IsValidLineIndex(lineIndex))
+
+        // Safety check
+        if (lineIndex < 0 ||
+            lineIndex >= dialogueData.dialogueLines.Length)
         {
             EndDialogue();
             return;
         }
+
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
 
-        if (currentLine.endDialogue ||
-            lineIndex >= dialogueData.dialogueLines.Length - 1)
+
+        // IMPORTANT:
+        // If this line is marked "End Dialogue",
+        // do NOT advance to the next line.
+        if (currentLine.endDialogue)
         {
             EndDialogue();
             return;
         }
 
+
+        // If this is the final line, end dialogue.
+        if (lineIndex >=
+            dialogueData.dialogueLines.Length - 1)
+        {
+            EndDialogue();
+            return;
+        }
+
+
         lineIndex++;
+
         StartTypingLine();
     }
+
 
     // --------------------------------------------------
     // CHOICES
@@ -309,162 +261,241 @@ public class S_Dialogue : MonoBehaviour
 
     private DialogueChoice GetChoicesForLine(int index)
     {
-        if (dialogueData == null || dialogueData.choices == null)
+        if (dialogueData.choices == null)
             return null;
 
-        foreach (DialogueChoice dialogueChoice in dialogueData.choices)
+
+        foreach (DialogueChoice choice
+                 in dialogueData.choices)
         {
-            if (dialogueChoice != null &&
-                dialogueChoice.dialogueIndex == index)
+            if (choice.dialogueIndex == index)
             {
-                return dialogueChoice;
+                return choice;
             }
         }
+
 
         return null;
     }
 
-    private void ShowChoices(DialogueChoice dialogueChoice)
+
+    private void ShowChoices(
+        DialogueChoice dialogueChoice
+    )
     {
         if (choicePanel == null)
         {
-            Debug.LogWarning("Choice Panel is not assigned.");
+            Debug.LogWarning(
+                "Choice Panel is not assigned."
+            );
+
             return;
         }
 
-        if (choiceTexts == null || choiceTexts.Length == 0)
-        {
-            Debug.LogWarning("No choice text slots are assigned.");
-            return;
-        }
 
         choosing = true;
 
         if (nextLinePrompt != null)
             nextLinePrompt.SetActive(false);
 
+
         choicePanel.SetActive(true);
 
+
+        // Hide all choice text objects
         for (int i = 0; i < choiceTexts.Length; i++)
         {
             if (choiceTexts[i] != null)
+            {
                 choiceTexts[i].gameObject.SetActive(false);
+            }
         }
 
-        int displayedCount = Mathf.Min(
-            dialogueChoice.choices.Length,
-            choiceTexts.Length,
-            5
-        );
 
-        for (int i = 0; i < displayedCount; i++)
+        // Display choices
+        for (int i = 0;
+             i < dialogueChoice.choices.Length &&
+             i < choiceTexts.Length;
+             i++)
         {
             if (choiceTexts[i] == null)
                 continue;
 
+
+            Choice choice =
+                dialogueChoice.choices[i];
+
+
+            // Add number before choice
             choiceTexts[i].text =
-                "[" + (i + 1) + "] " + dialogueChoice.choices[i];
+                "[" + (i + 1) + "] " +
+                choice.text;
+
 
             choiceTexts[i].gameObject.SetActive(true);
         }
     }
 
+
     private void HandleChoiceInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) ||
-            Input.GetKeyDown(KeyCode.Keypad1))
-            SelectChoice(0);
-
-        else if (Input.GetKeyDown(KeyCode.Alpha2) ||
-                 Input.GetKeyDown(KeyCode.Keypad2))
-            SelectChoice(1);
-
-        else if (Input.GetKeyDown(KeyCode.Alpha3) ||
-                 Input.GetKeyDown(KeyCode.Keypad3))
-            SelectChoice(2);
-
-        else if (Input.GetKeyDown(KeyCode.Alpha4) ||
-                 Input.GetKeyDown(KeyCode.Keypad4))
-            SelectChoice(3);
-
-        else if (Input.GetKeyDown(KeyCode.Alpha5) ||
-                 Input.GetKeyDown(KeyCode.Keypad5))
-            SelectChoice(4);
-    }
-
-    private void SelectChoice(int choiceIndex)
-    {
-        if (!choosing)
-            return;
-
         DialogueChoice dialogueChoice =
             GetChoicesForLine(lineIndex);
 
-        if (dialogueChoice == null ||
-            dialogueChoice.choices == null ||
-            choiceIndex < 0 ||
-            choiceIndex >= dialogueChoice.choices.Length ||
-            choiceIndex >= choiceTexts.Length)
+
+        if (dialogueChoice == null)
+            return;
+
+
+        // Choice 1
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SelectChoice(0);
+        }
+
+
+        // Choice 2
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectChoice(1);
+        }
+
+
+        // Choice 3
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectChoice(2);
+        }
+
+
+        // Choice 4
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SelectChoice(3);
+        }
+
+
+        // Choice 5
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SelectChoice(4);
+        }
+    }
+
+
+    private void SelectChoice(int choiceIndex)
+    {
+        DialogueChoice dialogueChoice =
+            GetChoicesForLine(lineIndex);
+
+
+        if (dialogueChoice == null)
+            return;
+
+
+        if (choiceIndex < 0 ||
+            choiceIndex >= dialogueChoice.choices.Length)
         {
             return;
         }
 
-        string selectedChoice =
+
+        Choice selectedChoice =
             dialogueChoice.choices[choiceIndex];
 
-        Debug.Log("Selected choice: " + selectedChoice);
 
+        Debug.Log(
+            "Selected choice: " +
+            selectedChoice.text
+        );
+
+
+        // Give quest
+        if (selectedChoice.givesQuest &&
+            selectedChoice.quest != null)
+        {
+            GiveQuest(
+                selectedChoice.quest
+            );
+        }
+
+
+        // Stop choosing
         choosing = false;
+
+
+        // Hide choices
         HideChoices();
 
-        int nextDialogueIndex = lineIndex + 1;
 
-        if (!IsValidLineIndex(nextDialogueIndex))
+        // Move to selected dialogue
+        lineIndex =
+            selectedChoice.nextDialogueIndex;
+
+
+        // Safety check for invalid dialogue index
+        if (lineIndex < 0 ||
+            lineIndex >= dialogueData.dialogueLines.Length)
         {
             Debug.LogWarning(
-                "Choice '" + selectedChoice +
-                "' has no following dialogue line."
+                "Choice '" +
+                selectedChoice.text +
+                "' points to an invalid dialogue index: " +
+                lineIndex
             );
 
             EndDialogue();
             return;
         }
 
-        lineIndex = nextDialogueIndex;
+
         StartTypingLine();
     }
+
 
     private void HideChoices()
     {
         choosing = false;
 
+
         if (choicePanel != null)
             choicePanel.SetActive(false);
+
 
         if (choiceTexts == null)
             return;
 
-        foreach (TMP_Text choiceText in choiceTexts)
+
+        foreach (TMP_Text text in choiceTexts)
         {
-            if (choiceText != null)
-                choiceText.gameObject.SetActive(false);
+            if (text != null)
+            {
+                text.gameObject.SetActive(false);
+            }
         }
     }
+
 
     // --------------------------------------------------
     // QUEST
     // --------------------------------------------------
 
-    private void GiveQuest(S_QuestManager quest)
+    private void GiveQuest(
+        S_QuestManager quest
+    )
     {
-        if (quest == null)
-            return;
+        Debug.Log(
+            "Quest selected: " +
+            quest.name
+        );
 
-        Debug.Log("Quest selected: " + quest.name);
 
-        // Connect your quest manager here.
-        // Example: quest.StartQuest();
+        // Connect your quest system here.
+        //
+        // Example:
+        // quest.StartQuest();
     }
+
 
     // --------------------------------------------------
     // END DIALOGUE
@@ -472,72 +503,57 @@ public class S_Dialogue : MonoBehaviour
 
     private void EndDialogue()
     {
-        StopTypingCoroutine();
-        StopAutoProgress();
-
-        isTyping = false;
-        choosing = false;
-        isInteracting = false;
-
-        if (dialogueBox != null)
-            dialogueBox.SetActive(false);
-
-        if (nextLinePrompt != null)
-            nextLinePrompt.SetActive(false);
-
-        HideChoices();
-
-        if (interactPrompt != null)
-            interactPrompt.SetActive(canInteract);
-    }
-
-    private void StopTypingCoroutine()
-    {
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
             typingCoroutine = null;
         }
+
+
+        isTyping = false;
+        choosing = false;
+        isInteracting = false;
+
+
+        if (dialogueBox != null)
+            dialogueBox.SetActive(false);
+
+
+        if (nextLinePrompt != null)
+            nextLinePrompt.SetActive(false);
+
+
+        HideChoices();
+
+
+        if (interactPrompt != null)
+            interactPrompt.SetActive(canInteract);
     }
 
-    private void StopAutoProgress()
-    {
-        if (autoProgressCoroutine != null)
-        {
-            StopCoroutine(autoProgressCoroutine);
-            autoProgressCoroutine = null;
-        }
-    }
-
-    private bool IsValidLineIndex(int index)
-    {
-        return dialogueData != null &&
-               dialogueData.dialogueLines != null &&
-               index >= 0 &&
-               index < dialogueData.dialogueLines.Length;
-    }
 
     // --------------------------------------------------
     // PLAYER TRIGGER
     // --------------------------------------------------
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(
+        Collider collision
+    )
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") &&
+            !isInteracting)
         {
             canInteract = true;
         }
     }
 
-    private void OnTriggerExit(Collider collision)
+
+    private void OnTriggerExit(
+        Collider collision
+    )
     {
         if (collision.CompareTag("Player"))
         {
             canInteract = false;
-
-            // Close the dialogue if the player walks away.
-            if (isInteracting)
-                EndDialogue();
         }
     }
 }
