@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Terrain_three
+  - Name: Terrain_one
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
