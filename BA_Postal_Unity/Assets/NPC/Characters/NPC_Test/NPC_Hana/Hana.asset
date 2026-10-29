@@ -36,5 +36,5 @@ MonoBehaviour:
     choices:
     - Of course
     - I am busy...
-    nextDialogueIndices: 0400000005000000i
+    nextDialogueIndices: 0300000004000000i
   endDialogueLines: 
