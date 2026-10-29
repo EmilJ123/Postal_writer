@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
   m_Name: Runa
   m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
-  npcName: Hana
+  npcName: Runa
   npcPortrait: {fileID: 0}
   dialogueLines:
   - text: You're the new writer. thought you'd be taller.
@@ -36,13 +36,13 @@ MonoBehaviour:
   - text: "...\n "
     autoProgress: 1
     endDialogue: 1
-  - text: "\u2026Someone who doesn't need the entire town knowing her business. "
-    autoProgress: 1
-    endDialogue: 1
   - text: 'The address is enough? Yes. Good. '
     autoProgress: 1
-    endDialogue: 1
-  autoProgressDelay: 1.5
+    endDialogue: 0
+  - text: "\u2026Someone who doesn't need the entire town knowing her business. "
+    autoProgress: 1
+    endDialogue: 0
+  autoProgressDelay: 2
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
   voicePitch: 1
@@ -52,4 +52,4 @@ MonoBehaviour:
     - Ask who the letter is for.
     - Gesture gently toward the blank address line.
     nextDialogueIndices: 0800000009000000i
-  endDialogueLines: 
+  endDialogueLines: 000000000000000101y
