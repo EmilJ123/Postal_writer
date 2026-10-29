@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
+  m_Name: Runa
+  m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
+  npcName: Runa
+  npcPortrait: {fileID: 0}
+  dialogueLines:
+  - text: You're the new writer. thought you'd be taller.
+    autoProgress: 1
+    endDialogue: 0
+  - text: I'm joking. Mostly.
+    autoProgress: 1
+    endDialogue: 0
+  - text: "I\u2019m Runa. Keeper of the chapel. Caretaker of the sick. Occasional snow-shoveler. "
+    autoProgress: 1
+    endDialogue: 0
+  - text: 'And apparently one of Mr. Bell''s newest customers. '
+    autoProgress: 1
+    endDialogue: 0
+  - text: 'I need something written '
+    autoProgress: 1
+    endDialogue: 0
+  - text: 'Unfortunately. It''s for someone in town. '
+    autoProgress: 1
+    endDialogue: 0
+  - text: "...\n "
+    autoProgress: 1
+    endDialogue: 1
+  - text: 'The address is enough? Yes. Good. '
+    autoProgress: 1
+    endDialogue: 0
+  - text: "\u2026Someone who doesn't need the entire town knowing her business. "
+    autoProgress: 1
+    endDialogue: 0
+  autoProgressDelay: 2
+  typingSpeed: 0.05
+  voiceSound: {fileID: 0}
+  voicePitch: 1
+  choices:
+  - dialogueIndex: 6
+    choices:
+    - Ask who the letter is for.
+    - Gesture gently toward the blank address line.
+    nextDialogueIndices: 0800000009000000i
+  endDialogueLines: 000000000000000101y

@@ -74,6 +74,7 @@ public class S_Dialogue : MonoBehaviour
     // START DIALOGUE
     // --------------------------------------------------
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
         if (dialogueData == null)
