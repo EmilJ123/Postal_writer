@@ -2858,12 +2858,15 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &945758228 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6866829787571451007, guid: 354ea8ce8d6996b4d9f4133701f2eaee, type: 3}
   m_PrefabInstance: {fileID: 7332840557604360753}
   m_PrefabAsset: {fileID: 0}
 =======
+=======
+>>>>>>> parent of b308e63 (terrain)
 --- !u!224 &934719382 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1263151440277041434, guid: fc52fabfb154f4699868317a146c1211, type: 3}
@@ -5870,7 +5873,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7110776, z: -0, w: 0.70311356}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 0.09, y: 117.83, z: 39.16}
+=======
+  m_LocalPosition: {x: 0.09, y: -15.159843, z: -30.947163}
+>>>>>>> parent of b308e63 (terrain)
 =======
   m_LocalPosition: {x: 0.09, y: -15.159843, z: -30.947163}
 >>>>>>> parent of b308e63 (terrain)
