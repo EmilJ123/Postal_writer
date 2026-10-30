@@ -26,15 +26,25 @@ MonoBehaviour:
 '
     autoProgress: 0
     endDialogue: 0
+  - text: 'No harm done.
+
+'
+    autoProgress: 0
+    endDialogue: 0
+  - text: 'I''m Olav. Most people call me Mr. Bell. Although, technically, postmaster is also acceptable. I answer to both.
+
+'
+    autoProgress: 0
+    endDialogue: 0
   autoProgressDelay: 2
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
   voicePitch: 1
   choices:
-  - dialogueIndex: 6
+  - dialogueIndex: 3
     choices:
     - Close the door and brush the snow off your coat.
     - Give Mr. Bell a polite nod.
     - Look around the post office before answering.
-    nextDialogueIndices: 
+    nextDialogueIndices: 0400000005000000i
   endDialogueLines: 
