@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
+  m_Name: MR.Bell
+  m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
+  npcName: MR.Bell
+  npcPortrait: {fileID: 0}
+  dialogueLines:
+  - text: Ah! There you are! Our new writer!
+    autoProgress: 0
+    endDialogue: 0
+  - text: Welcome, welcome! Come in before you freeze solid.
+    autoProgress: 0
+    endDialogue: 0
+  - text: 'And do close the door behind you, please.
+
+'
+    autoProgress: 0
+    endDialogue: 0
+  autoProgressDelay: 2
+  typingSpeed: 0.05
+  voiceSound: {fileID: 0}
+  voicePitch: 1
+  choices:
+  - dialogueIndex: 6
+    choices:
+    - Close the door and brush the snow off your coat.
+    - Give Mr. Bell a polite nod.
+    - Look around the post office before answering.
+    nextDialogueIndices: 
+  endDialogueLines: 
