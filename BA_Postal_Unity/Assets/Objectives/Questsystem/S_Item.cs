@@ -11,7 +11,7 @@ public class S_Item : MonoBehaviour
 
     private void Awake()
     {
-        quantityText = GetComponentInChildren<TMP_Text>();
+        quantityText = GetComponentInChildren<TMP_Text>(true);
         UpdateQuantityDisplay();
     }
 
@@ -33,14 +33,22 @@ public class S_Item : MonoBehaviour
     {
         GameObject clone = Instantiate(gameObject);
         S_Item cloneItem = clone.GetComponent<S_Item>();
-        cloneItem.quantity = newQuantity;
-        cloneItem.UpdateQuantityDisplay();
+
+        if (cloneItem != null)
+        {
+            cloneItem.quantity = newQuantity;
+            cloneItem.UpdateQuantityDisplay();
+        }
+
         return clone;
     }
 
     public void UpdateQuantityDisplay()
     {
+        if (quantityText != null)
+        {
             quantityText.text = quantity > 1 ? quantity.ToString() : "";
+        }
     }
 
     [Header("Inventory UI")]

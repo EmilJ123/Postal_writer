@@ -9,7 +9,10 @@ public class S_QuestManager : ScriptableObject
     public string questID; 
     public string questName; 
     public string description; 
-    public List<QuestObjective> objectives; 
+    public List<QuestObjective> objectives;
+    internal IEnumerable<object> activeQuests;
+
+    public static object Instance { get; internal set; }
 
     private void OnValidate() 
     { 
