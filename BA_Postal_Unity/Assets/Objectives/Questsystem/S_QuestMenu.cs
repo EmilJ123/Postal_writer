@@ -14,7 +14,6 @@ public class S_QuestMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("J");
             menuCanvas.SetActive(!menuCanvas.activeSelf);
         }
     }

@@ -16,6 +16,7 @@ public class S_MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            Debug.Log("Tab");
             menuCanvas.SetActive(!menuCanvas.activeSelf);
         }
     }

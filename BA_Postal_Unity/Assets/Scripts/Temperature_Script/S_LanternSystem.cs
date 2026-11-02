@@ -24,7 +24,7 @@ public class S_LanternSystem : MonoBehaviour
     private SphereCollider sphereCollider;
 
     private float fuelTimer = 0f;
-    private float darknessStressTimer = 0f;
+    //private float darknessStressTimer = 0f;
 
 
     void Start()
