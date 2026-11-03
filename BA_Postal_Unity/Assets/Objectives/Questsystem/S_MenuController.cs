@@ -2,54 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Unity.Cinemachine;
 
 public class S_MenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject menuCanvas;
-    [SerializeField] private PlayerInput playerInput;
-
+    
+    public GameObject menuCanvas;
+    public CinemachineInputAxisController cameraInput;
+    public PlayerInput playerInput;
     private bool menuOpen;
 
     private void Start()
     {
         menuCanvas.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void Update()
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            ToggleMenu();
-        }
-    }
+            menuOpen = !menuOpen;
 
-    private void ToggleMenu()
-    {
-        menuOpen = !menuOpen;
+            menuCanvas.SetActive(menuOpen);
 
-        menuCanvas.SetActive(menuOpen);
+            if (menuOpen)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
 
-        if (menuOpen)
-        {
-            // Switch to UI controls
-            playerInput.SwitchCurrentActionMap("UI");
+                cameraInput.enabled = false;
+                
+                playerInput.actions.FindActionMap("Gameplay").Disable();
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 
-            // Free cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            // Switch back to gameplay controls
-            playerInput.SwitchCurrentActionMap("Player");
-
-            // Lock cursor
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+                cameraInput.enabled = true;
+                
+                playerInput.actions.FindActionMap("Gameplay").Enable();
+            }
         }
     }
 }
