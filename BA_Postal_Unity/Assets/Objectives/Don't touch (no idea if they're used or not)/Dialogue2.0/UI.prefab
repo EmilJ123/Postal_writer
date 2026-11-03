@@ -1239,6 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S_MenuController
   menuCanvas: {fileID: 7125254262815683703}
+  playerInput: {fileID: 0}
 --- !u!1 &8027413619487442217
 GameObject:
   m_ObjectHideFlags: 0
