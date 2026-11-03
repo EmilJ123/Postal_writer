@@ -27,7 +27,7 @@ public class S_QuestManager : ScriptableObject
  [System.Serializable] 
     public class QuestObjective 
     { 
-        public string objectiveID; 
+        public string objectiveID; //match with item ID that you need to collect, enemy ID that you need to kill etc
         public string description; 
         public ObjectiveType type; 
         public int requiredAmount; 
@@ -48,6 +48,7 @@ public class S_QuestManager : ScriptableObject
             this.quest = quest; 
             objectives = new List<QuestObjective>(); 
             
+            //Deep copy avoid modifying original
             foreach(var obj in objectives) 
             { 
                 objectives.Add(new QuestObjective 

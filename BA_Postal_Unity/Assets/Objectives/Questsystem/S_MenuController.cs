@@ -1,23 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class S_MenuController : MonoBehaviour
 {
-    public GameObject menuCanvas;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private PlayerInput playerInput;
+
+    private bool menuOpen;
+
+    private void Start()
     {
         menuCanvas.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            Debug.Log("Tab");
-            menuCanvas.SetActive(!menuCanvas.activeSelf);
+            ToggleMenu();
+        }
+    }
+
+    private void ToggleMenu()
+    {
+        menuOpen = !menuOpen;
+
+        menuCanvas.SetActive(menuOpen);
+
+        if (menuOpen)
+        {
+            // Switch to UI controls
+            playerInput.SwitchCurrentActionMap("UI");
+
+            // Free cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            // Switch back to gameplay controls
+            playerInput.SwitchCurrentActionMap("Player");
+
+            // Lock cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

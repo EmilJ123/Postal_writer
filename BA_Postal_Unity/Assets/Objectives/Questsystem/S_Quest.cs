@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class S_QuestUI : MonoBehaviour
@@ -16,7 +17,6 @@ public class S_QuestUI : MonoBehaviour
 
     void Start()
     {
-
         UpdateQuestUI();
     }
 
@@ -27,7 +27,14 @@ public class S_QuestUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        var manager = FindAnyObjectByType<S_QuestManager>();
 
+        Debug.Log("Manager: " + manager);
+
+        if (manager != null)
+        {
+            Debug.Log("Active Quests: " + manager.activeQuests);
+        }
         // Create new quest entries
         foreach (QuestProgress quest in FindAnyObjectByType<S_QuestManager>().activeQuests)
         {
