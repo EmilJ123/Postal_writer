@@ -17,10 +17,15 @@ public class S_QuestUI : MonoBehaviour
 
     void Start()
     {
+        for (int i = 0; i < testQuestAmount; i++)
+        {
+            testQuests.Add(new QuestProgress(testQuest));
+        }
+        
         UpdateQuestUI();
     }
 
-    public void UpdateQuestUI()
+    private void UpdateQuestUI()
     {
         // Destroy existing quest entries
         foreach (Transform child in questListContent)
@@ -29,25 +34,37 @@ public class S_QuestUI : MonoBehaviour
         }
         var manager = FindAnyObjectByType<S_QuestManager>();
 
-        Debug.Log("Manager: " + manager);
+        //Debug.Log("Manager: " + manager);
 
         if (manager != null)
         {
             Debug.Log("Active Quests: " + manager.activeQuests);
         }
+        
         // Create new quest entries
-        foreach (QuestProgress quest in FindAnyObjectByType<S_QuestManager>().activeQuests)
+        foreach(var quest in testQuests)
         {
+            
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
             TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
+            
             Transform objectiveList = entry.transform.Find("ObjectiveList");
 
             questNameText.text = quest.quest.name; 
 
             foreach (var objective in quest.objectives)
             {
+                Debug.Log("objectiveTextPrefab: " + objectiveTextPrefab);
+                Debug.Log("objectiveList: " + objectiveList);
+                
                 GameObject objTextGO = Instantiate(objectiveTextPrefab, objectiveList);
+                
+                Debug.Log("objTextGO: " + objTextGO);
+
                 TMP_Text objText = objTextGO.GetComponent<TMP_Text>();
+                
+                Debug.Log("objText: " + objText);
+               
                 objText.text = $"{objective.description} ({objective.currentAmount}/{objective.requiredAmount})";
             }
         }

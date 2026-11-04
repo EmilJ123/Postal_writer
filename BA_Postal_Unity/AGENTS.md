@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Quests
-  - Tag: Untagged
-  - Layer: UI
+  - Name: NPC_Test
+  - Tag: NPC
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
