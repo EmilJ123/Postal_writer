@@ -17,7 +17,12 @@ MonoBehaviour:
   description: 
   objective:
   - objectiveID: 2
-    description: wad
+    description: Talk to different NPC!
     type: 2
-    requiredAmount: 1
+    requiredAmount: 2
+    currentAmount: 0
+  - objectiveID: 1
+    description: Collect stuff
+    type: 0
+    requiredAmount: 5
     currentAmount: 0

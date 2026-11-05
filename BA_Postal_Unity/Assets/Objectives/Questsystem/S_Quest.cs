@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,20 +32,12 @@ public class S_QuestUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         var manager = FindAnyObjectByType<S_QuestManager>();
-
-        //Debug.Log("Manager: " + manager);
-
-        if (manager != null)
-        {
-            Debug.Log("Active Quests: " + manager.activeQuests);
-        }
         
         // Create new quest entries
         foreach(var quest in testQuests)
         {
-            
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
-            TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
+            TMP_Text questNameText = entry.transform.Find("QuestName").GetComponent<TMP_Text>();
             
             Transform objectiveList = entry.transform.Find("ObjectiveList");
 
@@ -54,16 +45,9 @@ public class S_QuestUI : MonoBehaviour
 
             foreach (var objective in quest.objectives)
             {
-                Debug.Log("objectiveTextPrefab: " + objectiveTextPrefab);
-                Debug.Log("objectiveList: " + objectiveList);
-                
                 GameObject objTextGO = Instantiate(objectiveTextPrefab, objectiveList);
                 
-                Debug.Log("objTextGO: " + objTextGO);
-
                 TMP_Text objText = objTextGO.GetComponent<TMP_Text>();
-                
-                Debug.Log("objText: " + objText);
                
                 objText.text = $"{objective.description} ({objective.currentAmount}/{objective.requiredAmount})";
             }

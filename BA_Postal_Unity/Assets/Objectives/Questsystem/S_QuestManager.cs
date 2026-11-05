@@ -1,6 +1,7 @@
 using System;
 using System.Collections; 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quests/Quest")]
@@ -10,7 +11,7 @@ public class S_QuestManager : ScriptableObject
     public string questName; 
     public string description; 
     public List<QuestObjective> objective;
-    internal IEnumerable<object> activeQuests;
+    internal IEnumerable<object> ActiveQuests;
 
     public static object Instance { get; internal set; }
 
@@ -35,7 +36,7 @@ public class QuestObjective
     public bool IsCompleted => currentAmount >= requiredAmount; 
 } 
 
-public enum ObjectiveType { CollectItem, ReachLocation, TalkNPC, Custom }
+public enum ObjectiveType { CollectItem, ReachLocation, TalkNpc, Custom }
 
 [System.Serializable]
 public class QuestProgress
@@ -49,7 +50,7 @@ public class QuestProgress
         objectives = new List<QuestObjective>(); 
             
         //Deep copy avoid modifying original
-        foreach(var obj in objectives) 
+        foreach(var obj in objectives.ToList()) 
         { 
             objectives.Add(new QuestObjective 
             { 
