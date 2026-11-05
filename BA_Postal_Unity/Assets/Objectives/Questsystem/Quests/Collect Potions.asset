@@ -10,19 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e0ad2a2835cd4ddbbb0a295e4318f25, type: 3}
-  m_Name: NPCTalkQuest
+  m_Name: Collect Potions
   m_EditorClassIdentifier: Assembly-CSharp::S_QuestManager
-  questID: NPC_Test25ed9202-8617-4e65-ad17-3364489e9f41
-  questName: NPC_Test
+  questID: C02a17801-cd44-48ce-a9f6-68839ee35329
+  questName: CollectPotions
   description: 
-  objective:
+  objectives:
   - objectiveID: 2
-    description: Talk to different NPC!
-    type: 2
-    requiredAmount: 2
-    currentAmount: 0
-  - objectiveID: 1
-    description: Collect stuff
+    description: Collect 5 Potions
     type: 0
     requiredAmount: 5
     currentAmount: 0

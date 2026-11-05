@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: PlayerTab
+  - Name: QuestUIController
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

@@ -17,7 +17,13 @@ public class S_NPCDialogue : ScriptableObject
     public float voicePitch = 1.0f;
 
     public DialogueChoice[] choices;
+    
+    public int questInProgressIndex;
+    public int questCompletedIndex;
+    public S_QuestManager quest; //not sure if it is S_QuestUI or S_QuestManager
+    
     public bool[] endDialogueLines;
+    
 }
 
 [System.Serializable]
@@ -30,6 +36,7 @@ public class DialogueLine
     public bool autoProgress;
 
     public bool endDialogue;
+    
 }
 
 [Serializable]
@@ -38,4 +45,5 @@ public class DialogueChoice
     public int dialogueIndex; //Dialogue line where choices appear
     public string[] choices; //Player response options
     public int[] nextDialogueIndices; //Where choice leads
+    public bool[] givesQuest;
 }

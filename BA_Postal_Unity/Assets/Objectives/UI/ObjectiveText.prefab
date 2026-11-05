@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1098905241412991272
+--- !u!1 &4322649004444702754
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 827784092647904133}
-  - component: {fileID: 7120050754667002912}
-  - component: {fileID: 1659693766133517480}
+  - component: {fileID: 8343160417389184329}
+  - component: {fileID: 4911212829663706339}
+  - component: {fileID: 8461790445090876730}
   m_Layer: 5
   m_Name: ObjectiveText
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &827784092647904133
+--- !u!224 &8343160417389184329
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098905241412991272}
+  m_GameObject: {fileID: 4322649004444702754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,24 +34,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 236.70782, y: 0}
-  m_SizeDelta: {x: 673.4156, y: 50}
+  m_AnchoredPosition: {x: 237.4682, y: 0}
+  m_SizeDelta: {x: 574.9364, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7120050754667002912
+--- !u!222 &4911212829663706339
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098905241412991272}
+  m_GameObject: {fileID: 4322649004444702754}
   m_CullTransparentMesh: 1
---- !u!114 &1659693766133517480
+--- !u!114 &8461790445090876730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098905241412991272}
+  m_GameObject: {fileID: 4322649004444702754}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.1
-  m_fontSizeBase: 33.1
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
