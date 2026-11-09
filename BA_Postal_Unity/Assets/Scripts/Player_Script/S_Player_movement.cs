@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class S_Player_movement : MonoBehaviour
 {
+    private static readonly int Property = Animator.StringToHash("forward.y");
+
     [Header("Movement Settings")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
@@ -15,7 +17,10 @@ public class S_Player_movement : MonoBehaviour
     public PlayerInput playerInput;
     [SerializeField] private float mountDistance = 5f;
     [SerializeField] private Key interactKey = Key.E;
-
+    
+    //Animator
+    [SerializeField] private Animator animator; 
+    
     private CharacterController controller;
     private Vector3 moveInput;
     private Vector3 velocity;
@@ -107,6 +112,9 @@ public class S_Player_movement : MonoBehaviour
                 //currentActiveDoor = null;
             }
         }
+        animator.SetFloat("Forward", moveInput.x);
+        animator.SetFloat("Right", moveInput.y);
+        //Debug.Log($"X: {moveInput.x} Y: {moveInput.y}");
     }
     // --- INPUT SYSTEM CALLBACKS (On Foot) ---
 
