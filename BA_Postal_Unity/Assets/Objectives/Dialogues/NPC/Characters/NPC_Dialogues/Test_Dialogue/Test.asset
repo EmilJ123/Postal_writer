@@ -20,11 +20,14 @@ MonoBehaviour:
     endDialogue: 0
   - text: You wanna test this?
     autoProgress: 0
-    endDialogue: 0
+    endDialogue: 1
   - text: ...
     autoProgress: 0
     endDialogue: 1
-  - text: ...
+  - text: ah hell yeh
+    autoProgress: 0
+    endDialogue: 1
+  - text: thanks for testing :D
     autoProgress: 0
     endDialogue: 1
   autoProgressDelay: 1.5
@@ -32,13 +35,13 @@ MonoBehaviour:
   voiceSound: {fileID: 0}
   voicePitch: 1
   choices:
-  - dialogueIndex: 0
+  - dialogueIndex: 1
     choices:
     - nah
     - yes
-    nextDialogueIndices: 0300000003000000i
-    givesQuest: 0101y
+    nextDialogueIndices: 0300000004000000i
+    givesQuest: 0001y
   questInProgressIndex: 4
-  questCompletedIndex: 4
+  questCompletedIndex: 5
   quest: {fileID: 11400000, guid: a909c75b6b510ff47adb03255c2b7ef1, type: 2}
   endDialogueLines: 0000000101y

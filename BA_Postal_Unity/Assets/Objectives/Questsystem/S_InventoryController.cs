@@ -16,6 +16,7 @@ public class S_InventoryController : MonoBehaviour
     Dictionary<int, int> itemsCountCache = new();
     public event Action OnInventoryChanged; //event to notify quest systems
     public static S_InventoryController Instance { get; private set; }
+    
 
     private void Awake()
     {
@@ -32,6 +33,17 @@ public class S_InventoryController : MonoBehaviour
     {
         itemDictionary = FindAnyObjectByType<S_ItemDictionary>();
         RebuildItemCounts();
+
+        for (int i = 0; i < slotCount; i++)
+        {
+            S_Slot slot = Instantiate(slotPrefab, inventoryPanel.transform).GetComponent<S_Slot>();
+            if (i < itemPrefabs.Length)
+            {
+                GameObject item = Instantiate(itemPrefabs[i], slot. transform);
+                item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                slot.currentItem = item;
+            }
+        }
     }
 
     public void RebuildItemCounts()

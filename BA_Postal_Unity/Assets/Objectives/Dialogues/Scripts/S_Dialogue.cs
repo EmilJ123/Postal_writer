@@ -400,9 +400,9 @@ public class S_Dialogue3 : MonoBehaviour
 
     private void SelectChoice(int choiceIndex)
     {
-        Debug.Log(
-            $"Choice {choiceIndex} selected. Current line={lineIndex}"
-        );
+        //Debug.Log(
+            //$"Choice {choiceIndex} selected. Current line={lineIndex}"
+        //);
 
         if (!choosing)
             return;
@@ -421,7 +421,7 @@ public class S_Dialogue3 : MonoBehaviour
         string selectedChoice =
             dialogueChoice.choices[choiceIndex];
 
-        Debug.Log("Selected choice: " + selectedChoice);
+        //Debug.Log("Selected choice: " + selectedChoice);
 
         if (dialogueChoice.nextDialogueIndices == null ||
             choiceIndex >= dialogueChoice.nextDialogueIndices.Length)
@@ -437,10 +437,22 @@ public class S_Dialogue3 : MonoBehaviour
        
         int nextDialogueIndex =
             dialogueChoice.nextDialogueIndices[choiceIndex];
+        
+        if (dialogueChoice.givesQuest != null &&
+            choiceIndex < dialogueChoice.givesQuest.Length &&
+            dialogueChoice.givesQuest[choiceIndex])
+        {
+            Debug.Log("Giving quest!");
 
-        Debug.Log(
-            $"Moving from line {lineIndex} to line {nextDialogueIndex}"
-        );
+            if (dialogueData.quest != null)
+            {
+                S_QuestController.Instance.AcceptQuest(dialogueData.quest);
+            }
+            else
+            {
+                Debug.LogWarning("No quest assigned in NPC Dialogue!");
+            }
+        }
 
         choosing = false;
         HideChoices();

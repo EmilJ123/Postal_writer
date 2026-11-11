@@ -93,13 +93,6 @@ public class S_NPC : MonoBehaviour, S_IInteractable
         
         if (dialogueData.dialogueLines == null ||
             dialogueData.dialogueLines.Length == 0)
-        {
-            Debug.LogWarning(
-                "This NPC has no dialogue lines!",
-                this
-            );
-            return;
-        }
 
         //dialogueIndex = 0;
         isDialogueActive = true;
@@ -301,10 +294,12 @@ public class S_NPC : MonoBehaviour, S_IInteractable
         }
     }
 
+    
     private void ChooseOption(int nextIndex, bool givesQuest)
     {
         if (givesQuest)
         {
+            Debug.Log("Quest given? " + dialogueData.quest);
             S_QuestController.Instance.AcceptQuest(dialogueData.quest);
             questState = QuestState.InProgress;
         }

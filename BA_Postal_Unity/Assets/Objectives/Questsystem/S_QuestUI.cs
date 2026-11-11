@@ -14,7 +14,7 @@ public class S_QuestUI : MonoBehaviour
         UpdateQuestUI();
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     public void UpdateQuestUI()
     {
         // Destroy existing quest entries
@@ -25,7 +25,7 @@ public class S_QuestUI : MonoBehaviour
         var manager = FindAnyObjectByType<S_QuestManager>(); //isn't being used for some reason
         
         // Create New Quest Entries
-        foreach(var quest in S_QuestController.Instance.activateQuests) //no reference no clue as to why i'll fix it later i'm tired af atm
+        foreach(var quest in S_QuestController.Instance.activateQuests) //displays error due to not having anything in Quest UI in the inspector for Quest controller
         {
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
             TMP_Text questNameText = entry.transform.Find("QuestName").GetComponent<TMP_Text>();
