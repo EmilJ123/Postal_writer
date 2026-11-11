@@ -33,6 +33,9 @@ MonoBehaviour:
   - text: 'Unfortunately. It''s for someone in town. '
     autoProgress: 1
     endDialogue: 0
+  - text: "...\n "
+    autoProgress: 1
+    endDialogue: 1
   - text: 'The address is enough? Yes. Good. '
     autoProgress: 1
     endDialogue: 1
@@ -51,7 +54,7 @@ MonoBehaviour:
     choices:
     - Ask who the letter is for.
     - Gesture gently toward the blank address line.
-    nextDialogueIndices: 0700000006000000i
+    nextDialogueIndices: 0800000007000000i
     givesQuest: 0101y
   questInProgressIndex: 9
   questCompletedIndex: 9

@@ -20,13 +20,13 @@ public class S_NPCDialogue : ScriptableObject
     
     public int questInProgressIndex;
     public int questCompletedIndex;
-    public S_QuestManager quest; //not sure if it is S_QuestUI or S_QuestManager
+    public S_QuestManager quest;
     
     public bool[] endDialogueLines;
     
 }
 
-[System.Serializable]
+[Serializable]
 
 public class DialogueLine
 {

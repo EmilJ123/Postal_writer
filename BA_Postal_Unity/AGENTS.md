@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Player
-  - Tag: Player
-  - Layer: Ignore_player
+  - Name: Subdivided Plane (2)
+  - Tag: SnowGround
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

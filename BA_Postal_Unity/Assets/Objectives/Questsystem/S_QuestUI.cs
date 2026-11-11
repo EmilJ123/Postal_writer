@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,22 +7,14 @@ public class S_QuestUI : MonoBehaviour
     public Transform questListContent;
     public GameObject questEntryPrefab;
     public GameObject objectiveTextPrefab;
-
-    //public S_QuestManager testQuest;
-    //public int testQuestAmount;
-
-    //private List<QuestProgress> testQuests = new();
+    
 
     void Start()
     {
-        //for (int i = 0; i < testQuestAmount; i++)
-        {
-            //testQuests.Add(new QuestProgress(testQuest));
-        }
-        
         UpdateQuestUI();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void UpdateQuestUI()
     {
         // Destroy existing quest entries
@@ -31,9 +22,9 @@ public class S_QuestUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        var manager = FindAnyObjectByType<S_QuestManager>();
+        var manager = FindAnyObjectByType<S_QuestManager>(); //isn't being used for some reason
         
-        // Create new quest entries
+        // Create New Quest Entries
         foreach(var quest in S_QuestController.Instance.activateQuests) //no reference no clue as to why i'll fix it later i'm tired af atm
         {
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
@@ -41,7 +32,7 @@ public class S_QuestUI : MonoBehaviour
             
             Transform objectiveList = entry.transform.Find("ObjectiveList");
 
-            questNameText.text = quest.quest.name; 
+            questNameText.text = quest.quest.name; //this had an issue??? 
 
             foreach (var objective in quest.objectives)
             {

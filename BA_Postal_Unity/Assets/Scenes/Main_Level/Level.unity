@@ -22763,6 +22763,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6422146276233935145, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1745427220}
+    - target: {fileID: 6507238623388833639, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ccab08d83d5400444acf39ed3b558cb1, type: 2}
     - target: {fileID: 7558645779634013028, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -29582,6 +29590,11 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!95 &1745427220 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6507238623388833639, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
+  m_PrefabInstance: {fileID: 1286494945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1748117659
 GameObject:
   m_ObjectHideFlags: 0
