@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S_QuestController
   activateQuests: []
   questUI: {fileID: 0}
-  handingQuests: []
+  handingQuestIDs: []
 --- !u!114 &551108162 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3807209835364387830, guid: df227b18c5273f74f91f32d02a28287f, type: 3}

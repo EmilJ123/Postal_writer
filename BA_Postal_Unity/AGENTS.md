@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: Subdivided Plane (2)
-  - Tag: SnowGround
-  - Layer: Floor
+  - Name: Test_Quest_Giver
+  - Tag: NPC
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

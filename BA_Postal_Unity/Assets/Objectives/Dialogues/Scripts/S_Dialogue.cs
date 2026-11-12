@@ -24,7 +24,15 @@ public class S_Dialogue3 : MonoBehaviour
     private bool canInteract;
     private bool isTyping;
     private bool choosing;
+    private enum QuestState
+    {
+        NotStarted,
+        InProgress,
+        Completed
+    }
 
+    private QuestState questState = QuestState.NotStarted;
+    
     private Coroutine typingCoroutine;
     private Coroutine autoProgressCoroutine;
 
@@ -78,6 +86,7 @@ public class S_Dialogue3 : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
+        
         if (dialogueData == null)
         {
             Debug.LogWarning(
@@ -85,6 +94,7 @@ public class S_Dialogue3 : MonoBehaviour
             );
             return;
         }
+        SyncQuestState();
 
         if (dialogueData.dialogueLines == null ||
             dialogueData.dialogueLines.Length == 0)
@@ -97,7 +107,25 @@ public class S_Dialogue3 : MonoBehaviour
 
         canInteract = true;
         isInteracting = true;
-        lineIndex = 0;
+
+        switch (questState)
+        {
+            case QuestState.InProgress:
+                lineIndex = Mathf.Clamp(
+                    dialogueData.questInProgressIndex,
+                    0,
+                    dialogueData.dialogueLines.Length - 1
+                );
+                break;
+
+            case QuestState.Completed:
+                lineIndex = Mathf.Clamp(
+                    dialogueData.questCompletedIndex,
+                    0,
+                    dialogueData.dialogueLines.Length - 1
+                );
+                break;
+        }
 
         if (dialogueBox != null)
             dialogueBox.SetActive(true);
@@ -516,6 +544,13 @@ public class S_Dialogue3 : MonoBehaviour
 
         if (interactPrompt != null)
             interactPrompt.SetActive(canInteract);
+        
+        if (questState == QuestState.Completed &&
+            dialogueData.quest != null &&
+            !S_QuestController.Instance.IsQuestHandedIn(dialogueData.quest.questID))
+        {
+            S_QuestController.Instance.HandInQuest(dialogueData.quest.questID);
+        }
     }
 
     private void StopTypingCoroutine()
@@ -565,6 +600,27 @@ public class S_Dialogue3 : MonoBehaviour
             // Close the dialogue if the player walks away.
             if (isInteracting)
                 EndDialogue();
+        }
+    }
+    private void SyncQuestState()
+    {
+        if (dialogueData.quest == null)
+            return;
+
+        string questID = dialogueData.quest.questID;
+
+        if (S_QuestController.Instance.IsQuestCompleted(questID) ||
+            S_QuestController.Instance.IsQuestHandedIn(questID))
+        {
+            questState = QuestState.Completed;
+        }
+        else if (S_QuestController.Instance.IsQuestActive(questID))
+        {
+            questState = QuestState.InProgress;
+        }
+        else
+        {
+            questState = QuestState.NotStarted;
         }
     }
 }
