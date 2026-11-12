@@ -1,4 +1,5 @@
 using System.IO;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class S_SaveController : MonoBehaviour
@@ -33,8 +34,10 @@ public class S_SaveController : MonoBehaviour
         S_SaveData saveData = new S_SaveData
         {
             playerPosition = player.transform.position,
-            mapBoundary = rb != null ? rb.gameObject.name : "", 
-            inventorySaveData = inventoryController != null ? inventoryController.GetInventoryItems() : null
+            mapBoundary = rb != null ? rb.gameObject.name : "",
+            inventorySaveData = inventoryController != null ? inventoryController.GetInventoryItems() : null,
+            questProgressData = S_QuestController.Instance.activateQuests
+
         };
 
         // Skriver data til disk
@@ -65,6 +68,8 @@ public class S_SaveController : MonoBehaviour
             }
 
             
+
+            
             if (!string.IsNullOrEmpty(saveData.mapBoundary))
             {
                 GameObject boundaryObj = GameObject.Find(saveData.mapBoundary);
@@ -75,11 +80,13 @@ public class S_SaveController : MonoBehaviour
             }
 
             Debug.Log("Game loaded successfully.");
+            S_QuestController.Instance.LoadQuestProgress(saveData.questProgressData);
         }
         else
         {
             Debug.LogWarning("No save file found, starting a new save");
             SaveGame();
         }
+        
     }
 }

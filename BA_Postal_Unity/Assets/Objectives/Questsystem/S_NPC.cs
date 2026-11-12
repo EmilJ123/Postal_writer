@@ -117,7 +117,11 @@ public class S_NPC : MonoBehaviour, S_IInteractable
         if (dialogueData.quest == null) return;
 
         string questID = dialogueData.quest.questID;
-        if (S_QuestController.Instance.IsQuestActive(questID))
+        if (S_QuestController.Instance.IsQuestCompleted(questID) || S_QuestController.Instance.IsQuestHandedIn(questID)) //no idea if this part works 
+        {
+            questState = QuestState.Completed;
+        }
+        else if (S_QuestController.Instance.IsQuestActive(questID))
         {
             questState = QuestState.InProgress;
         }
@@ -362,6 +366,13 @@ public class S_NPC : MonoBehaviour, S_IInteractable
 
     public void EndDialogue()
     {
+        if (questState == QuestState.Completed &&
+            !S_QuestController.Instance.IsQuestHandedIn(dialogueData.quest.questID))
+        {
+            //HandleQuestCompletion
+            HandleQuestCompletion(dialogueData.quest);
+        }
+        
         if (!isDialogueActive)
             return;
 
@@ -379,6 +390,11 @@ public class S_NPC : MonoBehaviour, S_IInteractable
         // Restore the gameplay cursor.
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    void HandleQuestCompletion(S_QuestManager quest)
+    {
+        S_QuestController.Instance.HandInQuest(quest.questID);
     }
 
     private void OnTriggerEnter(Collider other)

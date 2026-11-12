@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using TMPro;
 
 public class S_InventoryController : MonoBehaviour
 {
@@ -180,4 +178,28 @@ public class S_InventoryController : MonoBehaviour
 
         RebuildItemCounts();
     }
+
+    public void RemoveItemsFromInventory(int itemID, int amountToRemove)
+    {
+        foreach (Transform slotTransform in inventoryPanel.transform)
+        {
+            if (amountToRemove <= 0) break;
+            S_Slot slot = slotTransform.GetComponent<S_Slot>();
+            if (slot?.currentItem?.GetComponent<S_Item>() is S_Item item && item.ID == itemID) //not sure if this part works correctly? 7:19 sec in video
+            {
+                int removed = Mathf.Min(amountToRemove, item.quantity);
+                item.RemoveFromStack(removed);
+                amountToRemove -= removed;
+
+                if (item.quantity == 0)
+                {
+                    Destroy(slot.currentItem);
+                    slot.currentItem = null;
+                }
+            }
+        }
+        RebuildItemCounts();
+    }
+
+   
 }
