@@ -19,11 +19,14 @@ public class S_Dialogue3 : MonoBehaviour
     [SerializeField] private TMP_Text[] choiceTexts;
     
     private int lineIndex;
+    private static S_Dialogue3 activeNPC;
 
     private bool isInteracting;
     private bool canInteract;
     private bool isTyping;
     private bool choosing;
+    
+    
     private enum QuestState
     {
         NotStarted,
@@ -41,9 +44,7 @@ public class S_Dialogue3 : MonoBehaviour
     {
         if (interactPrompt != null)
         {
-            interactPrompt.SetActive(
-                canInteract && !isInteracting
-            );
+            interactPrompt.SetActive(canInteract && !isInteracting && activeNPC == null);
         }
 
         if (!isInteracting)
@@ -55,6 +56,8 @@ public class S_Dialogue3 : MonoBehaviour
 
             return;
         }
+        if (activeNPC != this)
+            return;
 
         if (choosing)
         {
@@ -104,12 +107,20 @@ public class S_Dialogue3 : MonoBehaviour
             );
             return;
         }
-
-        canInteract = true;
+        if (activeNPC != null && activeNPC != this)
+            return;
+        
+        activeNPC = this;
+        //canInteract = true;
         isInteracting = true;
 
         switch (questState)
         {
+            case QuestState.NotStarted:
+            default:
+                lineIndex = 0;
+                break;
+
             case QuestState.InProgress:
                 lineIndex = Mathf.Clamp(
                     dialogueData.questInProgressIndex,
@@ -173,7 +184,7 @@ public class S_Dialogue3 : MonoBehaviour
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
-
+        Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
         dialogueText.text = "";
 
         string fullText = currentLine.text ?? "";
@@ -539,7 +550,11 @@ public class S_Dialogue3 : MonoBehaviour
 
         if (nextLinePrompt != null)
             nextLinePrompt.SetActive(false);
-
+        
+        if (activeNPC == this)
+        {
+            activeNPC = null;
+        }
         HideChoices();
 
         if (interactPrompt != null)
@@ -621,6 +636,13 @@ public class S_Dialogue3 : MonoBehaviour
         else
         {
             questState = QuestState.NotStarted;
+        }
+    }
+    private void OnDisable()
+    {
+        if (activeNPC == this)
+        {
+            activeNPC = null;
         }
     }
 }

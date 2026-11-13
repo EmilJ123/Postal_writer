@@ -10,24 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
-  m_Name: Test
+  m_Name: Test_Himmel
   m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
-  npcName: Test_Quest_Giver
+  npcName: Himmel
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - text: Very testy test
+  - text: heyo how u doin?
     autoProgress: 0
     endDialogue: 0
-  - text: You wanna test this?
+  - text: want to do some quests?
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 1
+  - text: cool let's do some then
+    autoProgress: 0
+    endDialogue: 1
+  - text: oh ok i understand next time mby
     autoProgress: 0
     endDialogue: 1
   - text: ...
     autoProgress: 0
     endDialogue: 1
-  - text: ah hell yeh
-    autoProgress: 0
-    endDialogue: 1
-  - text: thanks for testing :D
+  - text: hows the quest going?
     autoProgress: 0
     endDialogue: 1
   autoProgressDelay: 1.5
@@ -35,13 +41,13 @@ MonoBehaviour:
   voiceSound: {fileID: 0}
   voicePitch: 1
   choices:
-  - dialogueIndex: 1
+  - dialogueIndex: 2
     choices:
-    - nah
-    - yes
+    - Sure!
+    - no sorry
     nextDialogueIndices: 0300000004000000i
-    givesQuest: 0001y
-  questInProgressIndex: 4
-  questCompletedIndex: 5
-  quest: {fileID: 11400000, guid: a909c75b6b510ff47adb03255c2b7ef1, type: 2}
-  endDialogueLines: 0000000101y
+    givesQuest: 0100y
+  questInProgressIndex: 7
+  questCompletedIndex: 0
+  quest: {fileID: 11400000, guid: 8e43ae7b14c85524b9a9a80b2d5f3a21, type: 2}
+  endDialogueLines: 000000000001y

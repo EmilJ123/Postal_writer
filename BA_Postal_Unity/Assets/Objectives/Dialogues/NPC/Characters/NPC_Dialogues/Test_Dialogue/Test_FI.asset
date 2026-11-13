@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
+  m_Name: Test_FI
+  m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
+  npcName: Fi
+  npcPortrait: {fileID: 0}
+  dialogueLines:
+  - text: heyo could you do a quest for me?
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 1
+  - text: thank you so much for doing this!
+    autoProgress: 0
+    endDialogue: 1
+  - text: ah man i understand...
+    autoProgress: 0
+    endDialogue: 1
+  - text: so how is the quest going..hope you'll complete it fast
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: got no clue myself but figuring it out is part of the fun no?
+    autoProgress: 0
+    endDialogue: 1
+  - text: laters
+    autoProgress: 0
+    endDialogue: 1
+  autoProgressDelay: 1.5
+  typingSpeed: 0.05
+  voiceSound: {fileID: 0}
+  voicePitch: 1
+  choices:
+  - dialogueIndex: 1
+    choices:
+    - yes i can!
+    - no sorry..
+    nextDialogueIndices: 0200000003000000i
+    givesQuest: 0100y
+  - dialogueIndex: 5
+    choices:
+    - where do i find what u need?
+    - bye
+    nextDialogueIndices: 0600000007000000i
+    givesQuest: 
+  questInProgressIndex: 4
+  questCompletedIndex: 0
+  quest: {fileID: 11400000, guid: 3d74fb29ee2fa4448819cf4464f7673c, type: 2}
+  endDialogueLines: 0001y
