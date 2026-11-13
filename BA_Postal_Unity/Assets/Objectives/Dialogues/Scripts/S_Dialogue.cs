@@ -18,6 +18,10 @@ public class S_Dialogue3 : MonoBehaviour
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private TMP_Text[] choiceTexts;
     
+    [Header("Quest Turn-In(optional)")]
+    [SerializeField] private S_QuestManager turnInQuest;
+    [SerializeField] private int turnInLineIndex;
+    
     private int lineIndex;
     private static S_Dialogue3 activeNPC;
 
@@ -130,8 +134,16 @@ public class S_Dialogue3 : MonoBehaviour
                 break;
 
             case QuestState.Completed:
+                bool isHandingInNow = turnInQuest != null &&
+                                      S_QuestController.Instance != null &&
+                                      S_QuestController.Instance.IsQuestCompleted(turnInQuest.questID);
+
+                int targetIndex = isHandingInNow
+                    ? turnInLineIndex
+                    : dialogueData.questCompletedIndex;
+
                 lineIndex = Mathf.Clamp(
-                    dialogueData.questCompletedIndex,
+                    targetIndex,
                     0,
                     dialogueData.dialogueLines.Length - 1
                 );
@@ -566,6 +578,17 @@ public class S_Dialogue3 : MonoBehaviour
         {
             S_QuestController.Instance.HandInQuest(dialogueData.quest.questID);
         }
+        
+        S_QuestManager questToHandIn = (turnInQuest != null)
+            ? turnInQuest
+            : (dialogueData != null ? dialogueData.quest : null);
+
+        if (questState == QuestState.Completed &&
+            questToHandIn != null &&
+            !S_QuestController.Instance.IsQuestHandedIn(questToHandIn.questID))
+        {
+            S_QuestController.Instance.HandInQuest(questToHandIn.questID);
+        }
     }
 
     private void StopTypingCoroutine()
@@ -619,25 +642,47 @@ public class S_Dialogue3 : MonoBehaviour
     }
     private void SyncQuestState()
     {
-        if (dialogueData.quest == null)
+        questState = QuestState.NotStarted;
+
+        if (S_QuestController.Instance == null)
             return;
 
-        string questID = dialogueData.quest.questID;
+        
+        if (turnInQuest != null)
+        {
+            string turnInID = turnInQuest.questID;
 
-        if (S_QuestController.Instance.IsQuestCompleted(questID) ||
-            S_QuestController.Instance.IsQuestHandedIn(questID))
-        {
-            questState = QuestState.Completed;
+            if (S_QuestController.Instance.IsQuestCompleted(turnInID))
+            {
+                questState = QuestState.Completed;
+                return;
+            }
         }
-        else if (S_QuestController.Instance.IsQuestActive(questID))
+
+        
+        if (dialogueData != null && dialogueData.quest != null)
         {
-            questState = QuestState.InProgress;
-        }
-        else
-        {
-            questState = QuestState.NotStarted;
+            string questID = dialogueData.quest.questID;
+
+            if (S_QuestController.Instance.IsQuestHandedIn(questID))
+            {
+                
+                questState = QuestState.Completed;
+            }
+            else if (S_QuestController.Instance.IsQuestCompleted(questID))
+            {
+              
+                questState = (turnInQuest == dialogueData.quest)
+                    ? QuestState.Completed
+                    : QuestState.InProgress;
+            }
+            else if (S_QuestController.Instance.IsQuestActive(questID))
+            {
+                questState = QuestState.InProgress;
+            }
         }
     }
+
     private void OnDisable()
     {
         if (activeNPC == this)

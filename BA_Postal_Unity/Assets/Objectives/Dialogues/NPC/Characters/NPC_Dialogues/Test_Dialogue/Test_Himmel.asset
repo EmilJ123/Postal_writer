@@ -36,6 +36,15 @@ MonoBehaviour:
   - text: hows the quest going?
     autoProgress: 0
     endDialogue: 1
+  - text: oh wow a letter for me?
+    autoProgress: 0
+    endDialogue: 0
+  - text: thank you for bringing it to me i'll read it when as fast as i can!
+    autoProgress: 0
+    endDialogue: 1
+  - text: thank you for helping me deliver this letter!
+    autoProgress: 0
+    endDialogue: 0
   autoProgressDelay: 1.5
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
@@ -47,7 +56,7 @@ MonoBehaviour:
     - no sorry
     nextDialogueIndices: 0300000004000000i
     givesQuest: 0100y
-  questInProgressIndex: 7
-  questCompletedIndex: 0
+  questInProgressIndex: 6
+  questCompletedIndex: 10
   quest: {fileID: 11400000, guid: 8e43ae7b14c85524b9a9a80b2d5f3a21, type: 2}
   endDialogueLines: 000000000001y

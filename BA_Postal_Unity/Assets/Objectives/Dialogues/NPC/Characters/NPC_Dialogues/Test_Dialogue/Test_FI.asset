@@ -39,6 +39,12 @@ MonoBehaviour:
   - text: laters
     autoProgress: 0
     endDialogue: 1
+  - text: 'Thank you for delivering this letter for me i knew i could count on you! '
+    autoProgress: 0
+    endDialogue: 1
+  - text: 'oh wow a letter for me i''ll take a look at it later! '
+    autoProgress: 0
+    endDialogue: 1
   autoProgressDelay: 1.5
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
@@ -57,6 +63,6 @@ MonoBehaviour:
     nextDialogueIndices: 0600000007000000i
     givesQuest: 
   questInProgressIndex: 4
-  questCompletedIndex: 0
+  questCompletedIndex: 8
   quest: {fileID: 11400000, guid: 3d74fb29ee2fa4448819cf4464f7673c, type: 2}
   endDialogueLines: 0001y

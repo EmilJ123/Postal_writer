@@ -79,9 +79,7 @@ public class S_Dialogue : MonoBehaviour
     {
         if (dialogueData == null)
         {
-            Debug.LogWarning(
-                "No S_NPCDialogue assigned to " + gameObject.name
-            );
+            
             return;
         }
 
