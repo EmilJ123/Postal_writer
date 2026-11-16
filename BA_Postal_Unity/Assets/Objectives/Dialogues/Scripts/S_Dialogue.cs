@@ -21,7 +21,10 @@ public class S_Dialogue3 : MonoBehaviour
     [Header("Quest Turn-In(optional)")]
     [SerializeField] private S_QuestManager turnInQuest;
     [SerializeField] private int turnInLineIndex;
+    [SerializeField] private string requiredQuestID;
+    [SerializeField] private bool requireQuestHandedIn;
     
+    public string npcID = "TalkToQuest";
     private int lineIndex;
     private static S_Dialogue3 activeNPC;
 
@@ -55,7 +58,7 @@ public class S_Dialogue3 : MonoBehaviour
         {
             if (canInteract && Input.GetKeyDown(KeyCode.F))
             {
-                StartDialogue();
+                Interact();
             }
 
             return;
@@ -85,15 +88,32 @@ public class S_Dialogue3 : MonoBehaviour
             NextLine();
         }
     }
+    public void Interact()
+    {
+        // No quest requirement set = always allow dialogue
+        if (string.IsNullOrEmpty(requiredQuestID))
+        {
+            StartDialogue();
+            return;
+        }
 
+        bool canShowDialogue = requireQuestHandedIn
+            ? S_QuestController.Instance.IsQuestHandedIn(requiredQuestID)
+            : S_QuestController.Instance.IsQuestActive(requiredQuestID);
+
+        if (canShowDialogue)
+        {
+            StartDialogue();
+        }
+    }
     // --------------------------------------------------
     // START DIALOGUE
     // --------------------------------------------------
-
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
-        
+        Debug.Log("Quest check: " +
+                  S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
         if (dialogueData == null)
         {
             Debug.LogWarning(
@@ -589,6 +609,9 @@ public class S_Dialogue3 : MonoBehaviour
         {
             S_QuestController.Instance.HandInQuest(questToHandIn.questID);
         }
+        
+        S_QuestController.Instance.ProgressTalkNPC(npcID);
+        
     }
 
     private void StopTypingCoroutine()

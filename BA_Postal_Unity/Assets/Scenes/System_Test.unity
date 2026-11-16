@@ -1920,6 +1920,7 @@ MonoBehaviour:
   activateQuests: []
   questUI: {fileID: 0}
   handingQuestIDs: []
+  npcQuests: []
 --- !u!114 &551108162 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3807209835364387830, guid: df227b18c5273f74f91f32d02a28287f, type: 3}
@@ -2142,7 +2143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650615423401226925, guid: fbbe8247b7b274bf1a494afebb3d4b38, type: 3}
       propertyPath: ID
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3772,6 +3773,7 @@ MonoBehaviour:
   - {fileID: 2382583041263432559}
   turnInQuest: {fileID: 0}
   turnInLineIndex: 0
+  npcID: TalkToQuest
 --- !u!1 &1177076465
 GameObject:
   m_ObjectHideFlags: 0
@@ -4181,7 +4183,7 @@ Transform:
   m_GameObject: {fileID: 1220110921}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21109009, y: 4.506851, z: -78.562836}
+  m_LocalPosition: {x: -0.21109009, y: 4.56, z: -78.54}
   m_LocalScale: {x: 6.712794, y: 3.559002, z: 12.698053}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5283,8 +5285,9 @@ MonoBehaviour:
   choiceTexts:
   - {fileID: 6072955335627514904}
   - {fileID: 2382583041263432559}
-  turnInQuest: {fileID: 11400000, guid: 8e43ae7b14c85524b9a9a80b2d5f3a21, type: 2}
+  turnInQuest: {fileID: 0}
   turnInLineIndex: 8
+  npcID: 
 --- !u!1001 &1633716402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5300,6 +5303,10 @@ PrefabInstance:
     - target: {fileID: 3806412050882214581, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806412050882214581, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 7268825389520855775, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: DialogueBox
@@ -5434,6 +5441,7 @@ MonoBehaviour:
   - {fileID: 2382583041263432559}
   turnInQuest: {fileID: 11400000, guid: 3d74fb29ee2fa4448819cf4464f7673c, type: 2}
   turnInLineIndex: 7
+  npcID: Himmel
 --- !u!4 &1636920759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6910120014652592269, guid: 604441a7c99d1a344a281cd88632adaf, type: 3}
@@ -6027,7 +6035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650615423401226925, guid: fbbe8247b7b274bf1a494afebb3d4b38, type: 3}
       propertyPath: ID
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7729,15 +7737,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2758331822639849920, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14780915
+      value: 0.14780916
       objectReference: {fileID: 0}
     - target: {fileID: 2758331822639849920, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -8.919969e-23
+      value: 0.000000002304078
       objectReference: {fileID: 0}
     - target: {fileID: 2758331822639849920, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1.2584848e-23
+      value: -5.348281e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2832399250202399361, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: m_Enabled
