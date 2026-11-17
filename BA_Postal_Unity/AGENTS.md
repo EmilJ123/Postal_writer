@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: NPC_Runa
-  - Tag: NPC
-  - Layer: Default
+  - Name: GM-Ramp (1)
+  - Tag: Untagged
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
-  m_Name: Runa
+  m_Name: Runa_day1
   m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
   npcName: Runa
   npcPortrait: {fileID: 0}

@@ -132,7 +132,7 @@ MonoBehaviour:
   - text: Now, Off you go! And do try not to lose any letters. Or fingers. The roads are slippery.
     autoProgress: 0
     endDialogue: 1
-  - text: wasdwa
+  - text: ...
     autoProgress: 0
     endDialogue: 1
   autoProgressDelay: 1.5
@@ -144,7 +144,8 @@ MonoBehaviour:
     choices:
     - Wait for him to explain the job.
     - Give him a small, uncertain wave.
-    nextDialogueIndices: 0400000004000000i
+    - Nod respectfully
+    nextDialogueIndices: 040000000400000004000000i
     givesQuest: 
   - dialogueIndex: 8
     choices:
@@ -164,7 +165,7 @@ MonoBehaviour:
     - Nod quietly.
     nextDialogueIndices: 1a0000001c000000i
     givesQuest: 0101y
-  questInProgressIndex: 1
-  questCompletedIndex: 1
+  questInProgressIndex: 37
+  questCompletedIndex: 37
   quest: {fileID: 11400000, guid: 409f032280887a340b5d22fccf47f608, type: 2}
   endDialogueLines: 
