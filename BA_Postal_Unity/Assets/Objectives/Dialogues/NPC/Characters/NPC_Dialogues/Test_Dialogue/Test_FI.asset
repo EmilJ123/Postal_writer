@@ -56,12 +56,14 @@ MonoBehaviour:
     - no sorry..
     nextDialogueIndices: 0200000003000000i
     givesQuest: 0100y
+    opensLetterPuzzle: 0100y
   - dialogueIndex: 5
     choices:
     - where do i find what u need?
     - bye
     nextDialogueIndices: 0600000007000000i
     givesQuest: 
+    opensLetterPuzzle: 0000y
   questInProgressIndex: 4
   questCompletedIndex: 8
   quest: {fileID: 11400000, guid: 3d74fb29ee2fa4448819cf4464f7673c, type: 2}

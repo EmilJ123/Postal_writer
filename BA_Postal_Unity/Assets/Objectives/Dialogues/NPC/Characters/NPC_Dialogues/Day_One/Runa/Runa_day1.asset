@@ -65,6 +65,7 @@ MonoBehaviour:
     - Gesture gently towards the bland address line.
     nextDialogueIndices: 0800000009000000i
     givesQuest: 
+    opensLetterPuzzle: 0000y
   questInProgressIndex: 1
   questCompletedIndex: 1
   quest: {fileID: 11400000, guid: a909c75b6b510ff47adb03255c2b7ef1, type: 2}

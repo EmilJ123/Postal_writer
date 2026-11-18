@@ -23,6 +23,11 @@ public class S_Dialogue3 : MonoBehaviour
     [SerializeField] private int turnInLineIndex;
     [SerializeField] private string requiredQuestID;
     [SerializeField] private bool requireQuestHandedIn;
+
+    [Header("Minigame")]
+    [SerializeField] private GameObject letterPuzzleUI;
+    [SerializeField] private bool opensMinigameAfterDialogue;
+    [SerializeField] private bool opensMinigameAfterChoice;
     
     public string npcID = "TalkToQuest";
     private int lineIndex;
@@ -46,6 +51,12 @@ public class S_Dialogue3 : MonoBehaviour
     private Coroutine typingCoroutine;
     private Coroutine autoProgressCoroutine;
 
+    public void OpenLetterPuzzle()
+    {
+        dialogueBox.SetActive(false);
+        
+        letterPuzzleUI.SetActive(true);
+    }
     
     private void Update()
     {
@@ -504,10 +515,14 @@ public class S_Dialogue3 : MonoBehaviour
             EndDialogue();
             return;
         }
-
-       
         int nextDialogueIndex =
             dialogueChoice.nextDialogueIndices[choiceIndex];
+        
+        if (dialogueChoice.opensLetterPuzzle[choiceIndex])
+        {
+            OpenLetterPuzzle();
+            //return;
+        }
         
         if (dialogueChoice.givesQuest != null &&
             choiceIndex < dialogueChoice.givesQuest.Length &&
