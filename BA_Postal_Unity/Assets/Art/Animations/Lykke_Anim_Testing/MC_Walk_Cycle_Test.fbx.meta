@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 45e970df1d503e24bada1ea60119b6fb
+guid: eb7e182a53c9e2044a7afe705a3fba9a
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
@@ -32,7 +32,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk_temp_test_anim
+      name: MC_walk_cycle_v001
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 1
@@ -63,7 +63,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3743677
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -126,7 +126,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.3743677
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
