@@ -45,12 +45,9 @@ MonoBehaviour:
   - text: The address is enough? Yes. Good.
     autoProgress: 0
     endDialogue: 1
-  - text: 
+  - text: To my friend, i hope the night finds you well. I have some extra medicine from the chapel. The bitter kind. I thought you might appreciate having it before the roads become worse. please remember to stay indoors whne the snow gets heavy. The path near the old bridge has become treacherous again, and I would rather not have to come looking for you in the blizzard. And eat something. I know you said you were fine, but you always say that. You cannot live on tea nad stubborness alone, no matter how determined you are to prove otherwise. I will be at the chapel tomorrow evening. If you happen to be passing by, you may stop in. You don't have to stay long. You don't even have to talk, if you don't want to. I only thought it might be nice to seee you. The medicine is in the little brown bottle. Not the green one. The green one is for coughs, and I don't want you taking the wrong thing because you refused to ask. Please be careful on the road. -R
     autoProgress: 0
     endDialogue: 1
-  - text: 
-    autoProgress: 0
-    endDialogue: 0
   - text: 
     autoProgress: 0
     endDialogue: 0
@@ -64,9 +61,9 @@ MonoBehaviour:
     - Ask who the letter is for.
     - Gesture gently towards the bland address line.
     nextDialogueIndices: 0800000009000000i
-    givesQuest: 
+    givesQuest: 0101y
     opensLetterPuzzle: 0000y
-  questInProgressIndex: 1
+  questInProgressIndex: 10
   questCompletedIndex: 1
-  quest: {fileID: 11400000, guid: a909c75b6b510ff47adb03255c2b7ef1, type: 2}
+  quest: {fileID: 11400000, guid: 6be8778ee51ea784eb433684e1a8a5f7, type: 2}
   endDialogueLines: 
