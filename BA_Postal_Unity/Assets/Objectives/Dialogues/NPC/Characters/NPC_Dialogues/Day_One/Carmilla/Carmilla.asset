@@ -68,6 +68,7 @@ MonoBehaviour:
     - 'Say that the words were hers. '
     nextDialogueIndices: 0b0000000c000000i
     givesQuest: 0101y
+    opensLetterPuzzle: 0000y
   questInProgressIndex: 14
   questCompletedIndex: 0
   quest: {fileID: 0}

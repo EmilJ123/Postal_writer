@@ -2,13 +2,13 @@
 - Project name: BA_Postal_Unity
 - Unity version: Unity 6000.6.2f1
 - Active scene:
-  - Name: Lykke.anim.testing
+  - Name: Level
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, SnowGround, Item, NPC
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: BOUND_Leg_R
-  - Tag: Untagged
-  - Layer: Default
+  - Name: Player
+  - Tag: Player
+  - Layer: Ignore_player
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

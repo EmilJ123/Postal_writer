@@ -147,24 +147,28 @@ MonoBehaviour:
     - Nod respectfully
     nextDialogueIndices: 040000000400000004000000i
     givesQuest: 
+    opensLetterPuzzle: 0000y
   - dialogueIndex: 8
     choices:
     - Give him a patient nod.
     - Look pointedly at the delivery bag beside the door.
     nextDialogueIndices: 0900000009000000i
     givesQuest: 
+    opensLetterPuzzle: 0000y
   - dialogueIndex: 13
     choices:
     - Look at the window.
     - Tell him that this was not mentioned in the job description
     nextDialogueIndices: 0f0000000e000000i
     givesQuest: 
+    opensLetterPuzzle: 0000y
   - dialogueIndex: 25
     choices:
     - Gesture toward him, Inviting him to share his own theory.
     - Nod quietly.
     nextDialogueIndices: 1a0000001c000000i
     givesQuest: 0101y
+    opensLetterPuzzle: 0000y
   questInProgressIndex: 37
   questCompletedIndex: 37
   quest: {fileID: 11400000, guid: 409f032280887a340b5d22fccf47f608, type: 2}
