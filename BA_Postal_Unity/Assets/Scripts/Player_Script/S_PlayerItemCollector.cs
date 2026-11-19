@@ -5,7 +5,6 @@ using UnityEngine;
 public class S_PlayerItemCollector : MonoBehaviour
 {
     [SerializeField] private S_InventoryController inventoryController;
-    
     private GameObject currentItemInRange;
 
     void Start()
@@ -30,17 +29,17 @@ public class S_PlayerItemCollector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item") || other.CompareTag("Puzzle"))
         {
             currentItemInRange = other.gameObject;
-            
-            Debug.Log("Press F to pick up" + other.name);
+
+            Debug.Log("Press F to interact with " + other.name);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item") || other.CompareTag("Puzzle"))
         {
             if (currentItemInRange == other.gameObject)
             {
@@ -51,9 +50,18 @@ public class S_PlayerItemCollector : MonoBehaviour
 
     private void TryPickUpItem()
     {
+        if (currentItemInRange.CompareTag("Puzzle"))
+        {
+            Debug.Log("Opening Puzzle");
+
+            FindAnyObjectByType<S_PuzzleManager_M>().OpenPuzzle();
+            return;
+        }
+
         if (currentItemInRange.TryGetComponent<S_Item>(out S_Item item))
         {
-            if (inventoryController != null && inventoryController.AddItem(item.gameObject))
+            if (inventoryController != null &&
+                inventoryController.AddItem(item.gameObject))
             {
                 Destroy(currentItemInRange);
                 currentItemInRange = null;

@@ -144,7 +144,6 @@ MonoBehaviour:
     choices:
     - Wait for him to explain the job.
     - Give him a small, uncertain wave.
-    - Nod respectfully
     nextDialogueIndices: 040000000400000004000000i
     givesQuest: 
     opensLetterPuzzle: 0000y

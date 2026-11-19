@@ -20,19 +20,19 @@ public class S_QuestController : MonoBehaviour
 
         if (questUI == null)
         {
-            Debug.LogError("Could not find S_QuestUI!");
+            //Debug.LogError("Could not find S_QuestUI!");
         }
     }
     
     public void AcceptQuest(S_QuestManager quest)
     {
-        Debug.Log("AcceptQuest called!");
+        //Debug.Log("AcceptQuest called!");
 
         if (IsQuestActive(quest.questID)) return;
 
         activateQuests.Add(new QuestProgress(quest));
 
-        Debug.Log("Quest added: " + quest.questName);
+        //Debug.Log("Quest added: " + quest.questName);
         
         CheckInventoryForQuest();
         questUI.UpdateQuestUI();
@@ -102,7 +102,7 @@ public class S_QuestController : MonoBehaviour
         {
             foreach (QuestObjective objective in quest.objectives)
             {
-                if (objective.type != ObjectiveType.TalkNPC)
+                if (objective.type != ObjectiveType.TalkNpc)
                     continue;
 
                 if (objective.objectiveID != npcID)

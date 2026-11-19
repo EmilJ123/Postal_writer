@@ -5,6 +5,7 @@ public class S_PuzzleManager_M : MonoBehaviour
 {
     [SerializeField] private GameObject letterPuzzleUI;
     [SerializeField] private GameObject completedLetterUI;
+    [SerializeField] private GameObject[] objectsToEnableOnComplete;
     public CinemachineInputAxisController cameraInput;
     public PlayerInput playerInput;
     public string[] correctSentence =
@@ -17,6 +18,18 @@ public class S_PuzzleManager_M : MonoBehaviour
         "Winter",
         
     };
+    public void OpenPuzzle()
+    {
+        letterPuzzleUI.SetActive(true);
+
+        EnterPuzzleMode();
+    }
+    
+    public void ClosePuzzle()
+    {
+        letterPuzzleUI.SetActive(false);
+        ExitPuzzleMode();
+    }
     public void ContinueConversation()
     {
         completedLetterUI.SetActive(false);
@@ -26,29 +39,29 @@ public class S_PuzzleManager_M : MonoBehaviour
     
     private void EnterPuzzleMode()
     {
-        Debug.Log("ENTERING PUZZLE MODE");
+        Debug.Log("Entering Puzzle Mode");
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         cameraInput.enabled = false;
 
-        Debug.Log("Current Map: " + playerInput.currentActionMap.name);
-        playerInput.actions.FindActionMap("UI").Disable();
-        Debug.Log("New Map: " + playerInput.currentActionMap.name);
-        
+        playerInput.actions.FindActionMap("Gameplay").Disable();
+
+        Debug.Log(
+            "Gameplay Enabled: " +
+            playerInput.actions.FindActionMap("Gameplay").enabled
+        );
     }
 
     private void ExitPuzzleMode()
     {
-        if (cameraInput != null)
-            cameraInput.enabled = true;
-
-        if (playerInput != null)
-            playerInput.actions.FindActionMap("Player").Enable();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        cameraInput.enabled = true;
+                
+        playerInput.actions.FindActionMap("Gameplay").Enable();
     }
     public void CheckAnswer()
     {
@@ -73,22 +86,29 @@ public class S_PuzzleManager_M : MonoBehaviour
 
             if (word == null)
             {
-                Debug.Log("Missing word!");
+               // Debug.Log("Missing word!");
                 return;
             }
 
-            Debug.Log("Found: " + word.word);
+            //  Debug.Log("Found: " + word.word);
 
             if (word.word != correctSentence[i])
             {
-                Debug.Log("Wrong order!");
+             //   Debug.Log("Wrong order!");
                 return;
             }
         }
 
         Debug.Log("Puzzle Solved!");
 
-        letterPuzzleUI.SetActive(false);
+        ClosePuzzle();
         completedLetterUI.SetActive(true);
+        { 
+            foreach (GameObject obj in objectsToEnableOnComplete)
+            {
+                if (obj != null)
+                    obj.SetActive(true);
+            }
+        }
     }
 }

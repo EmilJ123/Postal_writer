@@ -25,9 +25,11 @@ public class S_Dialogue3 : MonoBehaviour
     [SerializeField] private bool requireQuestHandedIn;
 
     [Header("Minigame")]
+    public S_PuzzleManager_M puzzleManager;
     [SerializeField] private GameObject letterPuzzleUI;
     [SerializeField] private bool opensMinigameAfterDialogue;
     [SerializeField] private bool opensMinigameAfterChoice;
+    
     
     public string npcID = "TalkToQuest";
     private int lineIndex;
@@ -55,7 +57,7 @@ public class S_Dialogue3 : MonoBehaviour
     {
         dialogueBox.SetActive(false);
         
-        letterPuzzleUI.SetActive(true);
+        puzzleManager.OpenPuzzle();
     }
     
     private void Update()
@@ -123,8 +125,8 @@ public class S_Dialogue3 : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
-        Debug.Log("Quest check: " +
-                  S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
+        //Debug.Log("Quest check: " +
+                  //S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
         if (dialogueData == null)
         {
             Debug.LogWarning(
@@ -528,7 +530,7 @@ public class S_Dialogue3 : MonoBehaviour
             choiceIndex < dialogueChoice.givesQuest.Length &&
             dialogueChoice.givesQuest[choiceIndex])
         {
-            Debug.Log("Giving quest!");
+            //Debug.Log("Giving quest!");
 
             if (dialogueData.quest != null)
             {
@@ -536,7 +538,7 @@ public class S_Dialogue3 : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("No quest assigned in NPC Dialogue!");
+                //Debug.LogWarning("No quest assigned in NPC Dialogue!");
             }
         }
 

@@ -165,7 +165,7 @@ public class S_TemperatureSystem : MonoBehaviour
         }
         else
         {
-            //playerMovement.SetSpeed(5f);   
+            playerMovement.SetSpeed(4.5f);   
         }
     }
 

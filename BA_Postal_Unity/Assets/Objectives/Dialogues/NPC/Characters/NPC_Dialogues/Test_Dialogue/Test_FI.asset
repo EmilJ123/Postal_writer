@@ -56,7 +56,7 @@ MonoBehaviour:
     - no sorry..
     nextDialogueIndices: 0200000003000000i
     givesQuest: 0100y
-    opensLetterPuzzle: 0100y
+    opensLetterPuzzle: 0000y
   - dialogueIndex: 5
     choices:
     - where do i find what u need?

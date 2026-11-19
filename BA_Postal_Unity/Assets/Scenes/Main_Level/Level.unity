@@ -1094,7 +1094,7 @@ Transform:
   m_GameObject: {fileID: 55910880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.69729376, z: -0, w: 0.71678555}
-  m_LocalPosition: {x: 0.53157043, y: 0.058403015, z: -1.1871948}
+  m_LocalPosition: {x: 0.53157043, y: -0.32, z: -1.1871948}
   m_LocalScale: {x: 11.258173, y: 4.5566497, z: 6.1214023}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1812,6 +1812,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2005680043238089982, guid: 80bb9bb185c4946d290d6f17d7f1814c, type: 3}
   m_PrefabInstance: {fileID: 89262787}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &96077241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7884315720195695837, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
+  m_PrefabInstance: {fileID: 433283458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &96077246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96077241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3490d6d2f980544a417f39aad8fc9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_PuzzleManager_M
+  letterPuzzleUI: {fileID: 0}
+  completedLetterUI: {fileID: 0}
+  objectsToEnableOnComplete: []
+  cameraInput: {fileID: 0}
+  playerInput: {fileID: 0}
+  correctSentence:
+  - The
+  - cat
+  - Happy
+  - Runa
+  - Carmilla
+  - Winter
 --- !u!1 &98732849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1001150744407085713, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
@@ -3653,14 +3682,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1633278598}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 29.897
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_Name
-      value: Signpost (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 190.82657
       objectReference: {fileID: 0}
@@ -3699,6 +3720,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
+      propertyPath: m_Name
+      value: Signpost (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4796,15 +4821,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.64
+      value: -17.17
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.63
+      value: -18.08
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.38
+      value: -21.95
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4878,6 +4903,7 @@ MonoBehaviour:
   turnInLineIndex: 0
   requiredQuestID: Runa1
   requireQuestHandedIn: 0
+  puzzleManager: {fileID: 0}
   letterPuzzleUI: {fileID: 0}
   opensMinigameAfterDialogue: 0
   opensMinigameAfterChoice: 0
@@ -10023,6 +10049,9 @@ PrefabInstance:
     - {fileID: 5394826663764756219, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7884315720195695837, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 96077246}
     - targetCorrespondingSourceObject: {fileID: 5638116935996445112, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 433283460}
@@ -14349,6 +14378,132 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!1 &637898424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637898428}
+  - component: {fileID: 637898427}
+  - component: {fileID: 637898426}
+  - component: {fileID: 637898425}
+  - component: {fileID: 637898429}
+  m_Layer: 0
+  m_Name: Writing_Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &637898425
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637898424}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &637898426
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637898424}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &637898427
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637898424}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &637898428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637898424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 224.87, y: 1.53, z: 149.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637898429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637898424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfef31436cfef24391100a75706007a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_LetterPuzzleInteractable_M
+  puzzleManager: {fileID: 0}
 --- !u!1 &646227106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5dc7c9fc26661b641acc24decf3af637, type: 3}
@@ -15530,7 +15685,7 @@ Transform:
   m_GameObject: {fileID: 716185174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.064, y: 0.2, z: -21.122}
+  m_LocalPosition: {x: -1.064, y: -0.26, z: -21.122}
   m_LocalScale: {x: 0.17112929, y: 1, z: 2.1925}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15904,7 +16059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2116209997437431991, guid: 5e319dc80c206a345ae7bbfdf8cb75b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.20084
+      value: -0.5792427
       objectReference: {fileID: 0}
     - target: {fileID: 2116209997437431991, guid: 5e319dc80c206a345ae7bbfdf8cb75b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19447,15 +19602,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 58.77
+      value: -22.853
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.64
+      value: -18.17
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.63
+      value: 9.25
       objectReference: {fileID: 0}
     - target: {fileID: 7643747775834404970, guid: 29a9ad13c27cdf9448645d74b8947238, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19524,6 +19679,7 @@ MonoBehaviour:
   turnInLineIndex: 0
   requiredQuestID: 
   requireQuestHandedIn: 0
+  puzzleManager: {fileID: 0}
   letterPuzzleUI: {fileID: 0}
   opensMinigameAfterDialogue: 0
   opensMinigameAfterChoice: 0
@@ -19536,14 +19692,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1633278598}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 20.027
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_Name
-      value: Signpost (1)
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 91.74966
@@ -19583,6 +19731,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
+      propertyPath: m_Name
+      value: Signpost (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22758,14 +22910,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1633278598}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 21.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
-      propertyPath: m_Name
-      value: Signpost
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 70.84434
       objectReference: {fileID: 0}
@@ -22804,6 +22948,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ff3ce52e5b1f0c458d8896021726bbd, type: 3}
+      propertyPath: m_Name
+      value: Signpost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41253,7 +41401,7 @@ Transform:
   m_GameObject: {fileID: 1985408789}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.996475, y: 0.058403015, z: -3.0838165}
+  m_LocalPosition: {x: 4.996475, y: -0.3199997, z: -3.0838165}
   m_LocalScale: {x: 13.593799, y: 4.5566497, z: 6.1214023}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44646,6 +44794,7 @@ MonoBehaviour:
   turnInLineIndex: 0
   requiredQuestID: 
   requireQuestHandedIn: 0
+  puzzleManager: {fileID: 0}
   letterPuzzleUI: {fileID: 0}
   opensMinigameAfterDialogue: 0
   opensMinigameAfterChoice: 0
@@ -45899,3 +46048,4 @@ SceneRoots:
   - {fileID: 1107279970}
   - {fileID: 1203203131}
   - {fileID: 190666728}
+  - {fileID: 637898428}

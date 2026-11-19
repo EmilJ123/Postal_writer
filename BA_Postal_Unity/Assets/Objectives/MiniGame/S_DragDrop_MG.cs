@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField] private Canvas canvas;
 
@@ -19,6 +19,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         originalParent = transform.parent;
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -35,7 +36,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
         if (transform.parent == originalParent)
         {
-            transform.SetParent(originalParent);
+            rectTransform.localPosition = Vector3.zero;
         }
     }
     
