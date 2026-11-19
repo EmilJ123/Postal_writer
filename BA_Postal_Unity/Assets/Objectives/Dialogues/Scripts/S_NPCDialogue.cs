@@ -46,4 +46,5 @@ public class DialogueChoice
     public string[] choices; //Player response options
     public int[] nextDialogueIndices; //Where choice leads
     public bool[] givesQuest;
+    public bool[] opensLetterPuzzle;
 }

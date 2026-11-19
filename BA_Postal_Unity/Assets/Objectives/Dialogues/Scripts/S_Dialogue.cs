@@ -18,12 +18,27 @@ public class S_Dialogue3 : MonoBehaviour
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private TMP_Text[] choiceTexts;
     
+    [Header("Quest Turn-In(optional)")]
+    [SerializeField] private S_QuestManager turnInQuest;
+    [SerializeField] private int turnInLineIndex;
+    [SerializeField] private string requiredQuestID;
+    [SerializeField] private bool requireQuestHandedIn;
+
+    [Header("Minigame")]
+    [SerializeField] private GameObject letterPuzzleUI;
+    [SerializeField] private bool opensMinigameAfterDialogue;
+    [SerializeField] private bool opensMinigameAfterChoice;
+    
+    public string npcID = "TalkToQuest";
     private int lineIndex;
+    private static S_Dialogue3 activeNPC;
 
     private bool isInteracting;
     private bool canInteract;
     private bool isTyping;
     private bool choosing;
+    
+    
     private enum QuestState
     {
         NotStarted,
@@ -36,25 +51,31 @@ public class S_Dialogue3 : MonoBehaviour
     private Coroutine typingCoroutine;
     private Coroutine autoProgressCoroutine;
 
+    public void OpenLetterPuzzle()
+    {
+        dialogueBox.SetActive(false);
+        
+        letterPuzzleUI.SetActive(true);
+    }
     
     private void Update()
     {
         if (interactPrompt != null)
         {
-            interactPrompt.SetActive(
-                canInteract && !isInteracting
-            );
+            interactPrompt.SetActive(canInteract && !isInteracting && activeNPC == null);
         }
 
         if (!isInteracting)
         {
             if (canInteract && Input.GetKeyDown(KeyCode.F))
             {
-                StartDialogue();
+                Interact();
             }
 
             return;
         }
+        if (activeNPC != this)
+            return;
 
         if (choosing)
         {
@@ -78,15 +99,32 @@ public class S_Dialogue3 : MonoBehaviour
             NextLine();
         }
     }
+    public void Interact()
+    {
+        // No quest requirement set = always allow dialogue
+        if (string.IsNullOrEmpty(requiredQuestID))
+        {
+            StartDialogue();
+            return;
+        }
 
+        bool canShowDialogue = requireQuestHandedIn
+            ? S_QuestController.Instance.IsQuestHandedIn(requiredQuestID)
+            : S_QuestController.Instance.IsQuestActive(requiredQuestID);
+
+        if (canShowDialogue)
+        {
+            StartDialogue();
+        }
+    }
     // --------------------------------------------------
     // START DIALOGUE
     // --------------------------------------------------
-
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
-        
+        Debug.Log("Quest check: " +
+                  S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
         if (dialogueData == null)
         {
             Debug.LogWarning(
@@ -104,12 +142,20 @@ public class S_Dialogue3 : MonoBehaviour
             );
             return;
         }
-
-        canInteract = true;
+        if (activeNPC != null && activeNPC != this)
+            return;
+        
+        activeNPC = this;
+        //canInteract = true;
         isInteracting = true;
 
         switch (questState)
         {
+            case QuestState.NotStarted:
+            default:
+                lineIndex = 0;
+                break;
+
             case QuestState.InProgress:
                 lineIndex = Mathf.Clamp(
                     dialogueData.questInProgressIndex,
@@ -119,8 +165,16 @@ public class S_Dialogue3 : MonoBehaviour
                 break;
 
             case QuestState.Completed:
+                bool isHandingInNow = turnInQuest != null &&
+                                      S_QuestController.Instance != null &&
+                                      S_QuestController.Instance.IsQuestCompleted(turnInQuest.questID);
+
+                int targetIndex = isHandingInNow
+                    ? turnInLineIndex
+                    : dialogueData.questCompletedIndex;
+
                 lineIndex = Mathf.Clamp(
-                    dialogueData.questCompletedIndex,
+                    targetIndex,
                     0,
                     dialogueData.dialogueLines.Length - 1
                 );
@@ -173,7 +227,7 @@ public class S_Dialogue3 : MonoBehaviour
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
-
+        Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
         dialogueText.text = "";
 
         string fullText = currentLine.text ?? "";
@@ -461,10 +515,14 @@ public class S_Dialogue3 : MonoBehaviour
             EndDialogue();
             return;
         }
-
-       
         int nextDialogueIndex =
             dialogueChoice.nextDialogueIndices[choiceIndex];
+        
+        if (dialogueChoice.opensLetterPuzzle[choiceIndex])
+        {
+            OpenLetterPuzzle();
+            //return;
+        }
         
         if (dialogueChoice.givesQuest != null &&
             choiceIndex < dialogueChoice.givesQuest.Length &&
@@ -539,7 +597,11 @@ public class S_Dialogue3 : MonoBehaviour
 
         if (nextLinePrompt != null)
             nextLinePrompt.SetActive(false);
-
+        
+        if (activeNPC == this)
+        {
+            activeNPC = null;
+        }
         HideChoices();
 
         if (interactPrompt != null)
@@ -551,6 +613,20 @@ public class S_Dialogue3 : MonoBehaviour
         {
             S_QuestController.Instance.HandInQuest(dialogueData.quest.questID);
         }
+        
+        S_QuestManager questToHandIn = (turnInQuest != null)
+            ? turnInQuest
+            : (dialogueData != null ? dialogueData.quest : null);
+
+        if (questState == QuestState.Completed &&
+            questToHandIn != null &&
+            !S_QuestController.Instance.IsQuestHandedIn(questToHandIn.questID))
+        {
+            S_QuestController.Instance.HandInQuest(questToHandIn.questID);
+        }
+        
+        S_QuestController.Instance.ProgressTalkNPC(npcID);
+        
     }
 
     private void StopTypingCoroutine()
@@ -604,23 +680,52 @@ public class S_Dialogue3 : MonoBehaviour
     }
     private void SyncQuestState()
     {
-        if (dialogueData.quest == null)
+        questState = QuestState.NotStarted;
+
+        if (S_QuestController.Instance == null)
             return;
 
-        string questID = dialogueData.quest.questID;
+        
+        if (turnInQuest != null)
+        {
+            string turnInID = turnInQuest.questID;
 
-        if (S_QuestController.Instance.IsQuestCompleted(questID) ||
-            S_QuestController.Instance.IsQuestHandedIn(questID))
-        {
-            questState = QuestState.Completed;
+            if (S_QuestController.Instance.IsQuestCompleted(turnInID))
+            {
+                questState = QuestState.Completed;
+                return;
+            }
         }
-        else if (S_QuestController.Instance.IsQuestActive(questID))
+
+        
+        if (dialogueData != null && dialogueData.quest != null)
         {
-            questState = QuestState.InProgress;
+            string questID = dialogueData.quest.questID;
+
+            if (S_QuestController.Instance.IsQuestHandedIn(questID))
+            {
+                
+                questState = QuestState.Completed;
+            }
+            else if (S_QuestController.Instance.IsQuestCompleted(questID))
+            {
+              
+                questState = (turnInQuest == dialogueData.quest)
+                    ? QuestState.Completed
+                    : QuestState.InProgress;
+            }
+            else if (S_QuestController.Instance.IsQuestActive(questID))
+            {
+                questState = QuestState.InProgress;
+            }
         }
-        else
+    }
+
+    private void OnDisable()
+    {
+        if (activeNPC == this)
         {
-            questState = QuestState.NotStarted;
+            activeNPC = null;
         }
     }
 }

@@ -10,6 +10,7 @@ public class S_QuestController : MonoBehaviour
     public S_QuestUI questUI;
 
     public List<string> handingQuestIDs = new();
+    public List <string> npcQuests = new();
     private void Awake()
     {
         Instance = this;
@@ -69,6 +70,16 @@ public class S_QuestController : MonoBehaviour
     
      }
 
+    public void CompleteQuestWithoutHandIn(string questID)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        if (quest != null)
+        {
+            handingQuestIDs.Add(questID);
+            activateQuests.Remove(quest);
+            questUI.UpdateQuestUI();
+        }
+    }
     public void HandInQuest(string questID)
     {
         //try remove required items
@@ -85,7 +96,24 @@ public class S_QuestController : MonoBehaviour
             questUI.UpdateQuestUI();
         }
     }
+    public void ProgressTalkNPC(string npcID)
+    {
+        foreach (QuestProgress quest in activateQuests)
+        {
+            foreach (QuestObjective objective in quest.objectives)
+            {
+                if (objective.type != ObjectiveType.TalkNPC)
+                    continue;
 
+                if (objective.objectiveID != npcID)
+                    continue;
+
+                objective.currentAmount = objective.requiredAmount;
+            }
+        }
+
+        questUI.UpdateQuestUI();
+    }
     public bool IsQuestHandedIn(string questID)
     {
         return handingQuestIDs.Contains(questID);

@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
+  m_Name: MR.Bell_Day1
+  m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
+  npcName: MR.Bell
+  npcPortrait: {fileID: 0}
+  dialogueLines:
+  - text: Ah! there you are! Our new Writer!
+    autoProgress: 0
+    endDialogue: 0
+  - text: I'm Olav. Most people call me MR.Bell.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Postmaster is also acceptable. I answer to both.
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: Excellent. Already demonstrating good judgement.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Now, your duties are quite simple.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Your write. You listen to what people have to say, put it into words, and make sure the finished letter reaches the post.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Normally, you leave the letters here. I'll have them sorted, stamped, and sent out.
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: Yes, well. about that bag.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Our regular courier hasn't returned from the western road.
+    autoProgress: 0
+    endDialogue: 0
+  - text: It's been three weeks, but we're optimistic people.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Until we have another courier, you'll deliver the letters yourself.
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: Ah. Yes Well. Temporary duties. Very temporary. Almost certainly.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Your first route is the town. Small place. You'll learn everyone's name eventually.
+    autoProgress: 0
+    endDialogue: 0
+  - text: There arem't many of us left. People leave. Some move south. Some move to larger cities.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Some simply decide that living somewhere with functioning agriculture is preferable.
+    autoProgress: 0
+    endDialogue: 0
+  - text: 'Can''t blame them
+
+'
+    autoProgress: 0
+    endDialogue: 0
+  - text: 'As for the snow? Still here.
+
+'
+    autoProgress: 0
+    endDialogue: 0
+  - text: 'Longer than I''ve been alive. Generations, actually.
+
+'
+    autoProgress: 0
+    endDialogue: 0
+  - text: Everyone has their own explanation. The priests call it punishment.
+    autoProgress: 0
+    endDialogue: 0
+  - text: The scholars call it magical phenomenon.
+    autoProgress: 0
+    endDialogue: 0
+  - text: The old hunters say something woke beneath the mountains.
+    autoProgress: 0
+    endDialogue: 0
+  - text: And my wife says we're simply overdue for spring.
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: I don't know. I'm a postmaster, not a prophet.
+    autoProgress: 0
+    endDialogue: 0
+  - text: But if youu ask me, my wife's explenation is the least stressful.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Anyway! Your first stop should be the chapel
+    autoProgress: 0
+    endDialogue: 0
+  - text: Sister Runa.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Strong, Half reindeer. Wonderful woman. She once moved a collapsed altar by herself.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Strong, Half reindeer. Wonderful woman. She once moved a collapsed altar by herself.
+    autoProgress: 0
+    endDialogue: 0
+  - text: She needs you to write something she doesn't want to write herself.
+    autoProgress: 0
+    endDialogue: 0
+  - text: After the chapel, there's a delivery up the mountain. Ellis Varg. Quiet. Lives alone in his cabin.
+    autoProgress: 0
+    endDialogue: 0
+  - text: Friendly? No. Dangerous? probably not. He's never eaten one of my employees.
+    autoProgress: 0
+    endDialogue: 0
+  - text: ...
+    autoProgress: 0
+    endDialogue: 0
+  - text: Now, Off you go! And do try not to lose any letters. Or fingers. The roads are slippery.
+    autoProgress: 0
+    endDialogue: 1
+  - text: ...
+    autoProgress: 0
+    endDialogue: 1
+  autoProgressDelay: 1.5
+  typingSpeed: 0.05
+  voiceSound: {fileID: 0}
+  voicePitch: 1
+  choices:
+  - dialogueIndex: 3
+    choices:
+    - Wait for him to explain the job.
+    - Give him a small, uncertain wave.
+    - Nod respectfully
+    nextDialogueIndices: 040000000400000004000000i
+    givesQuest: 
+  - dialogueIndex: 8
+    choices:
+    - Give him a patient nod.
+    - Look pointedly at the delivery bag beside the door.
+    nextDialogueIndices: 0900000009000000i
+    givesQuest: 
+  - dialogueIndex: 13
+    choices:
+    - Look at the window.
+    - Tell him that this was not mentioned in the job description
+    nextDialogueIndices: 0f0000000e000000i
+    givesQuest: 
+  - dialogueIndex: 25
+    choices:
+    - Gesture toward him, Inviting him to share his own theory.
+    - Nod quietly.
+    nextDialogueIndices: 1a0000001c000000i
+    givesQuest: 0101y
+  questInProgressIndex: 37
+  questCompletedIndex: 37
+  quest: {fileID: 11400000, guid: 409f032280887a340b5d22fccf47f608, type: 2}
+  endDialogueLines: 

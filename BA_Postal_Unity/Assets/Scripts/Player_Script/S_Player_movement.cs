@@ -6,7 +6,7 @@ public class S_Player_movement : MonoBehaviour
     private static readonly int Property = Animator.StringToHash("forward.y");
 
     [Header("Movement Settings")]
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 4.5f;
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private Transform cameraTransform;
