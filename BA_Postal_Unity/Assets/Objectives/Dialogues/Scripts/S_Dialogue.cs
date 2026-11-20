@@ -125,8 +125,8 @@ public class S_Dialogue3 : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
-        //Debug.Log("Quest check: " +
-                  //S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
+        Debug.Log("Quest check: " +
+                  S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
         if (dialogueData == null)
         {
             Debug.LogWarning(
@@ -229,8 +229,8 @@ public class S_Dialogue3 : MonoBehaviour
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
-        //Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
-        //dialogueText.text = "";
+        Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
+        dialogueText.text = "";
 
         string fullText = currentLine.text ?? "";
 
