@@ -229,8 +229,8 @@ public class S_Dialogue3 : MonoBehaviour
 
         DialogueLine currentLine =
             dialogueData.dialogueLines[lineIndex];
-        Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
-        dialogueText.text = "";
+        //Debug.Log($"[{gameObject.name}] Typing lineIndex: {lineIndex} | Text: '{currentLine.text}' | autoProgress: {currentLine.autoProgress} | endDialogue: {currentLine.endDialogue}");
+        //dialogueText.text = "";
 
         string fullText = currentLine.text ?? "";
 
