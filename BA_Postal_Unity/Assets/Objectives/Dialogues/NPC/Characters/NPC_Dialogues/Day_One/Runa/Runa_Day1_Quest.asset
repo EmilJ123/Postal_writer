@@ -19,5 +19,5 @@ MonoBehaviour:
   - objectiveID: 
     description: 
     type: 2
-    requiredAmount: 1
+    requiredAmount: 0
     currentAmount: 0

@@ -45,80 +45,12 @@ MonoBehaviour:
   - text: The address is enough? Yes. Good.
     autoProgress: 0
     endDialogue: 1
-  - text: To my friend, i hope the night finds you well. I have some extra medicine from the chapel. The bitter kind. I thought you might appreciate having it before the roads become worse.
-    autoProgress: 0
-    endDialogue: 0
-  - text: Please remember to stay indoors when the snow gets heavy. The path near the old bridge has become treacherous again, and I would rather not have to come looking for you in a blizzard.
-    autoProgress: 0
-    endDialogue: 0
-  - text: And eat something. I know you said you were fine, but you always say that. You cannot live on tea and stubbornness alone, no matter how determined you are to prove otherwise.
-    autoProgress: 0
-    endDialogue: 0
-  - text: 'I will be at the chapel tomorrow evening. If you happen to be passing by, you may stop in.
-
-      You don''t have to stay long.
-
-      You don''t even have to talk, if you don''t want to.'
-    autoProgress: 0
-    endDialogue: 0
-  - text: 'I only thought it might be nice to see you.
-
-      The medicine is in the little brown bottle. Not the green one.'
-    autoProgress: 0
-    endDialogue: 0
-  - text: "The green one is for coughs, and I don't want you taking the wrong thing because you refused to ask.\r\nPlease be careful on the road.\r\n\u2014 R."
-    autoProgress: 0
-    endDialogue: 0
-  - text: ...
-    autoProgress: 0
-    endDialogue: 0
-  - text: That's all for the letter.
-    autoProgress: 0
-    endDialogue: 0
-  - text: "\u2026No. There's nothing else."
-    autoProgress: 0
-    endDialogue: 0
-  - text: Fine. Add a P.S.
-    autoProgress: 0
-    endDialogue: 0
-  - text: "\u201CI still have your scarf.\""
-    autoProgress: 0
-    endDialogue: 0
-  - text: "\u2026Thank you. That will do."
+  - text: To my friend, i hope the night finds you well. I have some extra medicine from the chapel. The bitter kind. I thought you might appreciate having it before the roads become worse. please remember to stay indoors whne the snow gets heavy. The path near the old bridge has become treacherous again, and I would rather not have to come looking for you in the blizzard. And eat something. I know you said you were fine, but you always say that. You cannot live on tea nad stubborness alone, no matter how determined you are to prove otherwise. I will be at the chapel tomorrow evening. If you happen to be passing by, you may stop in. You don't have to stay long. You don't even have to talk, if you don't want to. I only thought it might be nice to seee you. The medicine is in the little brown bottle. Not the green one. The green one is for coughs, and I don't want you taking the wrong thing because you refused to ask. Please be careful on the road. -R
     autoProgress: 0
     endDialogue: 1
-  - text: ...
+  - text: 
     autoProgress: 0
     endDialogue: 0
-  - text: "\u2026You can go, you know."
-    autoProgress: 0
-    endDialogue: 0
-  - text: Wait.
-    autoProgress: 0
-    endDialogue: 0
-  - text: 'Come back tomorrow.
-
-'
-    autoProgress: 0
-    endDialogue: 1
-  - text: "\u2026Yes. Please."
-    autoProgress: 0
-    endDialogue: 0
-  - text: Thank you.
-    autoProgress: 0
-    endDialogue: 0
-  - text: Wait.
-    autoProgress: 0
-    endDialogue: 0
-  - text: "Could you\u2026"
-    autoProgress: 0
-    endDialogue: 0
-  - text: Never mind.
-    autoProgress: 0
-    endDialogue: 0
-  - text: Actually. Come back tomorrow.
-    autoProgress: 0
-    endDialogue: 1
   autoProgressDelay: 2
   typingSpeed: 0.05
   voiceSound: {fileID: 0}
@@ -131,14 +63,7 @@ MonoBehaviour:
     nextDialogueIndices: 0800000009000000i
     givesQuest: 0101y
     opensLetterPuzzle: 0000y
-  - dialogueIndex: 22
-    choices:
-    - Give her some privacy and turn to leave.
-    - Gesture toward the door, asking whether she wants you to go.
-    nextDialogueIndices: 170000001b000000i
-    givesQuest: 0000y
-    opensLetterPuzzle: 0000y
   questInProgressIndex: 10
-  questCompletedIndex: 22
+  questCompletedIndex: 1
   quest: {fileID: 11400000, guid: 6be8778ee51ea784eb433684e1a8a5f7, type: 2}
   endDialogueLines: 
