@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0370f504232484e80819c75b7f1b711f, type: 3}
   m_Name: Carmilla
   m_EditorClassIdentifier: Assembly-CSharp::S_NPCDialogue
-  npcName: 
+  npcName: Carmilla
   npcPortrait: {fileID: 0}
   dialogueLines:
   - text: 'You''re the writer. '
@@ -71,5 +71,5 @@ MonoBehaviour:
     opensLetterPuzzle: 0000y
   questInProgressIndex: 14
   questCompletedIndex: 0
-  quest: {fileID: 0}
+  quest: {fileID: 11400000, guid: 508d020c40897a94388684363bf202fa, type: 2}
   endDialogueLines: 

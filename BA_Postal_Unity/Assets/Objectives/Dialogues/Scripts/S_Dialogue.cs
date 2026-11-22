@@ -125,8 +125,8 @@ public class S_Dialogue3 : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void StartDialogue()
     {
-        //Debug.Log("Quest check: " +
-                  //S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
+        Debug.Log("Quest check: " +
+                  S_QuestController.Instance.IsQuestCompleted(requiredQuestID));
         if (dialogueData == null)
         {
             Debug.LogWarning(
