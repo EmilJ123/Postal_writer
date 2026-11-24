@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: M_Oak01 (49)
+  - Name: Path (6)
   - Tag: Untagged
-  - Layer: Floor
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
