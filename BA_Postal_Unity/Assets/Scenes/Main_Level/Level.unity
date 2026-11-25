@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 2
-  m_FogDensity: 0.08
+  m_FogColor: {r: 0.8, g: 0.81960785, b: 0.84705883, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 611201f9e629a844faecf543952e8aba, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1097,6 +1097,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 498537746}
     m_Modifications:
+    - target: {fileID: 837308357266382737, guid: 80bb9bb185c4946d290d6f17d7f1814c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 837308357266382737, guid: 80bb9bb185c4946d290d6f17d7f1814c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2480,26 +2484,20 @@ MonoBehaviour:
   - Runa
   - Carmilla
   - Winter
---- !u!1 &98732849 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1001150744407085713, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
-  m_PrefabInstance: {fileID: 909409794}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &98732856
+--- !u!114 &96077251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98732849}
+  m_GameObject: {fileID: 96077241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99cbfbfae959ada4086005d70bd73b7e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe5554a4c89e8244e87884b9fc7e35ef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_SnowPathDrawer
-  snowComputeShader: {fileID: 7200000, guid: cba3d91380315c14db1e24cc0e1faf3f, type: 3}
-  snowRT: {fileID: 0}
-  spotSize: 10
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherManager
+  snowVFX: {fileID: 1959202288}
+  transitionSpeed: 0.7
 --- !u!1 &100528801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3575,7 +3573,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 450
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -11839,6 +11837,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7884315720195695837, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 96077246}
+    - targetCorrespondingSourceObject: {fileID: 7884315720195695837, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 96077251}
     - targetCorrespondingSourceObject: {fileID: 5638116935996445112, guid: 932c2be95ba1e426a9563bc773179ad8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 433283460}
@@ -15481,6 +15482,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5dc7c9fc26661b641acc24decf3af637, type: 3}
   m_PrefabInstance: {fileID: 550161462}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &552940450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 552940454}
+  - component: {fileID: 552940453}
+  - component: {fileID: 552940452}
+  - component: {fileID: 552940451}
+  m_Layer: 0
+  m_Name: WeatherTrigger (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!33 &552940451
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552940450}
+  m_Mesh: {fileID: -5495902117074765545, guid: 603c40f27ae68644b843ed70559045e2, type: 3}
+--- !u!114 &552940452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552940450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.08
+--- !u!65 &552940453
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552940450}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &552940454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552940450}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70788854, z: -0, w: 0.7063242}
+  m_LocalPosition: {x: 270.71, y: 29.38, z: 205.68}
+  m_LocalScale: {x: 1, y: 20.687933, z: 106.07115}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.127, z: 0}
 --- !u!1 &553542592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5dc7c9fc26661b641acc24decf3af637, type: 3}
@@ -25008,15 +25087,13 @@ PrefabInstance:
       value: Sled
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1001150744407085713, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6661295005911382304, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1268537629}
-    - targetCorrespondingSourceObject: {fileID: 1001150744407085713, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 98732856}
   m_SourcePrefab: {fileID: 100100000, guid: 2cf483066cc29eb40a1376aba2efc037, type: 3}
 --- !u!4 &909409795 stripped
 Transform:
@@ -26172,6 +26249,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5dc7c9fc26661b641acc24decf3af637, type: 3}
   m_PrefabInstance: {fileID: 952383252}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &955455480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955455483}
+  - component: {fileID: 955455482}
+  - component: {fileID: 955455481}
+  m_Layer: 0
+  m_Name: WeatherTrigger (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &955455481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955455480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.03
+--- !u!65 &955455482
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955455480}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &955455483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955455480}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7590376, z: -0, w: -0.6510469}
+  m_LocalPosition: {x: 147.8, y: 29.38, z: 224.33}
+  m_LocalScale: {x: 1, y: 20.687933, z: 59.82006}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -261.241, z: 0}
 --- !u!1001 &960058730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34921,6 +35067,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1107279970}
     - target: {fileID: 4370795853038237539, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
+      propertyPath: Lens.FarClipPlane
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370795853038237539, guid: d4aca03e16b7d7e4c96689c8d755746b, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 584086786}
@@ -37220,6 +37370,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2005680043238089982, guid: 80bb9bb185c4946d290d6f17d7f1814c, type: 3}
   m_PrefabInstance: {fileID: 1381978956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1382616267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1382616270}
+  - component: {fileID: 1382616269}
+  - component: {fileID: 1382616268}
+  m_Layer: 0
+  m_Name: WeatherTrigger (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1382616268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382616267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.03
+--- !u!65 &1382616269
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382616267}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1382616270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382616267}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.9295618, z: -0, w: 0.36866638}
+  m_LocalPosition: {x: 213.19, y: 29.38, z: 198.8}
+  m_LocalScale: {x: 1, y: 20.687933, z: 12.527647}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -136.733, z: 0}
 --- !u!1001 &1384810322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37720,6 +37939,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 968089164010972516, guid: 093d5aed2e95bb34a8f817b3c34a4baf, type: 3}
   m_PrefabInstance: {fileID: 1399795697}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1409716846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1409716849}
+  - component: {fileID: 1409716848}
+  - component: {fileID: 1409716847}
+  m_Layer: 0
+  m_Name: WeatherTrigger (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1409716847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409716846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.08
+--- !u!65 &1409716848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409716846}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1409716849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409716846}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8981612, z: -0, w: -0.4396665}
+  m_LocalPosition: {x: 192.47, y: 29.38, z: 210.46}
+  m_LocalScale: {x: 1, y: 20.687933, z: 51.290455}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -232.16501, z: 0}
 --- !u!4 &1411645032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 39e2a36d9eb154d39b77fc97095043cf, type: 3}
@@ -37993,6 +38281,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 968089164010972516, guid: 093d5aed2e95bb34a8f817b3c34a4baf, type: 3}
   m_PrefabInstance: {fileID: 1416208502}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417825286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417825289}
+  - component: {fileID: 1417825288}
+  - component: {fileID: 1417825287}
+  m_Layer: 0
+  m_Name: WeatherTrigger (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1417825287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417825286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.08
+--- !u!65 &1417825288
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417825286}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1417825289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417825286}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7590376, z: -0, w: -0.6510469}
+  m_LocalPosition: {x: 146.56, y: 29.38, z: 229.63}
+  m_LocalScale: {x: 1, y: 20.687933, z: 59.82006}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -261.241, z: 0}
 --- !u!1001 &1427055007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38984,6 +39341,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3554712797016372083, guid: 6131694b18ab440439cd7047437675e5, type: 3}
   m_PrefabInstance: {fileID: 1450250762}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1453047917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453047918}
+  - component: {fileID: 1453047919}
+  m_Layer: 0
+  m_Name: Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1453047918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453047917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 190.00958, y: 32.49914, z: 206.93384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453047919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453047917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 9e21c3fe402bc7b48abf77e866b1fcc3, type: 2}
 --- !u!4 &1455384055 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: df6cf6f258c4a4779a62d9a0187c2c5a, type: 3}
@@ -40204,13 +40610,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507646462}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.080166936, y: 0.16524196, z: 0.13803136, w: 0.97325015}
+  m_LocalRotation: {x: 0.3306959, y: 0.20760724, z: 0.057068396, w: 0.9188486}
   m_LocalPosition: {x: 260.5, y: -33.160004, z: 142.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 191.634, y: -162.194, z: -165.684}
+  m_LocalEulerAnglesHint: {x: 144.26599, y: -148.90201, z: -162.641}
 --- !u!1 &1508091376
 GameObject:
   m_ObjectHideFlags: 0
@@ -45421,6 +45827,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c309a31e5f4054a089be7f256a3443df, type: 3}
   m_PrefabInstance: {fileID: 1703970839}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1705434388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705434391}
+  - component: {fileID: 1705434390}
+  - component: {fileID: 1705434389}
+  - component: {fileID: 1705434392}
+  m_Layer: 0
+  m_Name: WeatherTrigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1705434389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705434388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.03
+--- !u!65 &1705434390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705434388}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1705434391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705434388}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70788854, z: -0, w: 0.7063242}
+  m_LocalPosition: {x: 270.72, y: 29.38, z: 203}
+  m_LocalScale: {x: 1, y: 20.687933, z: 106.07115}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.127, z: 0}
+--- !u!33 &1705434392
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705434388}
+  m_Mesh: {fileID: -5495902117074765545, guid: 603c40f27ae68644b843ed70559045e2, type: 3}
 --- !u!1 &1716040540
 GameObject:
   m_ObjectHideFlags: 0
@@ -47785,6 +48269,75 @@ MonoBehaviour:
   snowComputeShader: {fileID: 7200000, guid: cba3d91380315c14db1e24cc0e1faf3f, type: 3}
   snowRT: {fileID: 0}
   spotSize: 10
+--- !u!1 &1827448755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827448758}
+  - component: {fileID: 1827448757}
+  - component: {fileID: 1827448756}
+  m_Layer: 0
+  m_Name: WeatherTrigger (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1827448756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827448755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.03
+--- !u!65 &1827448757
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827448755}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1827448758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827448755}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8981612, z: -0, w: -0.4396665}
+  m_LocalPosition: {x: 190.72, y: 29.38, z: 208.21}
+  m_LocalScale: {x: 1, y: 20.687933, z: 51.290455}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -232.16501, z: 0}
 --- !u!1001 &1829066762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48832,6 +49385,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6635361347276511650, guid: df227b18c5273f74f91f32d02a28287f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.199997
+      objectReference: {fileID: 0}
     - target: {fileID: 7040439628570419295, guid: df227b18c5273f74f91f32d02a28287f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -48839,6 +49396,10 @@ PrefabInstance:
     - target: {fileID: 7040439628570419295, guid: df227b18c5273f74f91f32d02a28287f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215516633854339457, guid: df227b18c5273f74f91f32d02a28287f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -51542,6 +52103,157 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!1 &1959202286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959202289}
+  - component: {fileID: 1959202288}
+  - component: {fileID: 1959202287}
+  - component: {fileID: 1959202290}
+  m_Layer: 0
+  m_Name: 'Snow '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!73398921 &1959202287
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959202286}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+--- !u!2083052967 &1959202288
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959202286}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 9ccdf6e2fec08ba4e8f5869d45284321, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ReleaseInstanceOnDisable: 0
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.9999977, z: 0.002148787}
+        m_Name: Destroy_Snow_normal
+        m_Overridden: 1
+      - m_Value: {x: 0.44796777, y: 20, z: 0.32575446}
+        m_Name: Destroy_Snow_position
+        m_Overridden: 1
+      - m_Value: {x: 6.3838415, y: 0.2700901, z: 5.7356424}
+        m_Name: New Oriented Box_size
+        m_Overridden: 1
+      - m_Value: {x: 0.2098747, y: 1.0153636, z: -0.35027605}
+        m_Name: New Oriented Box_center
+        m_Overridden: 1
+      - m_Value: {x: 0, y: -2.44, z: 0}
+        m_Name: New Oriented Box_angles
+        m_Overridden: 1
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array:
+      - m_Value: -19
+        m_Name: Turb_Intensity
+        m_Overridden: 0
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!4 &1959202289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959202286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 300.47, y: 35.5, z: 184.62}
+  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1959202290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959202286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e465b1e4c86be4990548c6e04c9591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_SNowFollower
+  player: {fileID: 1286494946}
+  heightOffset: 10
 --- !u!1 &1961760532
 GameObject:
   m_ObjectHideFlags: 0
@@ -56617,6 +57329,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 085b56d0fa25d7b4283389d3de632781, type: 3}
   m_PrefabInstance: {fileID: 1580646871}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2119081749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119081752}
+  - component: {fileID: 2119081751}
+  - component: {fileID: 2119081750}
+  m_Layer: 0
+  m_Name: WeatherTrigger (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2119081750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119081749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c57f7830e1724b4eb15a1f955f03c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S_WeatherZone
+  snowAmount: 0
+  windStrength: 0
+  fogDensity: 0.08
+--- !u!65 &2119081751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119081749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2119081752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119081749}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.87269026, z: -0, w: 0.48827413}
+  m_LocalPosition: {x: 211.83, y: 29.38, z: 200.92}
+  m_LocalScale: {x: 1, y: 20.687933, z: 14.5696535}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -121.546, z: 0}
 --- !u!1 &2121763524
 GameObject:
   m_ObjectHideFlags: 0
@@ -57387,6 +58168,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1959202289}
   - {fileID: 1851367567}
   - {fileID: 433283458}
   - {fileID: 1507646465}
@@ -57397,3 +58179,12 @@ SceneRoots:
   - {fileID: 1611350023}
   - {fileID: 1723809173}
   - {fileID: 190666728}
+  - {fileID: 1453047918}
+  - {fileID: 1705434391}
+  - {fileID: 552940454}
+  - {fileID: 1382616270}
+  - {fileID: 2119081752}
+  - {fileID: 1827448758}
+  - {fileID: 1409716849}
+  - {fileID: 955455483}
+  - {fileID: 1417825289}
