@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Temperature_Script
 {
-    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(BoxCollider))]
     public class S_HeatSource : MonoBehaviour
     {
         [Header("Dynamic Thermal Settings")]

@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI, Ignore_player
 - Active game object:
-  - Name: MC_Player_Model_Test
+  - Name: GM-Ramp
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
